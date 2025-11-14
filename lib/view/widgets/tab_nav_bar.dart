@@ -9,12 +9,14 @@ class TabNavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final nav = context.watch<NavigationViewModel>();
     return BottomNavigationBar(
+      fixedColor: Color(0xFFF2B441),
       currentIndex: nav.currentIndex,
       onTap: nav.setIndex,
       items: const [
         BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
         BottomNavigationBarItem(icon: Icon(Icons.newspaper), label: 'News'),
         BottomNavigationBarItem(icon: Icon(Icons.auto_graph), label: 'Trade'),
+        BottomNavigationBarItem(icon: Icon(Icons.person_outline_sharp), label: 'Top Traders'),
       ],
     );
   }
