@@ -67,16 +67,9 @@ class _MainPageState extends State<MainPage> {
           IconButton(
             onPressed: () => Navigator.pushNamed(
               context,
-              AppRouter.notificationsHistoryRoute,
+              AppRouter.menuRoute,
             ),
-            icon: const Icon(Icons.notifications),
-          ),
-          IconButton(
-            onPressed: () => Navigator.pushNamed(
-              context,
-              AppRouter.settingsRoute,
-            ),
-            icon: const Icon(Icons.settings),
+            icon: const Icon(Icons.person),
           ),
           IconButton(
             onPressed: () {
