@@ -1,33 +1,34 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:tawaqu3_final/view/widgets/card_container.dart';
-import 'package:tawaqu3_final/view/widgets/section_title.dart';
 import '../../core/router/app_router.dart';
-import '../../view_model/settings_view_model.dart';
 
 class MenuView extends StatelessWidget {
   const MenuView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final vm = context.watch<SettingsViewModel>();
-
     final menu = CardContainer(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SectionTitle('Menu'),
           const ListTile(
             leading: CircleAvatar(child: Text('JD')),
             title: Text('John Doe'),
             subtitle: Text('john.doe@email.com'),
           ),
           const Divider(),
-          const ListTile(
-            leading: Icon(Icons.link),
-            title: Text('Connects'),
+          // Connects
+          ListTile(
+            leading: const Icon(Icons.link),
+            title: const Text('Connects'),
+            onTap: () {
+              Navigator.pushNamed(
+                context,
+                AppRouter.connectsRoute,
+              );
+            },
           ),
-          
+          // Notifications
           ListTile(
             leading: const Icon(Icons.notifications),
             title: const Text('Notifications'),
@@ -38,7 +39,7 @@ class MenuView extends StatelessWidget {
               );
             },
           ),
-          
+          // History
           ListTile(
             leading: const Icon(Icons.history),
             title: const Text('History'),
@@ -49,7 +50,7 @@ class MenuView extends StatelessWidget {
               );
             },
           ),
-
+          // Settings
           ListTile(
             leading: const Icon(Icons.settings),
             title: const Text('Settings'),
@@ -63,7 +64,10 @@ class MenuView extends StatelessWidget {
           const SizedBox(height: 8),
           OutlinedButton(
             onPressed: () {
-              
+              Navigator.pushReplacementNamed(
+                context,
+                AppRouter.authRoute,
+              );
             },
             child: const Text('LOGOUT'),
           ),
@@ -71,33 +75,28 @@ class MenuView extends StatelessWidget {
       ),
     );
 
-    ListTile(
-            leading: const Icon(Icons.add),
-            title: const Text('connects'),
-            onTap: () {
-              Navigator.pushNamed(
-                context,
-                AppRouter.connectsRoute,
-              );
-            },
-          ); 
-
     return Scaffold(
-      appBar: AppBar(title: const Text('Menu')),
-      body: LayoutBuilder(
-        builder: (context, c) {
-          final wide = c.maxWidth > 1000;
-          if (wide) {
-            return Row(
-              children: [
-                Expanded(child: menu),
-              ],
+      appBar: AppBar(
+        automaticallyImplyLeading: true,
+        title: const Text('Menu'),
+      ),
+      body: SafeArea(
+        child: LayoutBuilder(
+          builder: (context, c) {
+            final wide = c.maxWidth > 1000;
+            if (wide) {
+              return Row(
+                children: [
+                  Expanded(child: menu),
+                ],
+              );
+            }
+            return ListView(
+              padding: const EdgeInsets.all(16),
+              children: [menu],
             );
-          }
-          return ListView(
-            children: [menu],
-          );
-        },
+          },
+        ),
       ),
     );
   }

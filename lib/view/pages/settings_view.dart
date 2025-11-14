@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tawaqu3_final/view/widgets/card_container.dart';
-import 'package:tawaqu3_final/view/widgets/section_title.dart';
 import '../../view_model/settings_view_model.dart';
 
 class SettingsView extends StatelessWidget {
@@ -14,7 +13,6 @@ class SettingsView extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SectionTitle('Settings'),
             // Use your real fields: isDark + toggleTheme()
             SwitchListTile(
               title: const Text('Dark Mode'),
@@ -47,8 +45,33 @@ class SettingsView extends StatelessWidget {
           ],
         ),
       );
-        
-    
-      return menu;
-    }
+               return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: true,
+        title: const Text('Settings'),              // remove title
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),        // custom back button
+          onPressed: () => Navigator.pop(context),
+        ),
+      ),
+      body: SafeArea(
+        child: LayoutBuilder(
+          builder: (context, c) {
+            final wide = c.maxWidth > 1000;
+            if (wide) {
+              return Row(
+                children: [
+                  Expanded(child: menu),
+             
+                ],
+              );
+            }
+            return ListView(
+              children: [menu],
+            );
+          },
+        ),
+      ),
+    );
   }
+}

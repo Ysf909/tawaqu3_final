@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tawaqu3_final/view/widgets/card_container.dart';
-import 'package:tawaqu3_final/view/widgets/section_title.dart';
 import '../../view_model/history_view_model.dart';
 
 class HistoryView extends StatelessWidget {
@@ -15,7 +14,6 @@ class HistoryView extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SectionTitle('History'),
           Wrap(
             spacing: 16,
             runSpacing: 8,
@@ -56,7 +54,11 @@ class HistoryView extends StatelessWidget {
     );
 
     return Scaffold(
-      appBar: AppBar(title: const Text('History')),
+      
+      appBar: AppBar(
+        automaticallyImplyLeading: true,
+        title: const Text('History'),
+      ),
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [tradeHistory],

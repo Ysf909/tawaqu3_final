@@ -59,27 +59,19 @@ class _MainPageState extends State<MainPage> {
       ),
       const TopTradersTabView(),
     ];
-
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Dashboard'),
+        automaticallyImplyLeading: false,          // no back arrow
+        title: const SizedBox.shrink(),           // no title
         actions: [
           IconButton(
-            onPressed: () => Navigator.pushNamed(
-              context,
-              AppRouter.menuRoute,
-            ),
-            icon: const Icon(Icons.person),
-          ),
-          IconButton(
             onPressed: () {
-              auth.logout();
-              Navigator.pushReplacementNamed(
+              Navigator.pushNamed(
                 context,
-                AppRouter.authRoute,
+                AppRouter.menuRoute,               // open the Menu screen
               );
             },
-            icon: const Icon(Icons.logout),
+            icon: const Icon(Icons.menu),
           ),
         ],
       ),
