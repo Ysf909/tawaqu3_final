@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:supabase_flutter/supabase_flutter.dart'; // 👈 add this
 
 import 'core/theme/app_theme.dart';
 import 'core/router/app_router.dart';
@@ -10,7 +11,14 @@ import 'view_model/settings_view_model.dart';
 import 'view_model/notifications_view_model.dart';
 import 'view_model/history_view_model.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Supabase.initialize(
+    url: 'https://nuqjhagbndaiwswfgvfg.supabase.co',
+    anonKey: 'YOUR_PUBLISHABLE_OR_ANON_KEY_HERE', // 👈 not service_role
+  );
+
   runApp(const Tawaqu3App());
 }
 
@@ -44,4 +52,3 @@ class Tawaqu3App extends StatelessWidget {
     );
   }
 }
-

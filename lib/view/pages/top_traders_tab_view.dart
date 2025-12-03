@@ -11,7 +11,7 @@ class TopTradersTabView extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          const SectionTitle('Top Traders'),
+          const SectionTitle('Top Traders', Title: '',),
           CardContainer(
             child: Column(
               children: const [

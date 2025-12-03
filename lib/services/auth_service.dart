@@ -1,24 +1,33 @@
-// Stubbed auth service (replace with Firebase later)
+import 'package:supabase_flutter/supabase_flutter.dart';
+
 class AuthService {
-  String? _userId;
+  final SupabaseClient _client = Supabase.instance.client;
 
-  Future<bool> signIn(String email, String password) async {
-    await Future.delayed(const Duration(milliseconds: 400));
-    _userId = 'demoUser';
-    return true;
+  Future<AuthResponse> signIn({
+    required String email,
+    required String password,
+  }) {
+    return _client.auth.signInWithPassword(
+      email: email,
+      password: password,
+    );
   }
 
-  Future<bool> signUp(String email, String password) async {
-    await Future.delayed(const Duration(milliseconds: 400));
-    _userId = 'demoUser';
-    return true;
+  Future<AuthResponse> signUp({
+    required String email,
+    required String password,
+    required String firstName,
+    required String lastName,
+  }) {
+    return _client.auth.signUp(
+      email: email,
+      password: password,
+      data: {
+        'first_name': firstName,
+        'last_name': lastName,
+      },
+    );
   }
 
-  Future<void> signOut() async {
-    await Future.delayed(const Duration(milliseconds: 200));
-    _userId = null;
-  }
-
-  bool get isLoggedIn => _userId != null;
+  Future<void> signOut() => _client.auth.signOut();
 }
-

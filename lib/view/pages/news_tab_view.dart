@@ -17,7 +17,7 @@ class NewsTabView extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          const SectionTitle('Market News'),
+          const SectionTitle('Market News', Title: '',),
           ...news.map(
             (n) => CardContainer(
               child: ListTile(

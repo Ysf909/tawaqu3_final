@@ -19,7 +19,7 @@ class TradeFlowView extends StatelessWidget {
           final type = CardContainer(child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SectionTitle('Select Trading Type'),
+              const SectionTitle('Select Trading Type', Title: '',),
               ToggleButtons(
                 isSelected: ['Long','Short','Scalper'].map((t)=> vm.selectedType==t).toList(),
                 onPressed: (i){ vm.selectedType = ['Long','Short','Scalper'][i]; vm.notifyListeners(); },
@@ -35,7 +35,7 @@ class TradeFlowView extends StatelessWidget {
           final model = CardContainer(child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SectionTitle('Select Model'),
+              const SectionTitle('Select Model', Title: '',),
               DropdownButton<String>(
                 value: vm.selectedModel,
                 items: const [
@@ -62,7 +62,7 @@ class TradeFlowView extends StatelessWidget {
           final result = CardContainer(child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SectionTitle('Trade Prediction'),
+              const SectionTitle('Trade Prediction', Title: '',),
               if (vm.lastPrediction == null) const Text('No prediction yet.'),
               if (vm.lastPrediction != null)
                 Column(

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class SectionTitle extends StatelessWidget {
   final String text;
   final Widget? trailing;
-  const SectionTitle(this.text, {super.key, this.trailing});
+  const SectionTitle(this.text, {super.key, this.trailing, required String Title});
 
   @override
   Widget build(BuildContext context) {
