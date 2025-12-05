@@ -111,9 +111,11 @@ class ApiService {
     final gold = await fetchGoldUsd();
     final eth = await fetchEthUsd();
     final eur = await fetchEurUsd();
+    final btc = await fetchBtcUsd();
 
     return {
       "XAU/USD": gold ?? 0.0,
+      "BTC/USD": btc ?? 0.0,
       "ETH/USD": eth ?? 0.0,
       "EUR/USD": eur ?? 0.0,
     };

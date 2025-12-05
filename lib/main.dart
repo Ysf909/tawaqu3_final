@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart'; // 👈 add this
-import 'package:tawaqu3_final/view/pages/price_test_page.dart';
-
 import 'core/theme/app_theme.dart';
 import 'core/router/app_router.dart';
 import 'view_model/auth_view_model.dart';
