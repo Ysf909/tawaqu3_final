@@ -30,11 +30,11 @@ class _MainPageState extends State<MainPage> {
   }
 
   Future<void> _load() async {
-   // final news = await _api.fetchNews();
+   final news = await _api.fetchCryptoNews();
     final prices = await _api.fetchAllOnce();
     if (mounted) {
       setState(() {
-      //  _news = news;
+        _news = news;
         _prices = prices;
       });
     }
@@ -51,7 +51,7 @@ class _MainPageState extends State<MainPage> {
         prices: _prices,
         onTradeTap: () => nav.setIndex(2), // go to Trade tab
       ),
-      NewsTabView(news: _news),
+      NewsView(news: _news),
       TradeTabView(
         onOpenTradeFlow: () => Navigator.pushNamed(
           context,

@@ -4,6 +4,10 @@ class NewsItem {
   final String summary;
   final Duration age;
 
-  NewsItem(this.title, this.category, this.summary, this.age);
+  NewsItem({
+    required this.title,
+    required this.category,
+    required this.summary,
+    required this.age,
+  });
 }
-

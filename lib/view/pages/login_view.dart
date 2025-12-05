@@ -246,9 +246,11 @@ class _LoginViewBodyState extends State<_LoginViewBody> {
     );
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Authentication')),
+      appBar: AppBar(title: const Text('Tawaqu3')),
       body: ResponsiveFormContainer(
+        maxWidth: BouncingScrollSimulation.maxSpringTransferVelocity,
         child: loginCard,
+        
       ),
     );
   }
