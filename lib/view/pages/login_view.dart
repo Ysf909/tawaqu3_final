@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:tawaqu3_final/validation.dart';
 import 'package:tawaqu3_final/view/widgets/card_container.dart';
 import 'package:tawaqu3_final/view/widgets/input_field.dart';
@@ -67,9 +68,6 @@ class _LoginViewBodyState extends State<_LoginViewBody> {
               label: 'Email',
               keyboardType: TextInputType.emailAddress,
               validator: Validation.email,
-              // keep ViewModel in sync (optional but MVVM-ish)
-              // onChanged is assumed – if your InputField doesn't have it, you can
-              // just call vm.updateEmail in onChanged of TextFormField there.
             ),
             const SizedBox(height: 12),
 
@@ -78,7 +76,9 @@ class _LoginViewBodyState extends State<_LoginViewBody> {
               controller: _password,
               label: 'Password',
               obscure: true,
+              // password() only takes one argument
               validator: (value) => Validation.password(value, _password.text),
+
             ),
             const SizedBox(height: 12),
 
@@ -93,17 +93,19 @@ class _LoginViewBodyState extends State<_LoginViewBody> {
             ),
             const SizedBox(height: 8),
 
+            // LOGIN BUTTON
             PrimaryButton(
               label: 'LOG IN',
               loading: vm.isLoading,
               onPressed: () async {
                 if (!_formKey.currentState!.validate()) return;
 
-                // sync controllers into the ViewModel model
-                vm.updateEmail(_email.text.trim());
-                vm.updatePassword(_password.text);
+                final email = _email.text.trim();
+                final password = _password.text;
 
-                final status = await vm.login();
+                debugPrint('Login button pressed with: $email / $password');
+
+                final status = await vm.login(email, password);
 
                 if (!mounted) return;
 
@@ -123,7 +125,6 @@ class _LoginViewBodyState extends State<_LoginViewBody> {
                         ),
                       ),
                     );
-                    Navigator.pushNamed(context, AppRouter.signupRoute);
                     break;
 
                   case LoginStatus.wrongPassword:
@@ -134,8 +135,17 @@ class _LoginViewBodyState extends State<_LoginViewBody> {
                     );
                     break;
 
+                  case LoginStatus.emailNotConfirmed:
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text(
+                          'Your email is not confirmed. Please check your inbox and verify your email.',
+                        ),
+                      ),
+                    );
+                    break;
+
                   case LoginStatus.error:
-                  default:
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
                         content: Text(
@@ -143,6 +153,7 @@ class _LoginViewBodyState extends State<_LoginViewBody> {
                         ),
                       ),
                     );
+                    break;
                 }
               },
             ),
@@ -168,6 +179,48 @@ class _LoginViewBodyState extends State<_LoginViewBody> {
               onPressed: () {},
               icon: const Icon(Icons.facebook),
               label: const Text('Continue with Facebook'),
+            ),
+            const SizedBox(height: 16),
+
+            // Resend verification email
+            TextButton(
+              onPressed: () async {
+                final email = _email.text.trim();
+                if (email.isEmpty) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text(
+                        'Enter your email first to resend verification.',
+                      ),
+                    ),
+                  );
+                  return;
+                }
+
+                final client = Supabase.instance.client;
+                try {
+                  await client.auth.resend(
+                    type: OtpType.signup,
+                    email: email,
+                  );
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text(
+                        'Verification email sent. Please check your inbox.',
+                      ),
+                    ),
+                  );
+                } catch (e) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text(
+                        'Could not resend verification email.',
+                      ),
+                    ),
+                  );
+                }
+              },
+              child: const Text('Resend verification email'),
             ),
             const SizedBox(height: 16),
 

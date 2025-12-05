@@ -30,15 +30,16 @@ class _MainPageState extends State<MainPage> {
   }
 
   Future<void> _load() async {
-    final news = await _api.fetchNews();
-    final prices = await _api.fetchPrices();
+   // final news = await _api.fetchNews();
+    final prices = await _api.fetchAllOnce();
     if (mounted) {
       setState(() {
-        _news = news;
+      //  _news = news;
         _prices = prices;
       });
     }
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -80,3 +81,4 @@ class _MainPageState extends State<MainPage> {
     );
   }
 }
+

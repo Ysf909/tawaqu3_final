@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart'; // 👈 add this
+import 'package:tawaqu3_final/view/pages/price_test_page.dart';
 
 import 'core/theme/app_theme.dart';
 import 'core/router/app_router.dart';
@@ -16,7 +17,7 @@ Future<void> main() async {
 
   await Supabase.initialize(
     url: 'https://nuqjhagbndaiwswfgvfg.supabase.co',
-    anonKey: 'YOUR_PUBLISHABLE_OR_ANON_KEY_HERE', // 👈 not service_role
+    anonKey: 'sb_publishable_XHoZFWS7OOsXK-IVZ6nuTA_sBokkVBg', // 👈 not service_role
   );
 
   runApp(const Tawaqu3App());
