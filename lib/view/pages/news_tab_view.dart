@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:tawaqu3_final/models/news_item.dart';
 import 'package:tawaqu3_final/services/api_service.dart';
-import 'package:tawaqu3_final/view/pages/news_tab_view.dart'; 
 
 enum NewsFilter { all, forex, crypto, metals }
 
 class NewsView extends StatefulWidget {
-  const NewsView({super.key, required List<NewsItem> news});
+  const NewsView({super.key});
 
   @override
   State<NewsView> createState() => _NewsViewState();
@@ -99,7 +98,7 @@ class _NewsViewState extends State<NewsView> {
 
     return Column(
       children: [
-        // 🔹 Filter bar ONCE at top
+        // 🔹 Filter bar
         SizedBox(
           height: 56,
           child: SingleChildScrollView(
@@ -116,6 +115,7 @@ class _NewsViewState extends State<NewsView> {
           ),
         ),
 
+        // 🔹 Content
         Expanded(
           child: _loading
               ? const Center(child: CircularProgressIndicator())
@@ -123,7 +123,31 @@ class _NewsViewState extends State<NewsView> {
                   ? Center(child: Text('Error: $_error'))
                   : news.isEmpty
                       ? const Center(child: Text('No news found.'))
-                      : NewsView(news: news),
+                      : RefreshIndicator(
+                          onRefresh: _loadAllNews,
+                          child: ListView.separated(
+                            physics: const AlwaysScrollableScrollPhysics(),
+                            itemCount: news.length,
+                            separatorBuilder: (_, __) =>
+                                const Divider(height: 1),
+                            itemBuilder: (context, index) {
+                              final item = news[index];
+                              return ListTile(
+                                title: Text(item.title),
+                                subtitle: Text(
+                                  item.summary,
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                trailing: Text(
+                                  item.category,
+                                  style:
+                                      Theme.of(context).textTheme.labelSmall,
+                                ),
+                              );
+                            },
+                          ),
+                        ),
         ),
       ],
     );

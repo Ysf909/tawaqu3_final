@@ -9,7 +9,6 @@ import '../../core/router/app_router.dart';
 import '../../view_model/navigation_view_model.dart';
 import '../../view_model/auth_view_model.dart';
 import '../../services/api_service.dart';
-import '../../models/news_item.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -20,7 +19,6 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   final _api = ApiService();
-  List<NewsItem> _news = [];
   Map<String, double> _prices = {};
 
   @override
@@ -30,28 +28,25 @@ class _MainPageState extends State<MainPage> {
   }
 
   Future<void> _load() async {
-   final news = await _api.fetchCryptoNews();
     final prices = await _api.fetchAllOnce();
     if (mounted) {
       setState(() {
-        _news = news;
         _prices = prices;
       });
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     final nav = context.watch<NavigationViewModel>();
-    final auth = context.watch<AuthViewModel>();
+    final auth = context.watch<AuthViewModel>(); // remove if unused
 
     final tabs = [
       HomeTabView(
         prices: _prices,
         onTradeTap: () => nav.setIndex(2), // go to Trade tab
       ),
-      NewsView(news: _news),
+      const NewsView(),
       TradeTabView(
         onOpenTradeFlow: () => Navigator.pushNamed(
           context,
@@ -60,16 +55,17 @@ class _MainPageState extends State<MainPage> {
       ),
       const TopTradersTabView(),
     ];
+
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,          // no back arrow
-        title: const SizedBox.shrink(),           // no title
+        automaticallyImplyLeading: false,
+        title: const SizedBox.shrink(),
         actions: [
           IconButton(
             onPressed: () {
               Navigator.pushNamed(
                 context,
-                AppRouter.menuRoute,               // open the Menu screen
+                AppRouter.menuRoute,
               );
             },
             icon: const Icon(Icons.menu),
@@ -81,4 +77,3 @@ class _MainPageState extends State<MainPage> {
     );
   }
 }
-
