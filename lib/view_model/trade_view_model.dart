@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:flutter/foundation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:tawaqu3_final/repository/trade_repository.dart';
 
 import '../models/trade_models.dart';
 import '../models/history_trade.dart';
@@ -26,6 +27,7 @@ class TradePrediction {
 
 class TradeViewModel extends ChangeNotifier {
   final HistoryRepository _historyRepo = HistoryRepository();
+   final TradeRepository _tradeRepo = TradeRepository();
   final SupabaseClient _client = Supabase.instance.client;
 
   TradeViewModel();
@@ -70,49 +72,53 @@ class TradeViewModel extends ChangeNotifier {
     loading = true;
     notifyListeners();
 
-    try {
-      final user = _client.auth.currentUser;
-      if (user == null) {
-        // not logged in → don’t save / maybe throw or just return
-        loading = false;
-        notifyListeners();
-        return;
+     try {
+      final authUser = _client.auth.currentUser;
+      if (authUser == null) {
+        throw Exception('User not logged in');
       }
 
-      final userId = user.id;
+      // IMPORTANT: This must be the id that exists in your "users" table.
+      // If you mirrored auth.users into users(id), then authUser.id is fine.
+      final String userId = authUser.id;
+
       final lot = calculatedLot;
 
-      // TODO: Plug your real logic (ICT/SMC/Trend)
+      // your prediction logic (simplified)
       final prediction = TradePrediction(
-        pair: 'EURUSD',
-        entry: 1.1000,
-        sl: 1.0970,
-        tp: 1.1060,
+        pair: 'XAUUSD',
+        entry: 4197.58,
+        sl: 4187.00,
+        tp: 4225.00,
         lot: lot,
-        confidence: 92,
+        confidence: 90,
       );
 
       lastPrediction = prediction;
 
-      final historyTrade = HistoryTrade(
+      // 1) Insert into `trades`
+      final trade = await _tradeRepo.insertTrade(
         userId: userId,
-        tradeId: _generateTradeId(),
+        entry: prediction.entry,
+        sl: prediction.sl,
+        tp: prediction.tp,
+        lot: prediction.lot,
+        school: selectedModel.label, // ICT / SMC / Trend
+        time: DateTime.now(),
+      );
+
+      // 2) Insert initial history row referencing that trade
+      await _historyRepo.insertHistoryForTrade(
+        tradeId: trade.id,                       // ✅ real uuid
         previousEntry: prediction.entry,
         previousSl: prediction.sl,
         previousTp: prediction.tp,
         previousLot: prediction.lot,
         dateSaved: DateTime.now(),
       );
-
-      await _historyRepo.insertHistoryTrade(historyTrade);
     } finally {
       loading = false;
       notifyListeners();
     }
-  }
-
-  String _generateTradeId() {
-    final rand = Random().nextInt(999999999);
-    return 'T$rand';
   }
 }
