@@ -3,8 +3,10 @@ import 'package:provider/provider.dart';
 import 'package:tawaqu3_final/view/widgets/tab_nav_bar.dart';
 import 'package:tawaqu3_final/view/pages/home_tab_view.dart';
 import 'package:tawaqu3_final/view/pages/news_tab_view.dart';
-import 'package:tawaqu3_final/view/pages/trade_tab_view.dart';
 import 'package:tawaqu3_final/view/pages/top_traders_tab_view.dart';
+// ✅ import your new TradeFlowView
+import 'package:tawaqu3_final/view/pages/trade_flow_view.dart';
+
 import '../../core/router/app_router.dart';
 import '../../view_model/navigation_view_model.dart';
 import '../../services/api_service.dart';
@@ -38,18 +40,15 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     final nav = context.watch<NavigationViewModel>();
+
     final tabs = [
       HomeTabView(
         prices: _prices,
-        onTradeTap: () => nav.setIndex(2), // go to Trade tab
+        onTradeTap: () => nav.setIndex(2), // still goes to Trade tab
       ),
       const NewsView(),
-      TradeTabView(
-        onOpenTradeFlow: () => Navigator.pushNamed(
-          context,
-          AppRouter.tradeFlowRoute,
-        ),
-      ),
+      // 👇 Trade tab is now your new multi-step flow
+      const TradeFlowView(),
       const TopTradersTabView(),
     ];
 
