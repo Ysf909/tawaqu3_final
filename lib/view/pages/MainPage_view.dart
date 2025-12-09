@@ -7,7 +7,6 @@ import 'package:tawaqu3_final/view/pages/trade_tab_view.dart';
 import 'package:tawaqu3_final/view/pages/top_traders_tab_view.dart';
 import '../../core/router/app_router.dart';
 import '../../view_model/navigation_view_model.dart';
-import '../../view_model/auth_view_model.dart';
 import '../../services/api_service.dart';
 
 class MainPage extends StatefulWidget {
@@ -39,8 +38,6 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     final nav = context.watch<NavigationViewModel>();
-    final auth = context.watch<AuthViewModel>(); // remove if unused
-
     final tabs = [
       HomeTabView(
         prices: _prices,

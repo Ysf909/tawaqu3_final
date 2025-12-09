@@ -1,68 +1,50 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tawaqu3_final/view/widgets/card_container.dart';
-import '../../view_model/history_view_model.dart';
+import 'package:tawaqu3_final/view_model/history_view_model.dart';
 
-class HistoryView extends StatelessWidget {
+class HistoryView extends StatefulWidget {
   const HistoryView({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final history = context.watch<HistoryViewModel>();
+  State<HistoryView> createState() => _HistoryViewState();
+}
 
-    final tradeHistory = CardContainer(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Wrap(
-            spacing: 16,
-            runSpacing: 8,
-            children: [
-              Chip(
-                label: Text(
-                  'Total Profit: +\$${history.totalProfit.toStringAsFixed(2)}',
-                ),
-              ),
-              Chip(
-                label: Text(
-                  'Win Rate: ${history.winRate.toStringAsFixed(1)}%',
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 12),
-          ...history.trades.map(
-            (t) => ListTile(
-              title: Text('${t.pair} · ${t.direction}'),
-              subtitle: Text(
-                'Entry ${t.entry} • Exit ${t.takeProfit} • Lot ${t.lot}',
-              ),
-              trailing: Text(
-                (t.profit ?? 0) >= 0
-                    ? '+\$${t.profit!.toStringAsFixed(0)}'
-                    : '-\$${(t.profit! * -1).toStringAsFixed(0)}',
-                style: TextStyle(
-                  color: (t.profit ?? 0) >= 0
-                      ? Colors.greenAccent
-                      : Colors.redAccent,
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
+class _HistoryViewState extends State<HistoryView> {
+  @override
+  void initState() {
+    super.initState();
+    Future.microtask(() =>
+        context.read<HistoryViewModel>().loadHistory());
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final vm = context.watch<HistoryViewModel>();
+
+    if (vm.loading) {
+      return  Scaffold(
+        appBar: AppBar(title: Text('Trade History')),
+        body: Center(child: CircularProgressIndicator()),
+      );
+    }
 
     return Scaffold(
-      
-      appBar: AppBar(
-        automaticallyImplyLeading: true,
-        title: const Text('History'),
-      ),
-      body: ListView(
-        padding: const EdgeInsets.all(16),
-        children: [tradeHistory],
-      ),
+      appBar: AppBar(title: const Text('Trade History')),
+      body: vm.trades.isEmpty
+          ? const Center(child: Text('No trades in history yet.'))
+          : ListView.builder(
+              itemCount: vm.trades.length,
+              itemBuilder: (context, i) {
+                final t = vm.trades[i];
+                return ListTile(
+                  title: Text('Trade ${t.tradeId}  |  Lot: ${t.previousLot}'),
+                  subtitle: Text(
+                    'Entry: ${t.previousEntry}  SL: ${t.previousSl}  TP: ${t.previousTp}\n'
+                    'Saved: ${t.dateSaved}',
+                  ),
+                );
+              },
+            ),
     );
   }
 }

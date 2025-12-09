@@ -1,18 +1,47 @@
 import 'package:flutter/foundation.dart';
-import '../models/trade.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+
+import '../models/history_trade.dart';
+import '../repository/history_repository.dart';
 
 class HistoryViewModel extends ChangeNotifier {
-  final List<Trade> trades = [
-    Trade(pair: 'XAU/USD', direction: 'Long', entry: 2045.3, stopLoss: 2038.5, takeProfit: 2059.8, lot: 0.5, createdAt: DateTime.now(), profit: 245),
-    Trade(pair: 'EUR/USD', direction: 'Short', entry: 1.0856, stopLoss: 1.0823, takeProfit: 1.0789, lot: 0.3, createdAt: DateTime.now().subtract(const Duration(days: 1)), profit: 166),
-    Trade(pair: 'BTC/USD', direction: 'Long', entry: 43250, stopLoss: 42890, takeProfit: 44100, lot: 0.1, createdAt: DateTime.now().subtract(const Duration(days: 2)), profit: -180),
-  ];
+  final HistoryRepository _historyRepo = HistoryRepository();
+  final SupabaseClient _client = Supabase.instance.client;
 
-  double get totalProfit => trades.fold(0, (p, e) => p + (e.profit ?? 0));
-  double get winRate {
-    final total = trades.length;
-    final wins = trades.where((t) => (t.profit ?? 0) >= 0).length;
-    return total == 0 ? 0 : (wins / total) * 100;
+  HistoryViewModel();
+
+  List<HistoryTrade> _trades = [];
+  List<HistoryTrade> get trades => _trades;
+
+  bool _loading = false;
+  bool get loading => _loading;
+
+  String? _error;
+  String? get error => _error;
+
+  Future<void> loadHistory() async {
+    _loading = true;
+    _error = null;
+    notifyListeners();
+
+    try {
+      final user = _client.auth.currentUser;
+      if (user == null) {
+        _trades = [];
+        _loading = false;
+        notifyListeners();
+        return;
+      }
+
+      final userId = user.id;
+      _trades = await _historyRepo.getHistoryForUser(userId);
+    } catch (e) {
+      _error = e.toString();
+    } finally {
+      _loading = false;
+      notifyListeners();
+    }
   }
-}
 
+  Future<void> refresh() => loadHistory();
+}
