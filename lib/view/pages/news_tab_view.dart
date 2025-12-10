@@ -6,7 +6,7 @@ import 'package:tawaqu3_final/view/widgets/card_container.dart';
 enum NewsFilter { all, forex, crypto, metals }
 
 class NewsView extends StatefulWidget {
-  const NewsView({super.key});
+  const NewsView({super.key}); 
 
   @override
   State<NewsView> createState() => _NewsViewState();

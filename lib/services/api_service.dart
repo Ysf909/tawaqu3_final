@@ -2,6 +2,17 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:tawaqu3_final/models/news_item.dart';
 
+
+class MarketPrice {
+  final double price;
+  final double? change24h; // percent over last 24h, can be null
+
+  const MarketPrice({
+    required this.price,
+    this.change24h,
+  });
+}
+
 class ApiService {
   // ---------- PRICES (your existing code) ----------
   static const String _goldBaseUrl = "https://www.goldapi.io/api";
