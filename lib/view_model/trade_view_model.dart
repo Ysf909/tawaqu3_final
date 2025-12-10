@@ -188,15 +188,7 @@ class TradeViewModel extends ChangeNotifier {
       );
    _lastTrade = trade;
       // 2) Insert initial history row referencing that trade
-      await _historyRepo.insertHistoryForTrade(
-        tradeId: trade.id,                       // ✅ real uuid
-        previousEntry: prediction.entry,
-        previousSl: prediction.sl,
-        previousTp: prediction.tp,
-        previousLot: prediction.lot,
-        dateSaved: DateTime.now(),
-        outcome: null, // initial row has no outcome
-      );
+     
     } finally {
       loading = false;
       notifyListeners();
