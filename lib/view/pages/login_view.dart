@@ -6,6 +6,7 @@ import 'package:tawaqu3_final/view/widgets/card_container.dart';
 import 'package:tawaqu3_final/view/widgets/input_field.dart';
 import 'package:tawaqu3_final/view/widgets/primary_button.dart';
 import 'package:tawaqu3_final/view/widgets/responsive_form_container.dart';
+import 'package:tawaqu3_final/view_model/user_session_view_model.dart';
 
 import '../../core/router/app_router.dart';
 import '../../view_model/login_view_model.dart';
@@ -111,6 +112,14 @@ class _LoginViewBodyState extends State<_LoginViewBody> {
 
                 switch (status) {
                   case LoginStatus.success:
+                   final appUser = vm.loggedInUser;
+
+                    if (appUser != null) {
+                      // Store it globally so MenuView & others can show the name
+                      context.read<UserSessionViewModel>().setUser(appUser);
+                    } else {
+                      debugPrint('LoginStatus.success but vm.loggedInUser is null 🤔');
+                    }
                     Navigator.pushReplacementNamed(
                       context,
                       AppRouter.MainPageRoute,

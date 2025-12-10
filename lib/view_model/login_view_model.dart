@@ -1,5 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:tawaqu3_final/models/app_user.dart';
+// ⛔ REMOVE this import if you have it here:
+// import 'package:tawaqu3_final/view_model/user_session_view_model.dart';
 
 enum LoginStatus { success, userNotFound, wrongPassword, error, emailNotConfirmed }
 
@@ -9,12 +12,16 @@ class LoginViewModel with ChangeNotifier {
   bool _isLoading = false;
   bool get isLoading => _isLoading;
 
+  // 👇 NEW: keep the logged-in user here
+  AppUser? _loggedInUser;
+  AppUser? get loggedInUser => _loggedInUser;
+
   Future<LoginStatus> login(String email, String password) async {
     _isLoading = true;
     notifyListeners();
 
     try {
-      debugPrint('Attempting login for: $email'); // 👀 debug
+      debugPrint('Attempting login for: $email');
 
       final authResponse = await _client.auth.signInWithPassword(
         email: email,
@@ -28,7 +35,9 @@ class LoginViewModel with ChangeNotifier {
         return LoginStatus.error;
       }
 
-      // OPTIONAL: check your "users" table
+      // OPTIONAL: you can check email confirmation here if needed
+
+      // Fetch profile from your custom `users` table
       final profile = await _client
           .from('users')
           .select()
@@ -39,6 +48,9 @@ class LoginViewModel with ChangeNotifier {
         debugPrint('No profile found in users table for id: ${user.id}');
         return LoginStatus.userNotFound;
       }
+
+      // 👇 SUCCESS CASE: store AppUser in the ViewModel
+      _loggedInUser = AppUser.fromMap(profile);
 
       debugPrint('Login success for: $email');
       return LoginStatus.success;
@@ -51,6 +63,9 @@ class LoginViewModel with ChangeNotifier {
       }
       if (msg.contains('not found')) {
         return LoginStatus.userNotFound;
+      }
+      if (msg.contains('confirm') || msg.contains('email not confirmed')) {
+        return LoginStatus.emailNotConfirmed;
       }
       return LoginStatus.error;
     } on PostgrestException catch (e) {
