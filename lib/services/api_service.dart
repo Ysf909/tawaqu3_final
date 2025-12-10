@@ -151,10 +151,12 @@ class ApiService {
         final summary = item["description"] ?? "";
         final pubDateStr = item["pubDate"] ?? "";
         Duration age = Duration.zero;
+        DateTime? publishedAt;
 
         try {
           final normalized = pubDateStr.replaceFirst(' ', 'T');
           final pub = DateTime.parse(normalized).toUtc();
+           publishedAt = pub;
           age = now.difference(pub);
         } catch (_) {}
 
@@ -163,6 +165,7 @@ class ApiService {
           category: "Crypto",
           summary: summary.isNotEmpty ? summary : (item["source_id"] ?? ""),
           age: age,
+          publishedAt: publishedAt,
         );
       }).toList();
     } catch (e) {
@@ -198,10 +201,12 @@ class ApiService {
         final summary = item["description"] ?? "";
         final pubDateStr = item["pubDate"] ?? "";
         Duration age = Duration.zero;
+        DateTime? publishedAt;
 
         try {
           final normalized = pubDateStr.replaceFirst(' ', 'T');
           final pub = DateTime.parse(normalized).toUtc();
+          publishedAt = pub;
           age = now.difference(pub);
         } catch (_) {}
 
@@ -210,6 +215,7 @@ class ApiService {
           category: "Forex",
           summary: summary.isNotEmpty ? summary : (item["source_id"] ?? ""),
           age: age,
+          publishedAt: publishedAt,
         );
       }).toList();
     } catch (e) {
@@ -245,10 +251,12 @@ class ApiService {
         final summary = item["description"] ?? "";
         final pubDateStr = item["pubDate"] ?? "";
         Duration age = Duration.zero;
+        DateTime? publishedAt;
 
         try {
           final normalized = pubDateStr.replaceFirst(' ', 'T');
           final pub = DateTime.parse(normalized).toUtc();
+          publishedAt = pub;
           age = now.difference(pub);
         } catch (_) {}
 
@@ -256,6 +264,7 @@ class ApiService {
           title: title,
           category: "Metals",
           summary: summary.isNotEmpty ? summary : (item["source_id"] ?? ""),
+          publishedAt: publishedAt,
           age: age,
         );
       }).toList();
