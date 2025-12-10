@@ -59,6 +59,28 @@ class TradeResultPage extends StatelessWidget {
                   style: theme.textTheme.bodyMedium
                       ?.copyWith(fontWeight: FontWeight.w600),
                 ),
+                Row(
+  children: [
+    Expanded(
+      child: OutlinedButton(
+        onPressed: vm.loading
+            ? null
+            : () => vm.markOutcome(TradeOutcome.tpHit),
+        child: const Text('TP HIT'),
+      ),
+    ),
+    const SizedBox(width: 12),
+    Expanded(
+      child: OutlinedButton(
+        onPressed: vm.loading
+            ? null
+            : () => vm.markOutcome(TradeOutcome.slHit),
+        child: const Text('SL HIT'),
+      ),
+    ),
+  ],
+),
+
               ],
             ),
         ],

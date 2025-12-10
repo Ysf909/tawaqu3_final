@@ -4,8 +4,9 @@ import 'package:tawaqu3_final/view/widgets/tab_nav_bar.dart';
 import 'package:tawaqu3_final/view/pages/home_tab_view.dart';
 import 'package:tawaqu3_final/view/pages/news_tab_view.dart';
 import 'package:tawaqu3_final/view/pages/top_traders_tab_view.dart';
-// ✅ import your new TradeFlowView
 import 'package:tawaqu3_final/view/pages/trade_flow_view.dart';
+import 'package:tawaqu3_final/view_model/portfolio_view_model.dart';
+import 'package:tawaqu3_final/view_model/user_session_view_model.dart';
 
 import '../../core/router/app_router.dart';
 import '../../view_model/navigation_view_model.dart';
@@ -26,8 +27,11 @@ class _MainPageState extends State<MainPage> {
   void initState() {
     super.initState();
     _load();
+   WidgetsBinding.instance.addPostFrameCallback((_) {
+  context.read<PortfolioViewModel>().loadForCurrentUser();
+});
   }
-
+  
   Future<void> _load() async {
     final prices = await _api.fetchAllOnce();
     if (mounted) {

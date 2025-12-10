@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:tawaqu3_final/models/trade_models.dart';
 import '../models/history_trade.dart';
 
 class HistoryRepository {
@@ -13,6 +14,7 @@ class HistoryRepository {
     double? previousTp,
     double? previousLot,
     DateTime? dateSaved,
+    TradeOutcome? outcome,
   }) async {
     try {
       final response = await _client
@@ -25,6 +27,7 @@ class HistoryRepository {
             'previous_lot': previousLot,
             'date_saved':
                 (dateSaved ?? DateTime.now()).toIso8601String(),
+            'outcome': outcome != null ? outcome.dbValue : null,
           })
           .select()
           .maybeSingle();

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:tawaqu3_final/view/widgets/card_container.dart';
 import 'package:tawaqu3_final/view/widgets/section_title.dart';
+import 'package:tawaqu3_final/view_model/portfolio_view_model.dart';
 
 class HomeTabView extends StatelessWidget {
   final Map<String, double> prices;
@@ -14,42 +16,55 @@ class HomeTabView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final portfolio = context.watch<PortfolioViewModel>();
+
     return SafeArea(
       child: LayoutBuilder(
         builder: (context, constraints) {
           final width = constraints.maxWidth;
-          final bool isWide = width >= 800; // tablet / web breakpoint
+          final bool isWide = width >= 800;
 
-          // ---------- Balance Card ----------
           final Widget balanceCard = CardContainer(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text('Total Balance'),
-                const SizedBox(height: 8),
-                Text(
-                  '\$24,580.00', // same placeholder value you had before
-                  style: Theme.of(context)
-                      .textTheme
-                      .headlineSmall
-                      ?.copyWith(fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 6),
-                const Text('+ \$1,245 (5.3%) this month'),
-              ],
-            ),
+            child: portfolio.loading
+                ? const SizedBox(
+                    height: 80,
+                    child: Center(child: CircularProgressIndicator()),
+                  )
+                : Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text('Total Balance'),
+                      const SizedBox(height: 8),
+                      Text(
+                        '\$${portfolio.totalBalance.toStringAsFixed(2)}',
+                        style: Theme.of(context)
+                            .textTheme
+                            .headlineSmall
+                            ?.copyWith(fontWeight: FontWeight.bold),
+                      ),
+                      const SizedBox(height: 6),
+                      Text(
+                        '${portfolio.monthlyProfit >= 0 ? '+' : '-'} '
+                        '\$${portfolio.monthlyProfit.abs().toStringAsFixed(2)} '
+                        '(${portfolio.monthlyPercent.toStringAsFixed(1)}%) this month',
+                        style: TextStyle(
+                          color: portfolio.monthlyProfit >= 0
+                              ? Colors.green
+                              : Colors.red,
+                        ),
+                      ),
+                    ],
+                  ),
           );
 
-          // ---------- Markets Card ----------
+          // marketsCard: keep as you have it
           final Widget marketsCard = CardContainer(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text('Markets'),
                 const SizedBox(height: 12),
-
                 if (prices.isEmpty)
-                  // same loading state, but works on any screen size
                   const Padding(
                     padding: EdgeInsets.symmetric(vertical: 8.0),
                     child: Center(
@@ -71,7 +86,6 @@ class HomeTabView extends StatelessWidget {
                       trailing: Text(e.value.toStringAsFixed(2)),
                     ),
                   ),
-
                 const SizedBox(height: 8),
                 Align(
                   alignment: Alignment.centerRight,
@@ -85,7 +99,6 @@ class HomeTabView extends StatelessWidget {
           );
 
           return SingleChildScrollView(
-            // On wide screens, add side padding to avoid super-wide content
             padding: EdgeInsets.symmetric(
               horizontal: isWide ? width * 0.15 : 16,
               vertical: 16,
@@ -93,11 +106,8 @@ class HomeTabView extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                const SectionTitle('Tawaqu3', Title: '',),
+                const SectionTitle('Tawaqu3', Title: ''),
                 const SizedBox(height: 16),
-
-                // On wide screens → show cards side-by-side.
-                // On mobile → stack them vertically (old behavior).
                 if (isWide)
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,

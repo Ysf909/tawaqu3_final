@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:supabase_flutter/supabase_flutter.dart'; // 👈 add this
+import 'package:supabase_flutter/supabase_flutter.dart'; 
+import 'package:tawaqu3_final/view_model/portfolio_view_model.dart';
 import 'package:tawaqu3_final/view_model/user_session_view_model.dart';
 import 'core/theme/app_theme.dart';
 import 'core/router/app_router.dart';
@@ -36,6 +37,8 @@ class Tawaqu3App extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => NotificationsViewModel()),
         ChangeNotifierProvider(create: (_) => HistoryViewModel()),
         ChangeNotifierProvider(create: (_) => UserSessionViewModel()),
+         ChangeNotifierProvider(create: (_) => PortfolioViewModel(baseBalance: 0),
+    ),
       ],
       child: Consumer<SettingsViewModel>(
         builder: (context, settings, _) {
