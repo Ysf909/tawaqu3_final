@@ -96,7 +96,7 @@ class _NewsViewState extends State<NewsView> {
               : theme.textTheme.bodyMedium?.color,
         ),
         selectedColor: theme.colorScheme.primary,
-        backgroundColor: theme.colorScheme.surfaceVariant,
+        backgroundColor: theme.colorScheme.surfaceContainerHighest,
         onSelected: (_) => _onFilterChanged(filter),
       ),
     );

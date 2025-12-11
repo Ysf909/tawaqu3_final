@@ -27,7 +27,7 @@ class HistoryRepository {
             'previous_lot': previousLot,
             'date_saved':
                 (dateSaved ?? DateTime.now()).toIso8601String(),
-            'outcome': outcome != null ? outcome.dbValue : null,
+            'outcome': outcome?.dbValue,
           })
           .select()
           .maybeSingle();
@@ -36,7 +36,7 @@ class HistoryRepository {
         throw Exception('Failed to insert history row');
       }
 
-      return HistoryTrade.fromMap(response as Map<String, dynamic>);
+      return HistoryTrade.fromMap(response);
     } on PostgrestException catch (e) {
       debugPrint('❌ Supabase error inserting history: ${e.message}');
       debugPrint('code: ${e.code}, details: ${e.details}, hint: ${e.hint}');

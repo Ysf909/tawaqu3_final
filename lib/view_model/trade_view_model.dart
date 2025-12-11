@@ -80,7 +80,7 @@ class TradeViewModel extends ChangeNotifier {
         .select()
         .single();
 
-    _lastTrade = TradeEntity.fromMap(updatedTrade as Map<String, dynamic>);
+    _lastTrade = TradeEntity.fromMap(updatedTrade);
 
     // 6) If you REALLY want to keep users.profit, you can still use RPC:
     await _client.rpc(

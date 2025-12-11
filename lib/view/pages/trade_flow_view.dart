@@ -160,7 +160,7 @@ class _StepHeader extends StatelessWidget {
             ? colorScheme.primary
             : isDone
                 ? colorScheme.primary.withOpacity(0.15)
-                : colorScheme.surfaceVariant;
+                : colorScheme.surfaceContainerHighest;
         final fgColor = isActive
             ? colorScheme.onPrimary
             : isDone

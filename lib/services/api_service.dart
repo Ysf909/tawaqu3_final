@@ -124,18 +124,15 @@ class ApiService {
   }
 
   Future<Map<String, double>> fetchAllOnce() async {
-    final gold = await fetchGoldUsd();
-    final btc = await fetchBtcUsd();
-    final eth = await fetchEthUsd();
-    final eur = await fetchEurUsd();
+  final gold = await fetchGoldUsd();
+  final eur = await fetchEurUsd();
 
-    return {
-      "XAU/USD": gold ?? 0.0,
-      "BTC/USD": btc ?? 0.0,
-      "ETH/USD": eth ?? 0.0,
-      "EUR/USD": eur ?? 0.0,
-    };
-  }
+  return {
+    "XAU/USD": gold ?? 0.0,
+    "EUR/USD": eur ?? 0.0,
+  };
+}
+
   // ---------- CRYPTO NEWS (NewsData crypto endpoint) ----------
   // ---------- CRYPTO ----------
   static const String _cryptoNewsUrl =

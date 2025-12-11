@@ -31,6 +31,6 @@ class TradeRepository {
       throw Exception('Failed to insert trade');
     }
 
-    return TradeEntity.fromMap(response as Map<String, dynamic>);
+    return TradeEntity.fromMap(response);
   }
 }
