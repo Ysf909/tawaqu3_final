@@ -32,11 +32,11 @@ class _TopTradersTabViewState extends State<TopTradersTabView> {
           .from('trades')
           .select(
             '''
-            user_id,
+            fname, lname,
             school,
             outcome,
             profit,
-            users!inner(fname, lname)
+           
             ''',
           );
 

@@ -125,7 +125,7 @@ class _NewsViewState extends State<NewsView> {
       case 'crypto':
         return Colors.orangeAccent;
       case 'forex':
-        return const Color.fromARGB(255, 255, 130, 68);
+        return Colors.blueAccent;
       case 'metals':
         return Colors.amber;
       default:
