@@ -37,10 +37,10 @@ class _HistoryViewState extends State<HistoryView> {
               itemBuilder: (context, i) {
                 final t = vm.trades[i];
                 return ListTile(
-                  title: Text('Trade ${t.tradeId}  |  Lot: ${t.previousLot}'),
+                  title: Text('Trade ${i + 1}  '),
                   subtitle: Text(
-                    'Entry: ${t.previousEntry}  SL: ${t.previousSl}  TP: ${t.previousTp}\n'
-                    'Saved: ${t.dateSaved}',
+                    'Entry: ${t.previousEntry}  SL: ${t.previousSl}  TP: ${t.previousTp}  Lot: ${t.previousLot}\n'
+                    ' ${t.dateSaved}',
                   ),
                 );
               },
