@@ -1,0 +1,14 @@
+{
+  "name": "tawaqu3_server",
+  "version": "1.0.0",
+  "description": "Tick bridge server for Tawaqu3 (MT5 -> WebSocket -> Flutter)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.3",
+    "express": "^4.21.2",
+    "ws": "^8.18.0"
+  }
+}
