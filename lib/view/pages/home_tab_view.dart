@@ -1,23 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tawaqu3_final/models/market_model.dart';
 import 'package:tawaqu3_final/services/api_service.dart';
 import 'package:tawaqu3_final/view/widgets/card_container.dart';
 import 'package:tawaqu3_final/view/widgets/section_title.dart';
 import 'package:tawaqu3_final/view_model/portfolio_view_model.dart';
 
 class HomeTabView extends StatelessWidget {
-final Map<String, MarketPrice> prices;
-final Map<String, double> previousPrices;
-final VoidCallback onTradeTap;
+  final Map<String, MarketPrice> prices;
+  final Map<String, double> previousPrices;
+  final VoidCallback onTradeTap;
 
-const HomeTabView({
-  super.key,
-  required this.prices,
-  required this.previousPrices,
-  required this.onTradeTap,
-});
-
-
+  const HomeTabView({
+    super.key,
+    required this.prices,
+    required this.previousPrices,
+    required this.onTradeTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -42,9 +41,7 @@ const HomeTabView({
                       const SizedBox(height: 8),
                       Text(
                         '\$${portfolio.totalBalance.toStringAsFixed(2)}',
-                        style: Theme.of(context)
-                            .textTheme
-                            .headlineSmall
+                        style: Theme.of(context).textTheme.headlineSmall
                             ?.copyWith(fontWeight: FontWeight.bold),
                       ),
                       const SizedBox(height: 6),
@@ -80,66 +77,65 @@ const HomeTabView({
                     ),
                   )
                 else
-  ...prices.entries.map((e) {
-    final symbol = e.key;
-    final market = e.value;
-    final price = market.price;
-    final change24h = market.change24h; // null for XAU/EUR initially
+                  ...prices.entries.map((e) {
+                    final symbol = e.key;
+                    final market = e.value;
+                    final price = market.price;
+                    final change24h =
+                        market.change24h; // null for XAU/EUR initially
 
-    final prev = previousPrices[symbol];
+                    final prev = previousPrices[symbol];
 
-    // default color = normal text color
-    Color priceColor =
-        Theme.of(context).textTheme.bodyMedium?.color ?? Colors.black;
+                    // default color = normal text color
+                    Color priceColor =
+                        Theme.of(context).textTheme.bodyMedium?.color ??
+                        Colors.black;
 
-    if (prev != null) {
-      if (price > prev) {
-        priceColor = Colors.green;
-      } else if (price < prev) {
-        priceColor = Colors.red;
-      }
-    }
+                    if (prev != null) {
+                      if (price > prev) {
+                        priceColor = Colors.green;
+                      } else if (price < prev) {
+                        priceColor = Colors.red;
+                      }
+                    }
 
-    String? changeText;
-    Color? changeColor;
+                    String? changeText;
+                    Color? changeColor;
 
-    // We only have change24h from Binance for BTC/ETH
-    if (change24h != null) {
-      final sign = change24h >= 0 ? '+' : '';
-      changeText = '$sign${change24h.toStringAsFixed(2)}%';
-      changeColor = change24h >= 0 ? Colors.green : Colors.red;
-    }
+                    // We only have change24h from Binance for BTC/ETH
+                    if (change24h != null) {
+                      final sign = change24h >= 0 ? '+' : '';
+                      changeText = '$sign${change24h.toStringAsFixed(2)}%';
+                      changeColor = change24h >= 0 ? Colors.green : Colors.red;
+                    }
 
-    return ListTile(
-      dense: true,
-      contentPadding: EdgeInsets.zero,
-      title: Text(
-        symbol,
-        overflow: TextOverflow.ellipsis,
-      ),
-      trailing: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          Text(
-            price.toStringAsFixed(2),
-            style: TextStyle(
-              color: priceColor,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-          if (changeText != null)
-            Text(
-              changeText,
-              style: TextStyle(
-                color: changeColor,
-                fontSize: 12,
-              ),
-            ),
-        ],
-      ),
-    );
-  }),
+                    return ListTile(
+                      dense: true,
+                      contentPadding: EdgeInsets.zero,
+                      title: Text(symbol, overflow: TextOverflow.ellipsis),
+                      trailing: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text(
+                            price.toStringAsFixed(2),
+                            style: TextStyle(
+                              color: priceColor,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          if (changeText != null)
+                            Text(
+                              changeText,
+                              style: TextStyle(
+                                color: changeColor,
+                                fontSize: 12,
+                              ),
+                            ),
+                        ],
+                      ),
+                    );
+                  }),
 
                 const SizedBox(height: 8),
                 Align(

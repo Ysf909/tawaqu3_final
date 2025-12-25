@@ -1,9 +1,10 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+﻿<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- If you don't already have it -->
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:usesCleartextTraffic="true"
         android:label="tawaqu3_final"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
@@ -69,3 +70,4 @@
     </queries>
 
 </manifest>
+

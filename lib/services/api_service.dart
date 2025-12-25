@@ -1,17 +1,7 @@
-﻿import 'dart:convert';
+import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:tawaqu3_final/models/news_item.dart';
-
-
-class MarketPrice {
-  final double price;
-  final double? change24h; // percent over last 24h, can be null
-
-  const MarketPrice({
-    required this.price,
-    this.change24h,
-  });
-}
+import 'package:tawaqu3_final/models/market_model.dart';
 
 class ApiService {
   // ---------- PRICES (your existing code) ----------
@@ -22,9 +12,9 @@ class ApiService {
       "pub_a5faafb0098f4512b7106e9d4207dc49"; // 👈 reuse for all news
 
   Map<String, String> get _goldHeaders => {
-        "x-access-token": _goldApiKey,
-        "Content-Type": "application/json",
-      };
+    "x-access-token": _goldApiKey,
+    "Content-Type": "application/json",
+  };
 
   Future<double?> fetchGoldUsd() async {
     try {
@@ -124,15 +114,10 @@ class ApiService {
   }
 
   Future<Map<String, double>> fetchAllOnce() async {
-  // Prices come from your WebSocket tick server (MT5 -> Node -> Flutter).
-  // Placeholders only (WebSocket will overwrite).
-  return {
-    "XAUUSD_": 0.0,
-    "EURUSD_": 0.0,
-    "BTCUSD": 0.0,
-    "ETHUSD": 0.0,
-  };
-}
+    // Prices come from your WebSocket tick server (MT5 -> Node -> Flutter).
+    // Placeholders only (WebSocket will overwrite).
+    return {"XAUUSD_": 0.0, "EURUSD_": 0.0, "BTCUSD": 0.0, "ETHUSD": 0.0};
+  }
 
   // ---------- CRYPTO NEWS (NewsData crypto endpoint) ----------
   // ---------- CRYPTO ----------
@@ -165,7 +150,7 @@ class ApiService {
         try {
           final normalized = pubDateStr.replaceFirst(' ', 'T');
           final pub = DateTime.parse(normalized).toUtc();
-           publishedAt = pub;
+          publishedAt = pub;
           age = now.difference(pub);
         } catch (_) {}
 
@@ -297,5 +282,3 @@ class ApiService {
     return all;
   }
 }
-
-

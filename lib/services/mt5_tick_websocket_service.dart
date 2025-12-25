@@ -1,8 +1,7 @@
 ﻿import 'dart:async';
 import 'dart:convert';
+import 'package:tawaqu3_final/models/market_model.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
-
-import 'api_service.dart' show MarketPrice;
 
 class Mt5TickWebSocketService {
   WebSocketChannel? _channel;
@@ -19,8 +18,11 @@ class Mt5TickWebSocketService {
 
   void _connect() {
     _channel = WebSocketChannel.connect(Uri.parse(wsUrl));
+    print('WS connecting to: ' + wsUrl);
 
-    _sub = _channel!.stream.listen((msg) {
+    _sub = _channel!.stream.listen(
+      (msg) {
+        print('WS RAW: ' + (msg is String ? msg : msg.toString()));
       final str = msg is String ? msg : msg.toString();
 
       try {
@@ -35,9 +37,7 @@ class Mt5TickWebSocketService {
 
           final mid = (bid + ask) / 2.0;
 
-          _controller.add({
-            symbol: MarketPrice(price: mid, change24h: null),
-          });
+          _controller.add({symbol: MarketPrice(price: mid, change24h: null)});
         }
       } catch (_) {
         // ignore malformed
@@ -51,3 +51,4 @@ class Mt5TickWebSocketService {
     _controller.close();
   }
 }
+
