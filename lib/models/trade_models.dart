@@ -24,6 +24,13 @@ InstrumentSpec specForPair(String pair) {
         pipValuePerLot: 10.0,
       );
 
+    case 'XAGUSD':
+      // Silver (rough defaults; adjust later per broker)
+      return const InstrumentSpec(
+        pipSize: 0.01,
+        pipValuePerLot: 5.0,
+      );
+
     case 'EURUSD':
     case 'GBPUSD':
     case 'BTCUSD': // you'll probably treat crypto differently, see note below

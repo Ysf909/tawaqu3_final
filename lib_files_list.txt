@@ -1,0 +1,67 @@
+﻿
+FullName                                                                     Length LastWriteTime         
+--------                                                                     ------ -------------         
+C:\FlutterApps\tawaqu3_final\lib\main.dart                                     2219 12/10/2025 11:45:58 AM
+C:\FlutterApps\tawaqu3_final\lib\validation.dart                               2854 12/3/2025 1:31:10 PM  
+C:\FlutterApps\tawaqu3_final\lib\core\router\app_router.dart                   2137 12/24/2025 8:34:11 AM 
+C:\FlutterApps\tawaqu3_final\lib\core\router\app_router.dart.bak               2117 11/14/2025 3:18:50 PM 
+C:\FlutterApps\tawaqu3_final\lib\core\theme\app_theme.dart                     5100 11/14/2025 1:32:46 PM 
+C:\FlutterApps\tawaqu3_final\lib\models\app_user.dart                           644 12/17/2025 9:07:40 AM 
+C:\FlutterApps\tawaqu3_final\lib\models\history_trade.dart                     1361 12/12/2025 1:06:45 PM 
+C:\FlutterApps\tawaqu3_final\lib\models\login_model.dart                        344 12/3/2025 1:25:44 PM  
+C:\FlutterApps\tawaqu3_final\lib\models\market_model.dart                      2035 12/25/2025 10:24:38 PM
+C:\FlutterApps\tawaqu3_final\lib\models\news_item.dart                          391 12/10/2025 12:11:37 PM
+C:\FlutterApps\tawaqu3_final\lib\models\prediction.dart                         333 11/10/2025 3:18:29 PM 
+C:\FlutterApps\tawaqu3_final\lib\models\signup_model.dart                       590 12/3/2025 1:28:45 PM  
+C:\FlutterApps\tawaqu3_final\lib\models\tick.dart                               558 12/24/2025 12:23:30 AM
+C:\FlutterApps\tawaqu3_final\lib\models\top_traders_stats.dart                  384 12/10/2025 11:52:27 AM
+C:\FlutterApps\tawaqu3_final\lib\models\trade_entity.dart                      1072 12/9/2025 6:14:16 PM  
+C:\FlutterApps\tawaqu3_final\lib\models\trade_models.dart                      4352 12/10/2025 10:56:22 AM
+C:\FlutterApps\tawaqu3_final\lib\repository\history_repository.dart            2401 12/11/2025 1:04:33 PM 
+C:\FlutterApps\tawaqu3_final\lib\repository\trade_repository.dart               899 12/11/2025 1:04:33 PM 
+C:\FlutterApps\tawaqu3_final\lib\services\ai_service.dart                       829 11/10/2025 3:18:29 PM 
+C:\FlutterApps\tawaqu3_final\lib\services\api_service.dart                     8573 12/25/2025 10:24:38 PM
+C:\FlutterApps\tawaqu3_final\lib\services\auth_service.dart                     757 12/3/2025 1:18:50 PM  
+C:\FlutterApps\tawaqu3_final\lib\services\broker_service.dart                   173 11/10/2025 3:18:29 PM 
+C:\FlutterApps\tawaqu3_final\lib\services\ict_ort_service.dart                 2141 12/24/2025 12:23:30 AM
+C:\FlutterApps\tawaqu3_final\lib\services\mt5_tick_websocket_service.dart      1620 12/25/2025 10:24:38 PM
+C:\FlutterApps\tawaqu3_final\lib\services\notification_service.dart             265 11/10/2025 3:18:29 PM 
+C:\FlutterApps\tawaqu3_final\lib\services\price_websocket_service.dart         2750 12/25/2025 10:24:38 PM
+C:\FlutterApps\tawaqu3_final\lib\services\social_auth_service.dart             2416 12/17/2025 9:19:59 AM 
+C:\FlutterApps\tawaqu3_final\lib\services\tick_ws_service.dart                  959 12/24/2025 12:23:30 AM
+C:\FlutterApps\tawaqu3_final\lib\services\user_service.dart                    1616 12/17/2025 2:12:25 PM 
+C:\FlutterApps\tawaqu3_final\lib\view\pages\asset_chart_page.dart              4463 12/25/2025 10:24:38 PM
+C:\FlutterApps\tawaqu3_final\lib\view\pages\conects_view.dart                  1296 11/14/2025 4:04:14 PM 
+C:\FlutterApps\tawaqu3_final\lib\view\pages\history_view.dart                  1499 12/12/2025 1:10:36 PM 
+C:\FlutterApps\tawaqu3_final\lib\view\pages\home_tab_view.dart                 6950 12/25/2025 10:24:38 PM
+C:\FlutterApps\tawaqu3_final\lib\view\pages\login_view.dart                   10439 12/19/2025 8:26:41 AM 
+C:\FlutterApps\tawaqu3_final\lib\view\pages\MainPage_view.dart                 5917 12/25/2025 10:24:38 PM
+C:\FlutterApps\tawaqu3_final\lib\view\pages\menu_view.dart                     3331 12/10/2025 9:44:49 AM 
+C:\FlutterApps\tawaqu3_final\lib\view\pages\news_tab_view.dart                12807 12/12/2025 12:42:12 PM
+C:\FlutterApps\tawaqu3_final\lib\view\pages\notifications_view.dart            2680 12/1/2025 10:20:26 PM 
+C:\FlutterApps\tawaqu3_final\lib\view\pages\settings_view.dart                 2374 11/14/2025 4:00:15 PM 
+C:\FlutterApps\tawaqu3_final\lib\view\pages\signup_view.dart                   8438 12/3/2025 1:34:50 PM  
+C:\FlutterApps\tawaqu3_final\lib\view\pages\top_traders_tab_view.dart          6330 12/12/2025 12:48:20 PM
+C:\FlutterApps\tawaqu3_final\lib\view\pages\trade_flow_view.dart               6397 12/11/2025 1:04:33 PM 
+C:\FlutterApps\tawaqu3_final\lib\view\pages\trade_margin_page.dart             2812 12/9/2025 9:44:44 PM  
+C:\FlutterApps\tawaqu3_final\lib\view\pages\trade_model_page.dart              2110 12/17/2025 2:44:23 PM 
+C:\FlutterApps\tawaqu3_final\lib\view\pages\trade_result_page.dart             3076 12/10/2025 10:08:59 AM
+C:\FlutterApps\tawaqu3_final\lib\view\pages\trade_tab_page.dart                2140 12/9/2025 9:45:23 PM  
+C:\FlutterApps\tawaqu3_final\lib\view\widgets\card_container.dart               560 11/10/2025 3:18:29 PM 
+C:\FlutterApps\tawaqu3_final\lib\view\widgets\input_field.dart                  914 12/3/2025 1:33:05 PM  
+C:\FlutterApps\tawaqu3_final\lib\view\widgets\primary_button.dart               546 11/10/2025 3:18:29 PM 
+C:\FlutterApps\tawaqu3_final\lib\view\widgets\responsive_form_container.dart   1469 12/1/2025 10:56:06 PM 
+C:\FlutterApps\tawaqu3_final\lib\view\widgets\section_title.dart                632 12/1/2025 10:20:26 PM 
+C:\FlutterApps\tawaqu3_final\lib\view\widgets\tab_nav_bar.dart                  938 12/7/2025 4:24:22 AM  
+C:\FlutterApps\tawaqu3_final\lib\view_model\auth_view_model.dart               2445 12/3/2025 1:19:20 PM  
+C:\FlutterApps\tawaqu3_final\lib\view_model\history_view_model.dart            1158 12/10/2025 9:04:48 AM 
+C:\FlutterApps\tawaqu3_final\lib\view_model\login_view_model.dart              2597 12/10/2025 9:36:07 AM 
+C:\FlutterApps\tawaqu3_final\lib\view_model\navigation_view_model.dart          222 12/7/2025 4:22:13 AM  
+C:\FlutterApps\tawaqu3_final\lib\view_model\notifications_view_model.dart       470 11/10/2025 3:18:29 PM 
+C:\FlutterApps\tawaqu3_final\lib\view_model\portfolio_view_model.dart          1697 12/12/2025 2:19:23 PM 
+C:\FlutterApps\tawaqu3_final\lib\view_model\settings_view_model.dart            394 11/10/2025 3:18:29 PM 
+C:\FlutterApps\tawaqu3_final\lib\view_model\signup_view_model.dart             2268 12/3/2025 2:24:06 PM  
+C:\FlutterApps\tawaqu3_final\lib\view_model\trade_view_model.dart              5485 12/19/2025 2:45:16 PM 
+C:\FlutterApps\tawaqu3_final\lib\view_model\user_session_view_model.dart        900 12/10/2025 9:44:49 AM 
+
+
