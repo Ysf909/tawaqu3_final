@@ -1,6 +1,4 @@
-﻿import 'package:flutter/material.dart';
-import 'package:tawaqu3_final/view/pages/asset_chart_live_view.dart';
-import 'package:tawaqu3_final/view/pages/asset_chart_page.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tawaqu3_final/models/market_model.dart';
 import 'package:tawaqu3_final/services/api_service.dart';
@@ -67,28 +65,13 @@ class HomeTabView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text('Markets'),
-            const SizedBox(height: 8),
-            Align(
-              alignment: Alignment.centerRight,
-              child: TextButton.icon(
-                onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (_) => AssetChartView(symbol: 'XAUUSD_', initialTf: '1m'),
-                    ),
-                  );
-                },
-                icon: const Icon(Icons.show_chart),
-                label: const Text('Open Chart'),
-              ),
-            ),
                 const SizedBox(height: 12),
                 if (prices.isEmpty)
                   const Padding(
                     padding: EdgeInsets.symmetric(vertical: 8.0),
                     child: Center(
                       child: Text(
-                        'Loading pricesâ€¦',
+                        'Loading prices…',
                         style: TextStyle(color: Colors.grey),
                       ),
                     ),
@@ -127,9 +110,6 @@ class HomeTabView extends StatelessWidget {
                     }
 
                     return ListTile(
-                      onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(builder: (_) => AssetChartLiveView(symbol: symbol, initialTf: '1m')));
-                      },
                       dense: true,
                       contentPadding: EdgeInsets.zero,
                       title: Text(symbol, overflow: TextOverflow.ellipsis),
@@ -201,6 +181,3 @@ class HomeTabView extends StatelessWidget {
     );
   }
 }
-
-
-

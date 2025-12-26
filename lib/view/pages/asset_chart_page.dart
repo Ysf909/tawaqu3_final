@@ -1,18 +1,18 @@
-﻿import 'dart:math';
+﻿import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:tawaqu3_final/models/market_model.dart';
+import 'package:tawaqu3_final/services/price_websocket_service.dart';
+
 class AssetChartView extends StatefulWidget {
   final String symbol;
   final String initialTf; // "1m" or "5m"
-  final List<Candle> candles;
-  final SignalMsg? signal;
+  final String? wsUrlOverride;
 
   const AssetChartView({
     super.key,
     required this.symbol,
     required this.initialTf,
-    required this.candles,
-    this.signal,
+    this.wsUrlOverride,
   });
 
   @override
@@ -20,22 +20,65 @@ class AssetChartView extends StatefulWidget {
 }
 
 class _AssetChartViewState extends State<AssetChartView> {
-  late String tf;
+  late String _tf;
+  PriceWebSocketService? _ws;
+  List<Candle> _candles = const [];
+  SignalMsg? _lastSignal;
+
+  String _defaultWsUrl() {
+    if (kIsWeb) return 'ws://127.0.0.1:8080';
+    switch (defaultTargetPlatform) {
+      case TargetPlatform.android:
+        return 'ws://10.0.2.2:8080';
+      default:
+        return 'ws://127.0.0.1:8080';
+    }
+  }
 
   @override
   void initState() {
     super.initState();
-    tf = widget.initialTf;
+    _tf = widget.initialTf;
+    _ws = PriceWebSocketService(wsUrl: widget.wsUrlOverride ?? _defaultWsUrl());
+
+    _ws!.candlesStream.listen((m) {
+      final key = "${widget.symbol}__${_tf}";
+      final list = m[key] ?? const <Candle>[];
+      if (!mounted) return;
+      setState(() => _candles = list);
+    });
+
+    _ws!.signalsStream.listen((s) {
+      if (s.symbol == widget.symbol && s.tf == _tf) {
+        if (!mounted) return;
+        setState(() => _lastSignal = s);
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _ws?.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Scaffold(
       appBar: AppBar(
-        title: Text("${widget.symbol} • $tf"),
+        title: Text("${widget.symbol} • $_tf"),
         actions: [
           PopupMenuButton<String>(
-            onSelected: (v) => setState(() => tf = v),
+            initialValue: _tf,
+            onSelected: (v) {
+              setState(() {
+                _tf = v;
+                _candles = const [];
+                _lastSignal = null;
+              });
+            },
             itemBuilder: (_) => const [
               PopupMenuItem(value: "1m", child: Text("1m")),
               PopupMenuItem(value: "5m", child: Text("5m")),
@@ -44,24 +87,25 @@ class _AssetChartViewState extends State<AssetChartView> {
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.all(12),
+        padding: const EdgeInsets.all(14),
         child: Column(
           children: [
-            if (widget.signal != null)
+            if (_lastSignal != null)
               Container(
                 width: double.infinity,
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
-                  color: (widget.signal!.side == "BUY")
+                  color: (_lastSignal!.side == "BUY")
                       ? Colors.green.withOpacity(0.12)
                       : Colors.red.withOpacity(0.12),
                 ),
                 child: Text(
-                  "Signal: ${widget.signal!.side}"
-                  "${widget.signal!.entry != null ? "  • entry ${widget.signal!.entry}" : ""}"
-                  "${widget.signal!.score != null ? "  • score ${widget.signal!.score!.toStringAsFixed(2)}" : ""}"
-                  "${(widget.signal!.note ?? "").isNotEmpty ? "\n${widget.signal!.note}" : ""}",
+                  "Signal: ${_lastSignal!.side}"
+                  "${_lastSignal!.entry != null ? "  • entry ${_lastSignal!.entry}" : ""}"
+                  "${_lastSignal!.score != null ? "  • score ${_lastSignal!.score!.toStringAsFixed(2)}" : ""}"
+                  "${(_lastSignal!.note ?? "").isNotEmpty ? "\n${_lastSignal!.note}" : ""}",
+                  style: theme.textTheme.bodyMedium,
                 ),
               ),
             const SizedBox(height: 12),
@@ -72,9 +116,9 @@ class _AssetChartViewState extends State<AssetChartView> {
                   borderRadius: BorderRadius.circular(16),
                   border: Border.all(color: Colors.grey.withOpacity(0.3)),
                 ),
-                child: CustomPaint(
-                  painter: _CandlePainter(widget.candles),
-                ),
+                child: _candles.isEmpty
+                    ? const Center(child: Text("Waiting for candles…"))
+                    : CustomPaint(painter: _CandlePainter(_candles)),
               ),
             ),
           ],
@@ -90,22 +134,15 @@ class _CandlePainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    if (candles.isEmpty) {
-      final tp = TextPainter(
-        text: const TextSpan(text: "No candles yet", style: TextStyle(color: Colors.grey)),
-        textDirection: TextDirection.ltr,
-      )..layout();
-      tp.paint(canvas, Offset((size.width - tp.width) / 2, (size.height - tp.height) / 2));
-      return;
+    final visible = candles.length > 120 ? candles.sublist(candles.length - 120) : candles;
+
+    double minP = visible.first.low;
+    double maxP = visible.first.high;
+    for (final c in visible) {
+      if (c.low < minP) minP = c.low;
+      if (c.high > maxP) maxP = c.high;
     }
-
-    final visible = candles.length > 80 ? candles.sublist(candles.length - 80) : candles;
-
-    double minP = visible.map((c) => c.low).reduce(min);
-    double maxP = visible.map((c) => c.high).reduce(max);
-    final pad = (maxP - minP) * 0.05;
-    minP -= pad;
-    maxP += pad;
+    if ((maxP - minP).abs() < 1e-9) return;
 
     double y(double p) => size.height - ((p - minP) / (maxP - minP)) * size.height;
 
@@ -115,8 +152,8 @@ class _CandlePainter extends CustomPainter {
     for (int i = 0; i < visible.length; i++) {
       final c = visible[i];
       final x = i * candleW + candleW * 0.5;
-
       final isUp = c.close >= c.open;
+
       final bodyPaint = Paint()..color = isUp ? Colors.green : Colors.red;
       wickPaint.color = bodyPaint.color;
 
@@ -124,14 +161,18 @@ class _CandlePainter extends CustomPainter {
       canvas.drawLine(Offset(x, y(c.high)), Offset(x, y(c.low)), wickPaint);
 
       // body
-      final top = y(max(c.open, c.close));
-      final bottom = y(min(c.open, c.close));
-      final rect = Rect.fromLTWH(x - candleW * 0.28, top, candleW * 0.56, max(1.5, bottom - top));
+      final top = y(isUp ? c.close : c.open);
+      final bot = y(isUp ? c.open : c.close);
+      final rect = Rect.fromLTRB(
+        x - candleW * 0.22,
+        top,
+        x + candleW * 0.22,
+        bot,
+      );
       canvas.drawRect(rect, bodyPaint);
     }
   }
 
   @override
-  bool shouldRepaint(covariant _CandlePainter oldDelegate) =>
-      oldDelegate.candles != candles;
+  bool shouldRepaint(covariant _CandlePainter oldDelegate) => true;
 }

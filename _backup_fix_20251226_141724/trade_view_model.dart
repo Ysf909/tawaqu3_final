@@ -1,4 +1,6 @@
 ﻿import 'dart:math';
+import 'dart:typed_data';
+
 import 'package:flutter/foundation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -216,7 +218,12 @@ class TradeViewModel extends ChangeNotifier {
     notifyListeners();
 
     try {
-final authUser = _client.auth.currentUser;
+      if (kIsWeb) {
+        // onnxruntime (FFI) doesn't run on Flutter Web
+        throw Exception('On-device ONNX inference is not supported on Flutter Web. Run on Android/Windows/macOS, or add a server-side /predict endpoint.');
+      }
+
+      final authUser = _client.auth.currentUser;
       if (authUser == null) {
         throw Exception('User not logged in');
       }
@@ -417,6 +424,4 @@ final authUser = _client.auth.currentUser;
     super.dispose();
   }
 }
-
-
 
