@@ -8,11 +8,11 @@ app.use(express.json());
 const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
 
-const latestTicks = {};   // { SYMBOL: {type,symbol,bid,ask,mid,time} }
-const latestSignals = {}; // { "SYMBOL|TF": {symbol, tf, signal, time, meta} }
-const latestCandles = {}; // { "SYMBOL|TF": {symbol, tf, time, o,h,l,c} }
+const latestTicks = {};      // SYMBOL -> tick
+const candleHistory = {};    // "SYMBOL|TF" -> candles[]
+const currentCandle = {};    // "SYMBOL|TF" -> current candle
 
-let lastTickAt = null;
+const TF_LIST = ["1m","5m","15m","30m","1h","4h","1d"];
 
 function broadcast(obj) {
   const msg = JSON.stringify(obj);
@@ -21,19 +21,53 @@ function broadcast(obj) {
   }
 }
 
-// tiny request log
-app.use((req, res, next) => {
-  console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
-  next();
-});
+function tfToMs(tf) {
+  const s = String(tf).trim().toLowerCase();
+  if (s.endsWith("m")) return parseInt(s.slice(0, -1), 10) * 60 * 1000;
+  if (s.endsWith("h")) return parseInt(s.slice(0, -1), 10) * 60 * 60 * 1000;
+  if (s.endsWith("d")) return parseInt(s.slice(0, -1), 10) * 24 * 60 * 60 * 1000;
+  return 60 * 1000;
+}
+
+function bucketStartMs(tsMs, tfMs) {
+  return Math.floor(tsMs / tfMs) * tfMs;
+}
+
+function ensureArr(key) {
+  if (!candleHistory[key]) candleHistory[key] = [];
+  return candleHistory[key];
+}
+
+function upsertCandle(symbol, tf, tsMs, price) {
+  const tfMs = tfToMs(tf);
+  const key = `${symbol}|${tf}`;
+  const bucket = bucketStartMs(tsMs, tfMs);
+
+  const cur = currentCandle[key];
+  if (!cur || cur.t !== bucket) {
+    if (cur) {
+      ensureArr(key).push(cur);
+      if (candleHistory[key].length > 600) candleHistory[key].splice(0, candleHistory[key].length - 600);
+    }
+    currentCandle[key] = { t: bucket, o: price, h: price, l: price, c: price, v: 1 };
+    broadcast({ type: "candle", symbol, tf, ...currentCandle[key] });
+    return;
+  }
+
+  cur.h = Math.max(cur.h, price);
+  cur.l = Math.min(cur.l, price);
+  cur.c = price;
+  cur.v = (cur.v || 0) + 1;
+
+  broadcast({ type: "candle", symbol, tf, ...cur });
+}
 
 app.get("/health", (req, res) => {
   res.json({
     ok: true,
     uptimeSec: Math.round(process.uptime()),
-    ticksCount: Object.keys(latestTicks).length,
-    lastTickAt,
-    signalsCount: Object.keys(latestSignals).length,
+    symbols: Object.keys(latestTicks),
+    candlesKeys: Object.keys(candleHistory).length,
     serverTime: new Date().toISOString(),
   });
 });
@@ -41,86 +75,49 @@ app.get("/health", (req, res) => {
 app.post("/tick", (req, res) => {
   const { symbol, bid, ask, time } = req.body || {};
   if (!symbol || bid === undefined || ask === undefined) {
-    console.log("BAD /tick body:", req.body);
     return res.status(400).json({ error: "Missing fields: symbol,bid,ask" });
   }
 
+  const S = String(symbol).toUpperCase();
   const tick = {
     type: "tick",
-    symbol: String(symbol).toUpperCase(),
+    symbol: S,
     bid: Number(bid),
     ask: Number(ask),
     mid: (Number(bid) + Number(ask)) / 2.0,
     time: time || new Date().toISOString(),
   };
 
-  latestTicks[tick.symbol] = tick;
-  lastTickAt = tick.time;
-
-  // broadcast to Flutter
+  latestTicks[S] = tick;
   broadcast(tick);
 
-  return res.json({ ok: true });
+  const tsMs = Date.parse(tick.time) || Date.now();
+  for (const tf of TF_LIST) upsertCandle(S, tf, tsMs, tick.mid);
+
+  res.json({ ok: true });
 });
 
-app.get("/snapshot", (req, res) => {
-  res.json({ ticks: latestTicks });
-});
+wss.on("connection", (ws) => {
+  ws.on("message", (raw) => {
+    let msg = null;
+    try { msg = JSON.parse(String(raw)); } catch (_) { return; }
+    if (!msg || !msg.type) return;
 
-// Signals: your model can POST here (from python or from flutter backend)
-app.post("/signal", (req, res) => {
-  const { symbol, tf, signal, time, meta } = req.body || {};
-  if (!symbol || !tf || !signal) {
-    return res.status(400).json({ error: "Missing fields: symbol, tf, signal" });
-  }
+    if (msg.type === "get_candles") {
+      const symbol = String(msg.symbol || "").toUpperCase();
+      const tf = String(msg.tf || "1m");
+      const limit = Math.max(1, Math.min(600, Number(msg.limit || 400)));
+      const key = `${symbol}|${tf}`;
 
-  const key = `${String(symbol).toUpperCase()}|${String(tf)}`;
-  const obj = {
-    type: "signal",
-    symbol: String(symbol).toUpperCase(),
-    tf: String(tf),
-    signal: String(signal),          // e.g. BUY/SELL/WAIT
-    time: time || new Date().toISOString(),
-    meta: meta || null,              // optional extra info (confidence, sl/tp, etc.)
-  };
+      const hist = candleHistory[key] ? candleHistory[key].slice() : [];
+      const cur = currentCandle[key] ? [currentCandle[key]] : [];
+      const all = hist.concat(cur);
+      const out = all.length > limit ? all.slice(all.length - limit) : all;
 
-  latestSignals[key] = obj;
-
-  // broadcast so the app can update instantly
-  broadcast(obj);
-
-  return res.json({ ok: true });
-});
-
-app.get("/signals", (req, res) => {
-  res.json({ signals: latestSignals });
-});
-
-// Optional candles route (if you move to OHLC later)
-app.post("/candle", (req, res) => {
-  const { symbol, tf, time, open, high, low, close } = req.body || {};
-  if (!symbol || !tf || !time || open === undefined || high === undefined || low === undefined || close === undefined) {
-    return res.status(400).json({ error: "Missing fields: symbol,tf,time,open,high,low,close" });
-  }
-
-  const key = `${String(symbol).toUpperCase()}|${String(tf)}`;
-  const candle = {
-    type: "candle",
-    symbol: String(symbol).toUpperCase(),
-    tf: String(tf),
-    time: String(time),
-    open: Number(open),
-    high: Number(high),
-    low: Number(low),
-    close: Number(close),
-  };
-
-  latestCandles[key] = candle;
-  broadcast(candle);
-  return res.json({ ok: true });
+      ws.send(JSON.stringify({ type: "ohlc", symbol, tf, candles: out }));
+    }
+  });
 });
 
 const PORT = process.env.PORT || 8080;
-server.listen(PORT, "0.0.0.0", () => {
-  console.log("Tick/Signal server listening on", PORT);
-});
+server.listen(PORT, "0.0.0.0", () => console.log("Server listening on", PORT));
