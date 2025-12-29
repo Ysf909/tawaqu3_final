@@ -27,10 +27,16 @@ class IctOrtService {
     print('5m inputs=${_s5m!.inputNames}, outputs=${_s5m!.outputNames}');
   }
 
-  Future<OrtSession> _loadSessionFromAssets(String assetPath, OrtSessionOptions opts) async {
+  Future<OrtSession> _loadSessionFromAssets(
+    String assetPath,
+    OrtSessionOptions opts,
+  ) async {
     final bd = await rootBundle.load(assetPath);
     final bytes = bd.buffer.asUint8List();
-    return OrtSession.fromBuffer(bytes, opts); // :contentReference[oaicite:3]{index=3}
+    return OrtSession.fromBuffer(
+      bytes,
+      opts,
+    ); // :contentReference[oaicite:3]{index=3}
   }
 
   /// Example: input shape might be [1, 256, 7] (you must feed the shape your model expects)
@@ -38,7 +44,10 @@ class IctOrtService {
     if (_s1m == null) throw StateError('Call init() first');
 
     final inputName = _s1m!.inputNames.first; // usually "x"
-    final inputTensor = OrtValueTensor.createTensorWithDataList(data, shape); // :contentReference[oaicite:4]{index=4}
+    final inputTensor = OrtValueTensor.createTensorWithDataList(
+      data,
+      shape,
+    ); // :contentReference[oaicite:4]{index=4}
 
     final runOpts = OrtRunOptions();
     final outputs = await _s1m!.runAsync(runOpts, {inputName: inputTensor});
@@ -52,7 +61,6 @@ class IctOrtService {
     // out0?.value is Object? (often List/TypedList)
     return out0?.value;
   }
-
 
   Future<Object?> predict5m(Float32List data, List<int> shape) async {
     if (_s5m == null) throw StateError('Call init() first');

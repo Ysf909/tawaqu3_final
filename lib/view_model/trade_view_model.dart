@@ -1,4 +1,4 @@
-﻿import 'dart:math';
+import 'dart:math';
 import 'package:flutter/foundation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -109,106 +109,98 @@ class TradeViewModel extends ChangeNotifier {
   // ORT init
   bool _ortReady = false;
   String _defaultWsUrl() {
-  // Web/Desktop: local bridge on this machine
-  if (kIsWeb) return 'ws://127.0.0.1:8080';
+    // Web/Desktop: local bridge on this machine
+    if (kIsWeb) return 'ws://127.0.0.1:8080';
 
-  // Android emulator can't access PC localhost, use 10.0.2.2
-  // Real device: change to your PC IP (e.g. ws://192.168.1.10:8080)
-  switch (defaultTargetPlatform) {
-    case TargetPlatform.android:
-      return 'ws://10.0.2.2:8080';
-    case TargetPlatform.iOS:
-      return 'ws://127.0.0.1:8080';
-    default:
-      return 'ws://127.0.0.1:8080';
+    // Android emulator can't access PC localhost, use 10.0.2.2
+    // Real device: change to your PC IP (e.g. ws://192.168.1.10:8080)
+    switch (defaultTargetPlatform) {
+      case TargetPlatform.android:
+        return 'ws://10.0.2.2:8080';
+      case TargetPlatform.iOS:
+        return 'ws://127.0.0.1:8080';
+      default:
+        return 'ws://127.0.0.1:8080';
+    }
   }
-}
 
   TradeViewModel() {
     _ws = PriceWebSocketService(wsUrl: _defaultWsUrl());
   }
 
   Future<void> markOutcome(TradeOutcome outcome) async {
-  final trade = _lastTrade;
-  final prediction = lastPrediction;
-  if (trade == null || prediction == null) return;
+    final trade = _lastTrade;
+    final prediction = lastPrediction;
+    if (trade == null || prediction == null) return;
 
-  loading = true;
-  notifyListeners();
-
-  try {
-    // 1) Direction: long / scalper = +1, short = -1
-    final int direction;
-    switch (selectedType) {
-      case TradingType.short:
-        direction = -1;
-        break;
-      default:
-        direction = 1; // long + scalper
-        break;
-    }
-
-    // 2) Choose which price was hit
-    final double exitPrice =
-        (outcome == TradeOutcome.tpHit) ? prediction.tp : prediction.sl;
-
-    // raw difference (exit - entry)
-    final double rawDiff = exitPrice - prediction.entry;
-
-    // signed diff (positive if profit, negative if loss)
-    final double signedDiff = direction * rawDiff;
-
-    // 3) Get instrument spec (pipSize, pipValuePerLot)
-    final spec = specForPair(prediction.pair);
-
-    // number of pips
-    final double pips = signedDiff / spec.pipSize;
-
-    // 4) Final profit in USD
-    final double profit = pips * spec.pipValuePerLot * prediction.lot;
-
-    // 5) Update trade row with outcome + profit
-    final updatedTrade = await _client
-        .from('trades')
-        .update({
-          'outcome': outcome.dbValue,
-          'profit': profit,
-        })
-        .eq('id', trade.id)
-        .select()
-        .single();
-
-    _lastTrade = TradeEntity.fromMap(updatedTrade);
-
-    // 6) If you REALLY want to keep users.profit, you can still use RPC:
-    await _client.rpc(
-      'increment_user_profit',
-      params: {
-        'p_user_id': trade.userId,
-        'p_delta': profit,
-      },
-    );
-
-    // 7) Also write a snapshot into history with final outcome (optional but nice)
-    await _historyRepo.insertHistoryForTrade(
-      tradeId: trade.id,
-      previousEntry: prediction.entry,
-      previousSl: prediction.sl,
-      previousTp: prediction.tp,
-      previousLot: prediction.lot,
-      dateSaved: DateTime.now(),
-      outcome: outcome,
-    );
-  } catch (e, st) {
-    debugPrint('markOutcome error: $e\n$st');
-  } finally {
-    loading = false;
+    loading = true;
     notifyListeners();
+
+    try {
+      // 1) Direction: long / scalper = +1, short = -1
+      final int direction;
+      switch (selectedType) {
+        case TradingType.short:
+          direction = -1;
+          break;
+        default:
+          direction = 1; // long + scalper
+          break;
+      }
+
+      // 2) Choose which price was hit
+      final double exitPrice = (outcome == TradeOutcome.tpHit)
+          ? prediction.tp
+          : prediction.sl;
+
+      // raw difference (exit - entry)
+      final double rawDiff = exitPrice - prediction.entry;
+
+      // signed diff (positive if profit, negative if loss)
+      final double signedDiff = direction * rawDiff;
+
+      // 3) Get instrument spec (pipSize, pipValuePerLot)
+      final spec = specForPair(prediction.pair);
+
+      // number of pips
+      final double pips = signedDiff / spec.pipSize;
+
+      // 4) Final profit in USD
+      final double profit = pips * spec.pipValuePerLot * prediction.lot;
+
+      // 5) Update trade row with outcome + profit
+      final updatedTrade = await _client
+          .from('trades')
+          .update({'outcome': outcome.dbValue, 'profit': profit})
+          .eq('id', trade.id)
+          .select()
+          .single();
+
+      _lastTrade = TradeEntity.fromMap(updatedTrade);
+
+      // 6) If you REALLY want to keep users.profit, you can still use RPC:
+      await _client.rpc(
+        'increment_user_profit',
+        params: {'p_user_id': trade.userId, 'p_delta': profit},
+      );
+
+      // 7) Also write a snapshot into history with final outcome (optional but nice)
+      await _historyRepo.insertHistoryForTrade(
+        tradeId: trade.id,
+        previousEntry: prediction.entry,
+        previousSl: prediction.sl,
+        previousTp: prediction.tp,
+        previousLot: prediction.lot,
+        dateSaved: DateTime.now(),
+        outcome: outcome,
+      );
+    } catch (e, st) {
+      debugPrint('markOutcome error: $e\n$st');
+    } finally {
+      loading = false;
+      notifyListeners();
+    }
   }
-}
-
-
-  
 
   Future<void> generate() async {
     lastError = null;
@@ -216,7 +208,7 @@ class TradeViewModel extends ChangeNotifier {
     notifyListeners();
 
     try {
-final authUser = _client.auth.currentUser;
+      final authUser = _client.auth.currentUser;
       if (authUser == null) {
         throw Exception('User not logged in');
       }
@@ -236,7 +228,7 @@ final authUser = _client.auth.currentUser;
       if (candles.isEmpty) {
         throw Exception(
           'No candle data received for $_pair ($_tf).\n'
-          'Make sure your bridge server / MT5 EA is sending candle updates.'
+          'Make sure your bridge server / MT5 EA is sending candle updates.',
         );
       }
 
@@ -328,7 +320,11 @@ final authUser = _client.auth.currentUser;
     if (candles.length >= seqLen) {
       seq = candles.sublist(candles.length - seqLen);
     } else {
-      final pad = List<Candle>.filled(seqLen - candles.length, candles.first, growable: true);
+      final pad = List<Candle>.filled(
+        seqLen - candles.length,
+        candles.first,
+        growable: true,
+      );
       seq = [...pad, ...candles];
     }
 
@@ -361,7 +357,9 @@ final authUser = _client.auth.currentUser;
     return out;
   }
 
-  (String side, double confidence01) _decodeSideAndConfidence(List<double> out) {
+  (String side, double confidence01) _decodeSideAndConfidence(
+    List<double> out,
+  ) {
     // Heuristics that work for common model heads:
     // - 3 logits/probs => [SELL, NONE, BUY]
     // - 2 logits/probs => [SELL, BUY]
@@ -369,7 +367,11 @@ final authUser = _client.auth.currentUser;
     if (out.length >= 3) {
       final probs = _softmax(out.take(3).toList());
       final maxIdx = probs.indexWhere((p) => p == probs.reduce(max));
-      final side = (maxIdx == 0) ? 'SELL' : (maxIdx == 2) ? 'BUY' : 'NONE';
+      final side = (maxIdx == 0)
+          ? 'SELL'
+          : (maxIdx == 2)
+          ? 'BUY'
+          : 'NONE';
       return (side, probs[maxIdx]);
     }
 
@@ -396,9 +398,11 @@ final authUser = _client.auth.currentUser;
 
   List<double> _flattenToDoubles(Object? v) {
     if (v == null) return const [];
-    if (v is Float32List) return v.map((e) => e.toDouble()).toList(growable: false);
+    if (v is Float32List)
+      return v.map((e) => e.toDouble()).toList(growable: false);
     if (v is Float64List) return v.toList(growable: false);
-    if (v is Int64List) return v.map((e) => e.toDouble()).toList(growable: false);
+    if (v is Int64List)
+      return v.map((e) => e.toDouble()).toList(growable: false);
     if (v is List) {
       final out = <double>[];
       for (final item in v) {
@@ -417,6 +421,3 @@ final authUser = _client.auth.currentUser;
     super.dispose();
   }
 }
-
-
-

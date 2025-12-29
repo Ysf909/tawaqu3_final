@@ -31,8 +31,8 @@ class ConnectsView extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Connections'),    // no title
-        automaticallyImplyLeading: true,   // normal back arrow
+        title: const Text('Connections'), // no title
+        automaticallyImplyLeading: true, // normal back arrow
       ),
       body: SafeArea(
         child: ListView(

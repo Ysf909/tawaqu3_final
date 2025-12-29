@@ -1,4 +1,4 @@
-﻿class MarketPrice {
+class MarketPrice {
   final double price;
   final double? change24h;
   const MarketPrice({required this.price, this.change24h});
@@ -77,7 +77,10 @@ class Candle {
       high: pick("high", "h"),
       low: pick("low", "l"),
       close: pick("close", "c"),
-      volume: (j["volume"] as num?)?.toDouble() ?? (j["v"] as num?)?.toDouble() ?? 0.0,
+      volume:
+          (j["volume"] as num?)?.toDouble() ??
+          (j["v"] as num?)?.toDouble() ??
+          0.0,
     );
   }
 }
@@ -109,9 +112,12 @@ class SignalMsg {
   /// A) {type:'signal', side:'BUY', entry:..., score:..., note:...}
   /// B) {type:'signal', signal:'BUY', meta:{entry,score,note}, time:'ISO'}
   factory SignalMsg.fromJson(Map<String, dynamic> j) {
-    final meta = (j["meta"] is Map) ? Map<String, dynamic>.from(j["meta"]) : <String, dynamic>{};
+    final meta = (j["meta"] is Map)
+        ? Map<String, dynamic>.from(j["meta"])
+        : <String, dynamic>{};
 
-    String pickSide() => (j["side"] ?? j["signal"] ?? j["action"] ?? "NONE").toString();
+    String pickSide() =>
+        (j["side"] ?? j["signal"] ?? j["action"] ?? "NONE").toString();
 
     num? pickNum(String k) => (j[k] as num?) ?? (meta[k] as num?);
 

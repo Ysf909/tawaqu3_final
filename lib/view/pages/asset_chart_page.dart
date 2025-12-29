@@ -1,11 +1,12 @@
-﻿import 'package:flutter/foundation.dart';
+import 'dart:math' as math;
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:tawaqu3_final/models/market_model.dart';
-import 'package:tawaqu3_final/services/price_websocket_service.dart';
+import 'package:tawaqu3_final/services/price_websocket_service.dart' hide SignalMsg;
 
 class AssetChartView extends StatefulWidget {
   final String symbol;
-  final String initialTf; // "1m" or "5m"
+  final String initialTf; // e.g. "15m", "1h", "1d"
   final String? wsUrlOverride;
 
   const AssetChartView({
@@ -20,6 +21,14 @@ class AssetChartView extends StatefulWidget {
 }
 
 class _AssetChartViewState extends State<AssetChartView> {
+  static const List<String> _timeframes = [
+    '15m',
+    '30m',
+    '1h',
+    '4h',
+    '1d',
+    '1w',
+  ];
   late String _tf;
   PriceWebSocketService? _ws;
   List<Candle> _candles = const [];
@@ -38,18 +47,30 @@ class _AssetChartViewState extends State<AssetChartView> {
   @override
   void initState() {
     super.initState();
-    _tf = widget.initialTf;
+    _tf = _timeframes.contains(widget.initialTf)
+        ? widget.initialTf
+        : _timeframes.first;
     _ws = PriceWebSocketService(wsUrl: widget.wsUrlOverride ?? _defaultWsUrl());
 
     _ws!.candlesStream.listen((m) {
-      final key = "${widget.symbol}__${_tf}";
-      final list = m[key] ?? const <Candle>[];
+      final sym1 = widget.symbol.toUpperCase();
+      final sym2 = sym1.endsWith('_')
+          ? sym1.substring(0, sym1.length - 1)
+          : sym1;
+      final key1 = "${sym1}__${_tf}";
+      final key2 = "${sym2}__${_tf}";
+      final list = (m[key1] ?? m[key2]) ?? const <Candle>[];
       if (!mounted) return;
       setState(() => _candles = list);
     });
 
-    _ws!.signalsStream.listen((s) {
-      if (s.symbol == widget.symbol && s.tf == _tf) {
+    _ws!.signalStream.listen((s) {
+      final sym1 = widget.symbol.toUpperCase();
+      final sym2 = sym1.endsWith('_')
+          ? sym1.substring(0, sym1.length - 1)
+          : sym1;
+      if ((s.symbol.toUpperCase() == sym1 || s.symbol.toUpperCase() == sym2) &&
+          s.tf == _tf) {
         if (!mounted) return;
         setState(() => _lastSignal = s);
       }
@@ -78,11 +99,11 @@ class _AssetChartViewState extends State<AssetChartView> {
                 _candles = const [];
                 _lastSignal = null;
               });
+              _ws?.setActiveView(symbol: widget.symbol, tf: _tf, limit: 600);
             },
-            itemBuilder: (_) => const [
-              PopupMenuItem(value: "1m", child: Text("1m")),
-              PopupMenuItem(value: "5m", child: Text("5m")),
-            ],
+            itemBuilder: (_) => _timeframes
+                .map((t) => PopupMenuItem(value: t, child: Text(t)))
+                .toList(),
           ),
         ],
       ),
@@ -118,7 +139,26 @@ class _AssetChartViewState extends State<AssetChartView> {
                 ),
                 child: _candles.isEmpty
                     ? const Center(child: Text("Waiting for candles…"))
-                    : CustomPaint(painter: _CandlePainter(_candles)),
+                    : LayoutBuilder(
+                        builder: (context, constraints) {
+                          final w = math.max(
+                            constraints.maxWidth,
+                            _candles.length * 6.0,
+                          );
+                          return InteractiveViewer(
+                            minScale: 1,
+                            maxScale: 4,
+                            constrained: false,
+                            child: SizedBox(
+                              width: w,
+                              height: constraints.maxHeight,
+                              child: CustomPaint(
+                                painter: _CandlePainter(_candles),
+                              ),
+                            ),
+                          );
+                        },
+                      ),
               ),
             ),
           ],
@@ -134,7 +174,9 @@ class _CandlePainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final visible = candles.length > 120 ? candles.sublist(candles.length - 120) : candles;
+    final visible = candles.length > 120
+        ? candles.sublist(candles.length - 120)
+        : candles;
 
     double minP = visible.first.low;
     double maxP = visible.first.high;
@@ -144,7 +186,8 @@ class _CandlePainter extends CustomPainter {
     }
     if ((maxP - minP).abs() < 1e-9) return;
 
-    double y(double p) => size.height - ((p - minP) / (maxP - minP)) * size.height;
+    double y(double p) =>
+        size.height - ((p - minP) / (maxP - minP)) * size.height;
 
     final candleW = size.width / visible.length;
     final wickPaint = Paint()..strokeWidth = 1.2;

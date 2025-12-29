@@ -8,10 +8,7 @@ class InstrumentSpec {
   final double pipSize;
   final double pipValuePerLot; // value of 1 pip for 1.0 lot
 
-  const InstrumentSpec({
-    required this.pipSize,
-    required this.pipValuePerLot,
-  });
+  const InstrumentSpec({required this.pipSize, required this.pipValuePerLot});
 }
 
 // You can tweak these per broker later if needed
@@ -19,36 +16,23 @@ InstrumentSpec specForPair(String pair) {
   switch (pair.toUpperCase()) {
     case 'XAUUSD':
       // 1 lot = 100 oz, 0.1 move ~ $10
-      return const InstrumentSpec(
-        pipSize: 0.1,
-        pipValuePerLot: 10.0,
-      );
+      return const InstrumentSpec(pipSize: 0.1, pipValuePerLot: 10.0);
 
     case 'XAGUSD':
       // Silver (rough defaults; adjust later per broker)
-      return const InstrumentSpec(
-        pipSize: 0.01,
-        pipValuePerLot: 5.0,
-      );
+      return const InstrumentSpec(pipSize: 0.01, pipValuePerLot: 5.0);
 
     case 'EURUSD':
     case 'GBPUSD':
     case 'BTCUSD': // you'll probably treat crypto differently, see note below
       // For standard FX, 1 lot = 100k, 1 pip (0.0001) = $10
-      return const InstrumentSpec(
-        pipSize: 0.0001,
-        pipValuePerLot: 10.0,
-      );
+      return const InstrumentSpec(pipSize: 0.0001, pipValuePerLot: 10.0);
 
     default:
       // fallback: treat as normal FX pair
-      return const InstrumentSpec(
-        pipSize: 0.0001,
-        pipValuePerLot: 10.0,
-      );
+      return const InstrumentSpec(pipSize: 0.0001, pipValuePerLot: 10.0);
   }
 }
-
 
 extension TradeOutcomeX on TradeOutcome {
   String get dbValue {
@@ -60,7 +44,7 @@ extension TradeOutcomeX on TradeOutcome {
     }
   }
 
- String get label {
+  String get label {
     switch (this) {
       case TradeOutcome.tpHit:
         return 'TP hit';
@@ -70,17 +54,16 @@ extension TradeOutcomeX on TradeOutcome {
   }
 }
 
- TradeOutcome? fromDb(String? value) {
-    switch (value) {
-      case 'tp_hit':
-        return TradeOutcome.tpHit;
-      case 'sl_hit':
-        return TradeOutcome.slHit;
-      default:
-        return null;
-    }
+TradeOutcome? fromDb(String? value) {
+  switch (value) {
+    case 'tp_hit':
+      return TradeOutcome.tpHit;
+    case 'sl_hit':
+      return TradeOutcome.slHit;
+    default:
+      return null;
   }
-
+}
 
 extension TradingTypeLabel on TradingType {
   String get label {
@@ -108,7 +91,6 @@ extension TradingModelLabel on TradingModel {
   }
 }
 
-
 /// Business rule: each type has ONE fixed model
 TradingModel modelForType(TradingType type) {
   switch (type) {
@@ -125,6 +107,7 @@ TradingModel modelForType(TradingType type) {
       return TradingModel.ict;
   }
 }
+
 class TradeEntity {
   final String id;
   final String userId;
@@ -135,8 +118,8 @@ class TradeEntity {
   final String school;
   final DateTime time;
   final DateTime createdAt;
-  final TradeOutcome? outcome;   // 👈 new
-  final double profit;           // optional, if you added profit column
+  final TradeOutcome? outcome; // 👈 new
+  final double profit; // optional, if you added profit column
 
   TradeEntity({
     required this.id,
@@ -152,10 +135,7 @@ class TradeEntity {
     this.profit = 0,
   });
 
-  TradeEntity copyWith({
-    TradeOutcome? outcome,
-    double? profit,
-  }) {
+  TradeEntity copyWith({TradeOutcome? outcome, double? profit}) {
     return TradeEntity(
       id: id,
       userId: userId,

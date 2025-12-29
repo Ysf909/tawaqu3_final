@@ -9,4 +9,3 @@ class BrokerService {
     mt5Connected = false;
   }
 }
-

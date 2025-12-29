@@ -8,7 +8,7 @@ class HistoryRepository {
 
   // Insert one history row for a given trade
   Future<HistoryTrade> insertHistoryForTrade({
-    required String tradeId,          // uuid from trades.id
+    required String tradeId, // uuid from trades.id
     double? previousEntry,
     double? previousSl,
     double? previousTp,
@@ -25,8 +25,7 @@ class HistoryRepository {
             'previous_sl': previousSl,
             'previous_tp': previousTp,
             'previous_lot': previousLot,
-            'date_saved':
-                (dateSaved ?? DateTime.now()).toIso8601String(),
+            'date_saved': (dateSaved ?? DateTime.now()).toIso8601String(),
             'outcome': outcome?.dbValue,
           })
           .select()

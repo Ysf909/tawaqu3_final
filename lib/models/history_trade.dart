@@ -1,8 +1,8 @@
-
 import 'package:tawaqu3_final/models/trade_models.dart';
+
 class HistoryTrade {
-  final String id;         // uuid
-  final String tradeId;    // uuid (FK to trades.id)
+  final String id; // uuid
+  final String tradeId; // uuid (FK to trades.id)
   final double? previousEntry;
   final double? previousSl;
   final double? previousTp;
@@ -12,7 +12,7 @@ class HistoryTrade {
   final String fname;
   final String lname;
   final double count;
-  
+
   HistoryTrade({
     required this.id,
     required this.tradeId,
@@ -38,7 +38,7 @@ class HistoryTrade {
       previousTp: (map['previous_tp'] as num?)?.toDouble(),
       previousLot: (map['previous_lot'] as num?)?.toDouble(),
       dateSaved: DateTime.parse(map['date_saved'] as String),
-      outcome:fromDb(map['outcome'] as String?),
+      outcome: fromDb(map['outcome'] as String?),
     );
   }
 }

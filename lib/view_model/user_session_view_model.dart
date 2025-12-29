@@ -22,7 +22,7 @@ class UserSessionViewModel extends ChangeNotifier {
 
   void setUser(AppUser user) {
     _user = user;
-    debugPrint('UserSessionViewModel.setUser -> ${user.fullName}'); 
+    debugPrint('UserSessionViewModel.setUser -> ${user.fullName}');
     notifyListeners();
   }
 

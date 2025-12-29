@@ -28,17 +28,13 @@ class _TopTradersTabViewState extends State<TopTradersTabView> {
 
     try {
       // 1) Load all trades joined with users to get names
-      final res = await _client
-          .from('trades')
-          .select(
-            '''
+      final res = await _client.from('trades').select('''
             fname, lname,
             school,
             outcome,
             profit,
            
-            ''',
-          );
+            ''');
 
       final List data = res as List;
 
@@ -56,8 +52,7 @@ class _TopTradersTabViewState extends State<TopTradersTabView> {
 
         final String school = (map['school'] as String?) ?? 'Unknown';
         final String? outcomeStr = map['outcome'] as String?;
-        final double profit =
-            (map['profit'] as num?)?.toDouble() ?? 0.0;
+        final double profit = (map['profit'] as num?)?.toDouble() ?? 0.0;
 
         final agg = byUser.putIfAbsent(
           userId,
@@ -101,8 +96,7 @@ class _TopTradersTabViewState extends State<TopTradersTabView> {
           }
         });
 
-        final double winRate =
-            (agg.wins / agg.closedTrades) * 100.0;
+        final double winRate = (agg.wins / agg.closedTrades) * 100.0;
 
         stats.add(
           TopTraderStats(
@@ -143,28 +137,26 @@ class _TopTradersTabViewState extends State<TopTradersTabView> {
                     child: Center(child: CircularProgressIndicator()),
                   )
                 : _topTraders.isEmpty
-                    ? const Padding(
-                        padding: EdgeInsets.all(16),
-                        child: Text(
-                          'No top traders yet. Close some trades with TP/SL to see stats here.',
-                          style: TextStyle(color: Colors.grey),
+                ? const Padding(
+                    padding: EdgeInsets.all(16),
+                    child: Text(
+                      'No top traders yet. Close some trades with TP/SL to see stats here.',
+                      style: TextStyle(color: Colors.grey),
+                    ),
+                  )
+                : Column(
+                    children: _topTraders.map((t) {
+                      final initials = _initialsFromName(t.name);
+                      return ListTile(
+                        leading: CircleAvatar(child: Text(initials)),
+                        title: Text(t.name),
+                        subtitle: Text(
+                          'Most used model: ${t.mostUsedModel} • '
+                          'Win rate: ${t.winRate.toStringAsFixed(1)}%',
                         ),
-                      )
-                    : Column(
-                        children: _topTraders.map((t) {
-                          final initials = _initialsFromName(t.name);
-                          return ListTile(
-                            leading: CircleAvatar(
-                              child: Text(initials),
-                            ),
-                            title: Text(t.name),
-                            subtitle: Text(
-                              'Most used model: ${t.mostUsedModel} • '
-                              'Win rate: ${t.winRate.toStringAsFixed(1)}%',
-                            ),
-                          );
-                        }).toList(),
-                      ),
+                      );
+                    }).toList(),
+                  ),
           ),
         ],
       ),
@@ -181,10 +173,7 @@ class _UserAgg {
   int closedTrades = 0;
   final Map<String, int> modelCounts = {};
 
-  _UserAgg({
-    required this.userId,
-    required this.name,
-  });
+  _UserAgg({required this.userId, required this.name});
 }
 
 /// Helper to build initials from the full name
@@ -192,9 +181,7 @@ String _initialsFromName(String name) {
   final parts = name.trim().split(' ');
   if (parts.isEmpty) return '?';
   if (parts.length == 1) {
-    return parts.first.isNotEmpty
-        ? parts.first[0].toUpperCase()
-        : '?';
+    return parts.first.isNotEmpty ? parts.first[0].toUpperCase() : '?';
   }
   final first = parts[0].isNotEmpty ? parts[0][0].toUpperCase() : '';
   final second = parts[1].isNotEmpty ? parts[1][0].toUpperCase() : '';

@@ -1,96 +1,60 @@
-﻿import 'package:flutter/foundation.dart';
+import 'package:flutter/foundation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class PortfolioViewModel extends ChangeNotifier {
-  bool _loading = false;
-  bool _loadedOnce = false;
+  final SupabaseClient _client = Supabase.instance.client;
 
-  double _totalBalance = 0.0;   // we will show "profit" as total balance (per your request)
-  double _monthlyProfit = 0.0;
-  double _monthlyPercent = 0.0;
+  final double baseBalance; // starting balance (e.g., 10,000)
+  PortfolioViewModel({this.baseBalance = 10000});
 
-  bool get loading => _loading;
-  double get totalBalance => _totalBalance;
-  double get monthlyProfit => _monthlyProfit;
-  double get monthlyPercent => _monthlyPercent;
+  bool loading = false;
+  double totalProfit = 0; // lifetime P/L
+  double monthlyProfit = 0; // last 30 days
 
-  void ensureLoaded() {
-    if (_loading || _loadedOnce) return;
-    load();
+  double get totalBalance => baseBalance + totalProfit;
+
+  double get monthlyPercent {
+    if (baseBalance == 0) return 0;
+    return (monthlyProfit / baseBalance) * 100;
   }
 
-  Future<void> load() async {
-    final supabase = Supabase.instance.client;
-    final uid = supabase.auth.currentUser?.id;
+  Future<void> loadForCurrentUser() async {
+    final authUser = _client.auth.currentUser;
+    if (authUser == null) return;
 
-    if (uid == null) {
-      _totalBalance = 0;
-      _monthlyProfit = 0;
-      _monthlyPercent = 0;
-      notifyListeners();
-      return;
-    }
-
-    _loading = true;
+    loading = true;
     notifyListeners();
 
     try {
-      // 1) Read user profit (your schema has users.profit)
-      final userRow = await supabase
-          .from('users')
-          .select('profit')
-          .eq('id', uid)
-          .single();
-
-      final userProfit = (userRow['profit'] as num?)?.toDouble() ?? 0.0;
-
-      // 2) Read trades profit + time
-      final trades = await supabase
+      final res = await _client
           .from('trades')
-          .select('profit,time')
-          .eq('user_id', uid);
+          .select('profit, time')
+          .eq('user_id', authUser.id);
 
-      double totalTradesProfit = 0.0;
-      double monthProfit = 0.0;
+      double total = 0;
+      double month = 0;
+      final now = DateTime.now().toUtc();
+      final from = now.subtract(const Duration(days: 30));
 
-      final now = DateTime.now();
-      final monthStart = DateTime(now.year, now.month, 1);
+      for (final row in res as List) {
+        final p = (row['profit'] as num?)?.toDouble() ?? 0.0;
+        total += p;
 
-      for (final t in (trades as List)) {
-        final p = (t['profit'] as num?)?.toDouble() ?? 0.0;
-        totalTradesProfit += p;
-
-        final rawTime = t['time'];
-        DateTime? dt;
-        if (rawTime is String) dt = DateTime.tryParse(rawTime);
-        if (rawTime is DateTime) dt = rawTime;
-
-        if (dt != null && dt.isAfter(monthStart)) {
-          monthProfit += p;
+        final timeStr = row['time'] as String;
+        final t = DateTime.parse(timeStr).toUtc();
+        if (t.isAfter(from)) {
+          month += p;
         }
       }
 
-      // If you maintain users.profit, we show it.
-      // Otherwise fallback to sum(trades.profit).
-      _totalBalance = userProfit != 0.0 ? userProfit : totalTradesProfit;
-
-      _monthlyProfit = monthProfit;
-
-      final startOfMonthBalance = _totalBalance - _monthlyProfit;
-      if (startOfMonthBalance.abs() > 0.000001) {
-        _monthlyPercent = (_monthlyProfit / startOfMonthBalance) * 100.0;
-      } else {
-        _monthlyPercent = 0.0;
-      }
-
-      _loadedOnce = true;
-    } catch (e) {
-      debugPrint('Portfolio load error: $e');
-      _totalBalance = 0;
-      _monthlyProfit = 0;
-      _monthlyPercent = 0;
+      totalProfit = total;
+      monthlyProfit = month;
+    } catch (e, st) {
+      debugPrint('loadForCurrentUser portfolio error: $e\n$st');
+      totalProfit = 0;
+      monthlyProfit = 0;
     } finally {
-      _loading = false;
+      loading = false;
       notifyListeners();
     }
   }

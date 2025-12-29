@@ -1,167 +1,227 @@
-﻿import 'dart:async';
+import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/foundation.dart';
-import 'package:tawaqu3_final/models/market_model.dart';
-import 'package:web_socket_channel/web_socket_channel.dart';
-import 'package:web_socket_channel/status.dart' as ws_status;
+
+import '../models/market_model.dart';
+
+// Some UI files do:  import '...price_websocket_service.dart' hide SignalMsg;
+// That causes an error if SignalMsg is not exported from this library.
+export '../models/market_model.dart' show SignalMsg;
 
 class PriceWebSocketService {
   final String wsUrl;
 
-  WebSocketChannel? _channel;
+  WebSocket? _ws;
   StreamSubscription? _sub;
+  Timer? _reconnectTimer;
+  bool _disposed = false;
 
-  final _pricesCtrl = StreamController<Map<String, MarketPrice>>.broadcast();
-  final _candlesCtrl = StreamController<Map<String, List<Candle>>>.broadcast(); // key: "$symbol__$tf"
-  final _signalsCtrl = StreamController<SignalMsg>.broadcast();
+  final _tickCtl = StreamController<TickMsg>.broadcast();
+  final _sigCtl = StreamController<SignalMsg>.broadcast();
+  final _candlesCtl = StreamController<Map<String, List<Candle>>>.broadcast();
 
-  Map<String, MarketPrice> _latestPrices = {};
-  Map<String, List<Candle>> _latestCandles = {};
+  final Map<String, List<Candle>> _candles = {};
+  final Map<String, Completer<List<Candle>>> _pending = {};
 
-  Stream<Map<String, MarketPrice>> get pricesStream => _pricesCtrl.stream;
-  Stream<Map<String, List<Candle>>> get candlesStream => _candlesCtrl.stream;
-  Stream<SignalMsg> get signalsStream => _signalsCtrl.stream;
+  Stream<TickMsg> get tickStream => _tickCtl.stream;
+  Stream<SignalMsg> get signalStream => _sigCtl.stream;
+  Stream<Map<String, List<Candle>>> get candlesStream => _candlesCtl.stream;
 
-  PriceWebSocketService({String? wsUrl}) : wsUrl = wsUrl ?? _defaultWsUrl() {
+  PriceWebSocketService({required this.wsUrl}) {
     _connect();
   }
 
-  static String _defaultWsUrl() {
-    // Web (Chrome on PC)
-    if (kIsWeb) return 'ws://127.0.0.1:8080';
-    // Android emulator -> host PC
-    return 'ws://10.0.2.2:8080';
-  }
+  String _key(String symbol, String tf) => '${symbol.toUpperCase()}__${tf}';
 
-  static String _alias(String s) =>
-      s.endsWith('_') ? s.substring(0, s.length - 1) : s;
-
-  static String _key(String symbol, String tf) =>
-      '${symbol.toUpperCase()}__${tf.toString()}';
-
-  List<Candle> candlesFor(String symbol, String tf) {
-    return _latestCandles[_key(symbol, tf)] ?? const <Candle>[];
-  }
-
-  void _putPrice(String symbol, double mid) {
-    final s1 = symbol.toUpperCase();
-    final s2 = _alias(s1);
-
-    _latestPrices = Map<String, MarketPrice>.from(_latestPrices);
-
-    _latestPrices[s1] =
-        MarketPrice(price: mid, change24h: _latestPrices[s1]?.change24h);
-
-    if (s2 != s1) {
-      _latestPrices[s2] =
-          MarketPrice(price: mid, change24h: _latestPrices[s2]?.change24h);
+  Future<void> _connect() async {
+    if (_disposed) return;
+    try {
+      _ws = await WebSocket.connect(wsUrl);
+      _sub = _ws!.listen(
+        _onMsg,
+        onDone: _scheduleReconnect,
+        onError: (_) => _scheduleReconnect(),
+        cancelOnError: true,
+      );
+    } catch (_) {
+      _scheduleReconnect();
     }
-
-    _pricesCtrl.add(_latestPrices);
   }
 
-  void _setCandles(String symbol, String tf, List<Candle> candles) {
-    final s1 = symbol.toUpperCase();
-    final s2 = _alias(s1);
+  void _scheduleReconnect() {
+    if (_disposed) return;
+    _sub?.cancel();
+    _sub = null;
+    try {
+      _ws?.close();
+    } catch (_) {}
+    _ws = null;
 
-    _latestCandles = Map<String, List<Candle>>.from(_latestCandles);
-
-    _latestCandles[_key(s1, tf)] = candles;
-    if (s2 != s1) _latestCandles[_key(s2, tf)] = candles;
-
-    _candlesCtrl.add(_latestCandles);
+    _reconnectTimer?.cancel();
+    _reconnectTimer = Timer(const Duration(seconds: 1), () {
+      if (_ws != null || _disposed) return;
+      _connect();
+    });
   }
 
-  void _appendCandle(String symbol, String tf, Candle candle) {
-    final s1 = symbol.toUpperCase();
-    final s2 = _alias(s1);
+  void _emitCandles() {
+    // Emit an immutable snapshot so listeners don't mutate internal state
+    final snap = <String, List<Candle>>{};
+    _candles.forEach((k, v) {
+      snap[k] = List<Candle>.unmodifiable(v);
+    });
+    _candlesCtl.add(Map<String, List<Candle>>.unmodifiable(snap));
+  }
 
-    _latestCandles = Map<String, List<Candle>>.from(_latestCandles);
+  void _onMsg(dynamic data) {
+    if (_disposed) return;
+    try {
+      final j = jsonDecode(data as String) as Map<String, dynamic>;
+      final type = (j['type'] ?? '').toString();
 
-    void appendOne(String sym) {
-      final k = _key(sym, tf);
-      final prev = _latestCandles[k] ?? const <Candle>[];
-      final next = List<Candle>.from(prev)..add(candle);
-
-      // keep last 600 candles
-      if (next.length > 600) {
-        next.removeRange(0, next.length - 600);
+      if (type == 'tick') {
+        _tickCtl.add(TickMsg.fromJson(j));
+        return;
       }
 
-      _latestCandles[k] = next;
+      if (type == 'signal') {
+        _sigCtl.add(SignalMsg.fromJson(j));
+        return;
+      }
+
+      // Streaming single candle
+      if (type == 'candle') {
+        final symbol = (j['symbol'] ?? '').toString().toUpperCase();
+        final tf = (j['tf'] ?? '1m').toString();
+        final c = Candle.fromJson(j);
+        final k = _key(symbol, tf);
+
+        final list = _candles.putIfAbsent(k, () => <Candle>[]);
+
+        // upsert by time
+        final idx = list.indexWhere(
+          (x) => x.time.millisecondsSinceEpoch == c.time.millisecondsSinceEpoch,
+        );
+        if (idx >= 0) {
+          list[idx] = c;
+        } else {
+          list.add(c);
+          list.sort((a, b) => a.time.compareTo(b.time));
+          if (list.length > 800) list.removeRange(0, list.length - 800);
+        }
+
+        _emitCandles();
+        return;
+      }
+
+      // Snapshot candles list from server
+      if (type == 'ohlc' || type == 'candles') {
+        final symbol = (j['symbol'] ?? '').toString().toUpperCase();
+        final tf = (j['tf'] ?? '1m').toString();
+        final k = _key(symbol, tf);
+
+        final raw = (j['candles'] as List?) ?? const [];
+        final list =
+            raw.map((e) => Candle.fromJson(e as Map<String, dynamic>)).toList()
+              ..sort((a, b) => a.time.compareTo(b.time));
+
+        _candles[k] = list;
+        _emitCandles();
+
+        // complete pending waiter
+        final c = _pending.remove(k);
+        if (c != null && !c.isCompleted) {
+          c.complete(List<Candle>.from(list));
+        }
+        return;
+      }
+    } catch (_) {
+      // ignore bad messages
     }
-
-    appendOne(s1);
-    if (s2 != s1) appendOne(s2);
-
-    _candlesCtrl.add(_latestCandles);
   }
 
-  void _connect() {
-    _channel = WebSocketChannel.connect(Uri.parse(wsUrl));
+  void requestCandles(String symbol, String tf, {int limit = 400}) {
+    final msg = jsonEncode({
+      'type': 'get_candles',
+      'symbol': symbol.toUpperCase(),
+      'tf': tf,
+      'limit': limit,
+    });
+    try {
+      _ws?.add(msg);
+    } catch (_) {}
+  }
 
-    _sub = _channel!.stream.listen(
-      (data) {
-        try {
-          final str = data is String ? data : data.toString();
-          final m = jsonDecode(str) as Map<String, dynamic>;
-          final type = (m['type'] ?? '').toString();
+  // Used by some UI files: they call setActiveView(symbol: ..., tf: ...)
+  void setActiveView({
+    required String symbol,
+    required String tf,
+    int limit = 400,
+  }) {
+    requestCandles(symbol, tf, limit: limit);
+  }
 
-          if (type == 'tick') {
-            final symbol = (m['symbol'] ?? '').toString();
-            if (symbol.isEmpty) return;
+  List<Candle> candlesFor(String symbol, String tf) {
+    final k = _key(symbol, tf);
+    return List<Candle>.unmodifiable(_candles[k] ?? const []);
+  }
 
-            final mid = (m['mid'] as num?)?.toDouble() ??
-                ((((m['bid'] as num).toDouble()) + ((m['ask'] as num).toDouble())) /
-                    2.0);
+  Future<List<Candle>> ensureCandles(
+    String symbol,
+    String tf, {
+    int minCount = 50,
+    Duration timeout = const Duration(seconds: 4),
+    int limit = 400,
+  }) async {
+    final k = _key(symbol, tf);
+    final current = _candles[k];
+    if (current != null && current.length >= minCount) {
+      return List<Candle>.from(current);
+    }
 
-            _putPrice(symbol, mid);
-          } else if (type == 'candle') {
-            final symbol = (m['symbol'] ?? '').toString();
-            final tf = (m['tf'] ?? '').toString();
-            if (symbol.isEmpty || tf.isEmpty) return;
+    // If another caller is already waiting, reuse it
+    final existing = _pending[k];
+    if (existing != null) {
+      try {
+        return await existing.future.timeout(timeout);
+      } catch (_) {
+        return List<Candle>.from(_candles[k] ?? const []);
+      }
+    }
 
-            final candle = Candle(
-              time: DateTime.tryParse((m['time'] ?? '').toString()) ??
-                  DateTime.now().toUtc(),
-              open: (m['open'] as num).toDouble(),
-              high: (m['high'] as num).toDouble(),
-              low: (m['low'] as num).toDouble(),
-              close: (m['close'] as num).toDouble(),
-              volume: (m['volume'] as num?)?.toDouble() ?? (m['v'] as num?)?.toDouble() ?? 0.0,
-            );
+    final c = Completer<List<Candle>>();
+    _pending[k] = c;
 
-            _appendCandle(symbol, tf, candle);
-          } else if (type == 'ohlc') {
-            // keep compatibility if you later send bulk candles
-            final symbol = (m['symbol'] ?? '').toString();
-            final tf = (m['tf'] ?? '').toString();
-            if (symbol.isEmpty || tf.isEmpty) return;
+    requestCandles(symbol, tf, limit: limit);
 
-            final list = (m['candles'] as List).cast<Map<String, dynamic>>();
-            final candles =
-                list.map((e) => Candle.fromJson(e)).toList(growable: false);
-
-            _setCandles(symbol, tf, candles);
-          } else if (type == 'signal') {
-            _signalsCtrl.add(SignalMsg.fromJson(m));
-          }
-        } catch (_) {
-          // ignore bad payload
-        }
-      },
-      onError: (_) {},
-      onDone: () {},
-    );
+    try {
+      return await c.future.timeout(timeout);
+    } catch (_) {
+      // return whatever we have
+      return List<Candle>.from(_candles[k] ?? const []);
+    } finally {
+      _pending.remove(k);
+    }
   }
 
   void dispose() {
+    _disposed = true;
+
+    _reconnectTimer?.cancel();
+    _reconnectTimer = null;
+
     _sub?.cancel();
-    _channel?.sink.close(ws_status.goingAway);
-    _pricesCtrl.close();
-    _candlesCtrl.close();
-    _signalsCtrl.close();
+    _sub = null;
+
+    try {
+      _ws?.close();
+    } catch (_) {}
+    _ws = null;
+
+    _tickCtl.close();
+    _sigCtl.close();
+    _candlesCtl.close();
   }
 }
-

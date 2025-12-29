@@ -5,6 +5,7 @@ class NotificationService {
   bool emailNotifications = false;
   bool pushNotifications = true;
 
-  void save() {/* persist with SharedPreferences in SettingsViewModel */}
+  void save() {
+    /* persist with SharedPreferences in SettingsViewModel */
+  }
 }
-

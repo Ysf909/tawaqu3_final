@@ -7,10 +7,7 @@ class AuthService {
     required String email,
     required String password,
   }) {
-    return _client.auth.signInWithPassword(
-      email: email,
-      password: password,
-    );
+    return _client.auth.signInWithPassword(email: email, password: password);
   }
 
   Future<AuthResponse> signUp({
@@ -22,10 +19,7 @@ class AuthService {
     return _client.auth.signUp(
       email: email,
       password: password,
-      data: {
-        'first_name': firstName,
-        'last_name': lastName,
-      },
+      data: {'first_name': firstName, 'last_name': lastName},
     );
   }
 

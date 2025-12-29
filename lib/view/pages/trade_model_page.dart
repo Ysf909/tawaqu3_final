@@ -43,16 +43,14 @@ class TradeModelPage extends StatelessWidget {
               const SizedBox(width: 8),
               Text(
                 modelLabel,
-                style: theme.textTheme.titleMedium
-                    ?.copyWith(fontWeight: FontWeight.w700),
+                style: theme.textTheme.titleMedium?.copyWith(
+                  fontWeight: FontWeight.w700,
+                ),
               ),
             ],
           ),
           const SizedBox(height: 8),
-          Text(
-            description,
-            style: theme.textTheme.bodyMedium,
-          ),
+          Text(description, style: theme.textTheme.bodyMedium),
           const SizedBox(height: 12),
           Text(
             'You chose: $typeLabel → model is locked to $modelLabel.',
