@@ -8,12 +8,10 @@ class NotificationsViewModel extends ChangeNotifier {
   bool pushNotifications = true;
 
   void disableAll() {
-    tradeAlerts = priceAlerts = newsUpdates = emailNotifications =
-        pushNotifications = false;
+    tradeAlerts = priceAlerts = newsUpdates = emailNotifications = pushNotifications = false;
     notifyListeners();
   }
 
-  void save() {
-    /* TODO: persist to SharedPreferences */
-  }
+  void save() { /* TODO: persist to SharedPreferences */ }
 }
+

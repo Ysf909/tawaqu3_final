@@ -1,4 +1,4 @@
-import 'dart:async';
+﻿import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -8,11 +8,7 @@ import 'package:tawaqu3_final/services/price_websocket_service.dart';
 class AssetChartLiveView extends StatefulWidget {
   final String symbol;
   final String initialTf; // "1m" or "5m"
-  const AssetChartLiveView({
-    super.key,
-    required this.symbol,
-    this.initialTf = "1m",
-  });
+  const AssetChartLiveView({super.key, required this.symbol, this.initialTf = "1m"});
 
   @override
   State<AssetChartLiveView> createState() => _AssetChartLiveViewState();
@@ -31,8 +27,11 @@ class _AssetChartLiveViewState extends State<AssetChartLiveView> {
   void initState() {
     super.initState();
     tf = widget.initialTf;
-    _ws = PriceWebSocketService(wsUrl: '');
+    _ws = PriceWebSocketService();
 
+    // 1) fetch stored candles from server
+    _fetchCandles();
+    // 2) render whatever is currently cached
     _refreshCandles();
 
     _candSub = _ws.candlesStream.listen((_) {
@@ -40,7 +39,7 @@ class _AssetChartLiveViewState extends State<AssetChartLiveView> {
       _refreshCandles();
     });
 
-    _sigSub = _ws.signalStream.listen((s) {
+    _sigSub = _ws.signalsStream.listen((s) {
       if (!mounted) return;
       if (s.symbol.toUpperCase() == widget.symbol.toUpperCase() ||
           s.symbol.toUpperCase() == (widget.symbol.toUpperCase() + "_")) {
@@ -52,6 +51,12 @@ class _AssetChartLiveViewState extends State<AssetChartLiveView> {
   void _refreshCandles() {
     final c = _ws.candlesFor(widget.symbol, tf);
     setState(() => _candles = List<Candle>.from(c));
+  }
+
+  Future<void> _fetchCandles() async {
+    await _ws.requestCandles(widget.symbol, tf, limit: 250);
+    if (!mounted) return;
+    _refreshCandles();
   }
 
   @override
@@ -71,11 +76,13 @@ class _AssetChartLiveViewState extends State<AssetChartLiveView> {
           PopupMenuButton<String>(
             onSelected: (v) {
               setState(() => tf = v);
-              _refreshCandles();
+              _fetchCandles();
             },
             itemBuilder: (_) => const [
               PopupMenuItem(value: "1m", child: Text("1m")),
               PopupMenuItem(value: "5m", child: Text("5m")),
+              PopupMenuItem(value: "15m", child: Text("15m")),
+              PopupMenuItem(value: "1h", child: Text("1h")),
             ],
           ),
         ],
@@ -109,7 +116,9 @@ class _AssetChartLiveViewState extends State<AssetChartLiveView> {
                   borderRadius: BorderRadius.circular(16),
                   border: Border.all(color: Colors.grey.withOpacity(0.3)),
                 ),
-                child: CustomPaint(painter: _CandlePainter(_candles)),
+                child: CustomPaint(
+                  painter: _CandlePainter(_candles),
+                ),
               ),
             ),
           ],
@@ -127,22 +136,14 @@ class _CandlePainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     if (candles.isEmpty) {
       final tp = TextPainter(
-        text: const TextSpan(
-          text: "No candles yet",
-          style: TextStyle(color: Colors.grey),
-        ),
+        text: const TextSpan(text: "No candles yet", style: TextStyle(color: Colors.grey)),
         textDirection: TextDirection.ltr,
       )..layout();
-      tp.paint(
-        canvas,
-        Offset((size.width - tp.width) / 2, (size.height - tp.height) / 2),
-      );
+      tp.paint(canvas, Offset((size.width - tp.width) / 2, (size.height - tp.height) / 2));
       return;
     }
 
-    final visible = candles.length > 80
-        ? candles.sublist(candles.length - 80)
-        : candles;
+    final visible = candles.length > 80 ? candles.sublist(candles.length - 80) : candles;
 
     double minP = visible.map((c) => c.low).reduce(min);
     double maxP = visible.map((c) => c.high).reduce(max);
@@ -150,8 +151,7 @@ class _CandlePainter extends CustomPainter {
     minP -= pad;
     maxP += pad;
 
-    double y(double p) =>
-        size.height - ((p - minP) / (maxP - minP)) * size.height;
+    double y(double p) => size.height - ((p - minP) / (maxP - minP)) * size.height;
 
     final candleW = size.width / visible.length;
     final wickPaint = Paint()..strokeWidth = 1.2;
@@ -168,17 +168,11 @@ class _CandlePainter extends CustomPainter {
 
       final top = y(max(c.open, c.close));
       final bottom = y(min(c.open, c.close));
-      final rect = Rect.fromLTWH(
-        x - candleW * 0.28,
-        top,
-        candleW * 0.56,
-        max(1.5, bottom - top),
-      );
+      final rect = Rect.fromLTWH(x - candleW * 0.28, top, candleW * 0.56, max(1.5, bottom - top));
       canvas.drawRect(rect, bodyPaint);
     }
   }
 
   @override
-  bool shouldRepaint(covariant _CandlePainter oldDelegate) =>
-      oldDelegate.candles != candles;
+  bool shouldRepaint(covariant _CandlePainter oldDelegate) => oldDelegate.candles != candles;
 }

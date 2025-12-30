@@ -13,7 +13,8 @@ class _HistoryViewState extends State<HistoryView> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() => context.read<HistoryViewModel>().loadHistory());
+    Future.microtask(() =>
+        context.read<HistoryViewModel>().loadHistory());
   }
 
   @override
@@ -21,7 +22,7 @@ class _HistoryViewState extends State<HistoryView> {
     final vm = context.watch<HistoryViewModel>();
 
     if (vm.loading) {
-      return Scaffold(
+      return  Scaffold(
         appBar: AppBar(title: Text('Trade History')),
         body: Center(child: CircularProgressIndicator()),
       );
@@ -38,8 +39,8 @@ class _HistoryViewState extends State<HistoryView> {
                 return ListTile(
                   title: Text('Entry: ${t.previousEntry}'),
                   subtitle: Text(
-                    'SL: ${t.previousSl}  TP: ${t.previousTp}  Lot: ${t.previousLot}\n'
-                    ' ${t.dateSaved}',
+                      'SL: ${t.previousSl}  TP: ${t.previousTp}  Lot: ${t.previousLot}\n'
+                      ' ${t.dateSaved}',
                   ),
                 );
               },

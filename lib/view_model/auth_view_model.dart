@@ -3,14 +3,13 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:tawaqu3_final/services/auth_service.dart';
 
 enum LoginStatus { success, userNotFound, wrongPassword, error }
-
 enum SignupStatus { success, emailAlreadyExists, error }
 
 class AuthViewModel with ChangeNotifier {
   final AuthService _authService;
 
   AuthViewModel({AuthService? authService})
-    : _authService = authService ?? AuthService();
+      : _authService = authService ?? AuthService();
 
   bool _isLoading = false;
   bool get isLoading => _isLoading;

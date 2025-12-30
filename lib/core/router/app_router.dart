@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:tawaqu3_final/view/pages/MainPage_view.dart' as mainp;
 import 'package:tawaqu3_final/view/pages/login_view.dart';
 import 'package:tawaqu3_final/view/pages/notifications_view.dart';
@@ -42,6 +42,9 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const ConnectsView());
       default:
         return MaterialPageRoute(builder: (_) => const LoginView());
+
     }
   }
 }
+
+

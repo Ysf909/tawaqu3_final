@@ -1,4 +1,4 @@
-class MarketPrice {
+﻿class MarketPrice {
   final double price;
   final double? change24h;
   const MarketPrice({required this.price, this.change24h});
@@ -20,9 +20,11 @@ class TickMsg {
   });
 
   factory TickMsg.fromJson(Map<String, dynamic> j) {
-    final bid = (j["bid"] as num?)?.toDouble() ?? 0.0;
-    final ask = (j["ask"] as num?)?.toDouble() ?? 0.0;
-    final mid = (j["mid"] as num?)?.toDouble() ?? ((bid + ask) / 2.0);
+    // Server may send either {price} or {mid}/{bid}/{ask}
+    final price = (j["price"] as num?)?.toDouble();
+    final bid = (j["bid"] as num?)?.toDouble() ?? (price ?? 0.0);
+    final ask = (j["ask"] as num?)?.toDouble() ?? (price ?? 0.0);
+    final mid = (j["mid"] as num?)?.toDouble() ?? price ?? ((bid + ask) / 2.0);
     final t = j["time"];
     final time = (t is String)
         ? (DateTime.tryParse(t) ?? DateTime.now().toUtc())
@@ -77,10 +79,7 @@ class Candle {
       high: pick("high", "h"),
       low: pick("low", "l"),
       close: pick("close", "c"),
-      volume:
-          (j["volume"] as num?)?.toDouble() ??
-          (j["v"] as num?)?.toDouble() ??
-          0.0,
+      volume: (j["volume"] as num?)?.toDouble() ?? (j["v"] as num?)?.toDouble() ?? 0.0,
     );
   }
 }
@@ -112,12 +111,9 @@ class SignalMsg {
   /// A) {type:'signal', side:'BUY', entry:..., score:..., note:...}
   /// B) {type:'signal', signal:'BUY', meta:{entry,score,note}, time:'ISO'}
   factory SignalMsg.fromJson(Map<String, dynamic> j) {
-    final meta = (j["meta"] is Map)
-        ? Map<String, dynamic>.from(j["meta"])
-        : <String, dynamic>{};
+    final meta = (j["meta"] is Map) ? Map<String, dynamic>.from(j["meta"]) : <String, dynamic>{};
 
-    String pickSide() =>
-        (j["side"] ?? j["signal"] ?? j["action"] ?? "NONE").toString();
+    String pickSide() => (j["side"] ?? j["signal"] ?? j["action"] ?? "NONE").toString();
 
     num? pickNum(String k) => (j[k] as num?) ?? (meta[k] as num?);
 

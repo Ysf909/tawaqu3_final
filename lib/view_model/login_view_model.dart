@@ -4,13 +4,7 @@ import 'package:tawaqu3_final/models/app_user.dart';
 // ⛔ REMOVE this import if you have it here:
 // import 'package:tawaqu3_final/view_model/user_session_view_model.dart';
 
-enum LoginStatus {
-  success,
-  userNotFound,
-  wrongPassword,
-  error,
-  emailNotConfirmed,
-}
+enum LoginStatus { success, userNotFound, wrongPassword, error, emailNotConfirmed }
 
 class LoginViewModel with ChangeNotifier {
   final SupabaseClient _client = Supabase.instance.client;

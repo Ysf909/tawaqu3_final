@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:provider/provider.dart';
 import 'package:tawaqu3_final/models/market_model.dart';
-import 'package:tawaqu3_final/services/mt5_tick_websocket_service.dart';
+import 'package:tawaqu3_final/services/price_websocket_service.dart';
 import 'package:tawaqu3_final/view/pages/trade_flow_view.dart';
 import 'package:tawaqu3_final/view/widgets/tab_nav_bar.dart';
 import 'package:tawaqu3_final/view/pages/home_tab_view.dart';
@@ -12,6 +12,7 @@ import 'package:tawaqu3_final/view/pages/news_tab_view.dart';
 import 'package:tawaqu3_final/view/pages/top_traders_tab_view.dart';
 import '../../core/router/app_router.dart';
 import '../../view_model/navigation_view_model.dart';
+import '../../view_model/portfolio_view_model.dart';
 import '../../services/api_service.dart' show ApiService;
 
 class MainPage extends StatefulWidget {
@@ -39,11 +40,12 @@ class _MainPageState extends State<MainPage> {
   Map<String, MarketPrice> _prices = {};
   Map<String, double> _previousPrices = {};
 
-  Mt5TickWebSocketService? _wsService;
+  PriceWebSocketService? _wsService;
   StreamSubscription<Map<String, MarketPrice>>? _wsSub;
 
   void _seedSymbols() {
-    const symbols = <String>['EURUSD_', 'XAUUSD_', 'BTCUSD', 'ETHUSD'];
+    // Your project focuses on gold & silver. Keep crypto too.
+    const symbols = <String>['XAUUSD_', 'XAGUSD_', 'BTCUSD', 'ETHUSD', 'EURUSD_'];
 
     setState(() {
       _prices = {
@@ -59,14 +61,16 @@ class _MainPageState extends State<MainPage> {
     super.initState();
     _seedSymbols();
     _startWebSocket();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      context.read<PortfolioViewModel>().loadForCurrentUser();
+    });
   }
 
   void _startWebSocket() {
-    _wsService = Mt5TickWebSocketService(wsUrl: _wsUrl());
+    _wsService = PriceWebSocketService(wsUrl: _wsUrl());
     _wsSub = _wsService!.pricesStream.listen((wsPrices) {
-      print(
-        "WS PRICES: $wsPrices",
-      ); // ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¦ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã¢â‚¬Å“ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¦ add this
       if (!mounted) return;
 
       setState(() {

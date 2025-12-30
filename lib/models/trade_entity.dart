@@ -1,6 +1,6 @@
 class TradeEntity {
-  final String id; // uuid from Supabase
-  final String userId; // uuid from your users table
+  final String id;      // uuid from Supabase
+  final String userId;  // uuid from your users table
   final double entry;
   final double sl;
   final double tp;

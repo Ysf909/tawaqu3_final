@@ -1,12 +1,13 @@
-import 'dart:math' as math;
+﻿import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:tawaqu3_final/models/market_model.dart';
-import 'package:tawaqu3_final/services/price_websocket_service.dart' hide SignalMsg;
+import 'package:tawaqu3_final/services/price_websocket_service.dart';
 
 class AssetChartView extends StatefulWidget {
   final String symbol;
-  final String initialTf; // e.g. "15m", "1h", "1d"
+  final String initialTf; // "1m" or "5m"
   final String? wsUrlOverride;
 
   const AssetChartView({
@@ -21,16 +22,10 @@ class AssetChartView extends StatefulWidget {
 }
 
 class _AssetChartViewState extends State<AssetChartView> {
-  static const List<String> _timeframes = [
-    '15m',
-    '30m',
-    '1h',
-    '4h',
-    '1d',
-    '1w',
-  ];
   late String _tf;
   PriceWebSocketService? _ws;
+  StreamSubscription? _candSub;
+  StreamSubscription? _sigSub;
   List<Candle> _candles = const [];
   SignalMsg? _lastSignal;
 
@@ -47,38 +42,40 @@ class _AssetChartViewState extends State<AssetChartView> {
   @override
   void initState() {
     super.initState();
-    _tf = _timeframes.contains(widget.initialTf)
-        ? widget.initialTf
-        : _timeframes.first;
+    _tf = widget.initialTf;
     _ws = PriceWebSocketService(wsUrl: widget.wsUrlOverride ?? _defaultWsUrl());
 
-    _ws!.candlesStream.listen((m) {
-      final sym1 = widget.symbol.toUpperCase();
-      final sym2 = sym1.endsWith('_')
-          ? sym1.substring(0, sym1.length - 1)
-          : sym1;
-      final key1 = "${sym1}__${_tf}";
-      final key2 = "${sym2}__${_tf}";
-      final list = (m[key1] ?? m[key2]) ?? const <Candle>[];
+    // fetch stored candles from server
+    _fetchCandles();
+
+    _candSub = _ws!.candlesStream.listen((_) {
       if (!mounted) return;
-      setState(() => _candles = list);
+      _refreshCandles();
     });
 
-    _ws!.signalStream.listen((s) {
-      final sym1 = widget.symbol.toUpperCase();
-      final sym2 = sym1.endsWith('_')
-          ? sym1.substring(0, sym1.length - 1)
-          : sym1;
-      if ((s.symbol.toUpperCase() == sym1 || s.symbol.toUpperCase() == sym2) &&
-          s.tf == _tf) {
-        if (!mounted) return;
+    _sigSub = _ws!.signalsStream.listen((s) {
+      if (!mounted) return;
+      if (s.symbol.toUpperCase() == widget.symbol.toUpperCase() && s.tf.toLowerCase() == _tf.toLowerCase()) {
         setState(() => _lastSignal = s);
       }
     });
   }
 
+  void _refreshCandles() {
+    final list = _ws?.candlesFor(widget.symbol, _tf) ?? const <Candle>[];
+    setState(() => _candles = List<Candle>.from(list));
+  }
+
+  Future<void> _fetchCandles() async {
+    await _ws?.requestCandles(widget.symbol, _tf, limit: 300);
+    if (!mounted) return;
+    _refreshCandles();
+  }
+
   @override
   void dispose() {
+    _candSub?.cancel();
+    _sigSub?.cancel();
     _ws?.dispose();
     super.dispose();
   }
@@ -99,11 +96,14 @@ class _AssetChartViewState extends State<AssetChartView> {
                 _candles = const [];
                 _lastSignal = null;
               });
-              _ws?.setActiveView(symbol: widget.symbol, tf: _tf, limit: 600);
+              _fetchCandles();
             },
-            itemBuilder: (_) => _timeframes
-                .map((t) => PopupMenuItem(value: t, child: Text(t)))
-                .toList(),
+            itemBuilder: (_) => const [
+              PopupMenuItem(value: "1m", child: Text("1m")),
+              PopupMenuItem(value: "5m", child: Text("5m")),
+              PopupMenuItem(value: "15m", child: Text("15m")),
+              PopupMenuItem(value: "1h", child: Text("1h")),
+            ],
           ),
         ],
       ),
@@ -139,26 +139,7 @@ class _AssetChartViewState extends State<AssetChartView> {
                 ),
                 child: _candles.isEmpty
                     ? const Center(child: Text("Waiting for candles…"))
-                    : LayoutBuilder(
-                        builder: (context, constraints) {
-                          final w = math.max(
-                            constraints.maxWidth,
-                            _candles.length * 6.0,
-                          );
-                          return InteractiveViewer(
-                            minScale: 1,
-                            maxScale: 4,
-                            constrained: false,
-                            child: SizedBox(
-                              width: w,
-                              height: constraints.maxHeight,
-                              child: CustomPaint(
-                                painter: _CandlePainter(_candles),
-                              ),
-                            ),
-                          );
-                        },
-                      ),
+                    : CustomPaint(painter: _CandlePainter(_candles)),
               ),
             ),
           ],
@@ -174,9 +155,7 @@ class _CandlePainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final visible = candles.length > 120
-        ? candles.sublist(candles.length - 120)
-        : candles;
+    final visible = candles.length > 120 ? candles.sublist(candles.length - 120) : candles;
 
     double minP = visible.first.low;
     double maxP = visible.first.high;
@@ -186,8 +165,7 @@ class _CandlePainter extends CustomPainter {
     }
     if ((maxP - minP).abs() < 1e-9) return;
 
-    double y(double p) =>
-        size.height - ((p - minP) / (maxP - minP)) * size.height;
+    double y(double p) => size.height - ((p - minP) / (maxP - minP)) * size.height;
 
     final candleW = size.width / visible.length;
     final wickPaint = Paint()..strokeWidth = 1.2;

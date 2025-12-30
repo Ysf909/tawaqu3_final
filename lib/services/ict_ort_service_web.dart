@@ -1,4 +1,4 @@
-import 'dart:convert';
+﻿import 'dart:convert';
 import 'dart:typed_data';
 import 'package:http/http.dart' as http;
 
@@ -20,10 +20,7 @@ class IctOrtService {
     return _predict(tf: '5m', data: data);
   }
 
-  Future<List<double>> _predict({
-    required String tf,
-    required Float32List data,
-  }) async {
+  Future<List<double>> _predict({required String tf, required Float32List data}) async {
     final res = await http.post(
       Uri.parse('$baseUrl/predict'),
       headers: {'Content-Type': 'application/json'},

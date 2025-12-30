@@ -52,7 +52,7 @@ class SignupViewModel with ChangeNotifier {
         'fname': _form.firstName,
         'lname': _form.lastName,
         'email': _form.email,
-        'password': _form.password, // ⚠️ SECURITY RISK — remove later
+        'password': _form.password,       // ⚠️ SECURITY RISK — remove later
         'created_at': DateTime.now().toIso8601String(),
       });
 

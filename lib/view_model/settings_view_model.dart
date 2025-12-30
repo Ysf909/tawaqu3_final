@@ -5,18 +5,8 @@ class SettingsViewModel extends ChangeNotifier {
   String language = 'English';
   bool mt5Connected = true;
 
-  void toggleTheme() {
-    isDark = !isDark;
-    notifyListeners();
-  }
-
-  void setLanguage(String lang) {
-    language = lang;
-    notifyListeners();
-  }
-
-  void setMt5(bool value) {
-    mt5Connected = value;
-    notifyListeners();
-  }
+  void toggleTheme() { isDark = !isDark; notifyListeners(); }
+  void setLanguage(String lang) { language = lang; notifyListeners(); }
+  void setMt5(bool value) { mt5Connected = value; notifyListeners(); }
 }
+

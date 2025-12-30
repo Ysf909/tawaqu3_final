@@ -15,3 +15,4 @@ class Prediction {
     required this.confidence,
   });
 }
+

@@ -1,17 +1,8 @@
 class Validation {
   static final List<String> validDomains = [
-    'gmail.com',
-    'yahoo.com',
-    'hotmail.com',
-    'outlook.com',
-    'icloud.com',
-    'aol.com',
-    'protonmail.com',
-    'zoho.com',
-    'yandex.com',
-    'live.com',
-    'mail.com',
-    'inbox.com',
+    'gmail.com', 'yahoo.com', 'hotmail.com', 'outlook.com',
+    'icloud.com', 'aol.com', 'protonmail.com', 'zoho.com',
+    'yandex.com', 'live.com', 'mail.com', 'inbox.com'
   ];
 
   static final Map<String, String> domainCorrections = {
@@ -33,29 +24,28 @@ class Validation {
     if (value == null || value.isEmpty) {
       return 'Please enter your email';
     }
-
+    
     // Trim and lowercase the value
     value = value.trim().toLowerCase();
-
+    
     String pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$';
     RegExp regex = RegExp(pattern);
     if (!regex.hasMatch(value)) {
       return 'Please enter a valid email address';
     }
-
+    
     String domain = value.split('@').last;
     if (domainCorrections.containsKey(domain)) {
       domain = domainCorrections[domain]!;
     }
-
+    
     if (!validDomains.contains(domain)) {
       return 'We currently support: ${validDomains.join(', ')}';
     }
-
+    
     return null;
   }
-
-  static String? confirmPassword(String? value, String password) {
+     static String? confirmPassword(String? value, String password) {
     if (value == null || value.isEmpty) {
       return 'Please confirm your password';
     }

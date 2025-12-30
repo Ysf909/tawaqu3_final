@@ -32,15 +32,11 @@ class TradeResultPage extends StatelessWidget {
               decoration: BoxDecoration(
                 color: theme.colorScheme.error.withOpacity(0.08),
                 borderRadius: BorderRadius.circular(12),
-                border: Border.all(
-                  color: theme.colorScheme.error.withOpacity(0.25),
-                ),
+                border: Border.all(color: theme.colorScheme.error.withOpacity(0.25)),
               ),
               child: Text(
                 vm.lastError!,
-                style: theme.textTheme.bodySmall?.copyWith(
-                  color: theme.colorScheme.error,
-                ),
+                style: theme.textTheme.bodySmall?.copyWith(color: theme.colorScheme.error),
               ),
             ),
             const SizedBox(height: 12),
@@ -69,25 +65,18 @@ class TradeResultPage extends StatelessWidget {
                     children: [
                       Text(
                         vm.lastPrediction!.pair,
-                        style: theme.textTheme.titleMedium?.copyWith(
-                          fontWeight: FontWeight.w700,
-                        ),
+                        style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w700),
                       ),
                       const SizedBox(width: 10),
                       Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 10,
-                          vertical: 6,
-                        ),
+                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(999),
                           color: theme.colorScheme.primary.withOpacity(0.12),
                         ),
                         child: Text(
                           vm.lastPrediction!.side,
-                          style: theme.textTheme.bodySmall?.copyWith(
-                            fontWeight: FontWeight.w700,
-                          ),
+                          style: theme.textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w700),
                         ),
                       ),
                       const Spacer(),
@@ -95,16 +84,11 @@ class TradeResultPage extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 8),
-                  Text(
-                    'Model: ${vm.selectedModel.label}',
-                    style: theme.textTheme.bodySmall,
-                  ),
+                  Text('Model: ${vm.selectedModel.label}', style: theme.textTheme.bodySmall),
                   const SizedBox(height: 10),
                   Text(
                     'Confidence: ${vm.lastPrediction!.confidence.toStringAsFixed(1)}%',
-                    style: theme.textTheme.bodyMedium?.copyWith(
-                      fontWeight: FontWeight.w600,
-                    ),
+                    style: theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600),
                   ),
                   const SizedBox(height: 6),
                   LinearProgressIndicator(
@@ -130,13 +114,9 @@ class TradeResultPage extends StatelessWidget {
                 children: [
                   Text('Entry: ${vm.lastPrediction!.entry.toStringAsFixed(4)}'),
                   const SizedBox(height: 6),
-                  Text(
-                    'Stop Loss: ${vm.lastPrediction!.sl.toStringAsFixed(4)}',
-                  ),
+                  Text('Stop Loss: ${vm.lastPrediction!.sl.toStringAsFixed(4)}'),
                   const SizedBox(height: 6),
-                  Text(
-                    'Take Profit: ${vm.lastPrediction!.tp.toStringAsFixed(4)}',
-                  ),
+                  Text('Take Profit: ${vm.lastPrediction!.tp.toStringAsFixed(4)}'),
                   const SizedBox(height: 6),
                   Text('Lot: ${vm.lastPrediction!.lot.toStringAsFixed(2)}'),
                 ],
@@ -150,18 +130,14 @@ class TradeResultPage extends StatelessWidget {
               children: [
                 Expanded(
                   child: OutlinedButton(
-                    onPressed: vm.loading
-                        ? null
-                        : () => vm.markOutcome(TradeOutcome.tpHit),
+                    onPressed: vm.loading ? null : () => vm.markOutcome(TradeOutcome.tpHit),
                     child: const Text('TP HIT'),
                   ),
                 ),
                 const SizedBox(width: 12),
                 Expanded(
                   child: OutlinedButton(
-                    onPressed: vm.loading
-                        ? null
-                        : () => vm.markOutcome(TradeOutcome.slHit),
+                    onPressed: vm.loading ? null : () => vm.markOutcome(TradeOutcome.slHit),
                     child: const Text('SL HIT'),
                   ),
                 ),

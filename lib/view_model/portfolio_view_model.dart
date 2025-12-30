@@ -8,8 +8,8 @@ class PortfolioViewModel extends ChangeNotifier {
   PortfolioViewModel({this.baseBalance = 10000});
 
   bool loading = false;
-  double totalProfit = 0; // lifetime P/L
-  double monthlyProfit = 0; // last 30 days
+  double totalProfit = 0;    // lifetime P/L
+  double monthlyProfit = 0;  // last 30 days
 
   double get totalBalance => baseBalance + totalProfit;
 

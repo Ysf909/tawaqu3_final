@@ -71,9 +71,7 @@ class TradeTypePage extends StatelessWidget {
           const SizedBox(height: 16),
           Text(
             'Model auto-selected: ${vm.selectedModel.label}',
-            style: theme.textTheme.bodyMedium?.copyWith(
-              fontWeight: FontWeight.w600,
-            ),
+            style: theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600),
           ),
 
           const SizedBox(height: 18),
@@ -90,15 +88,10 @@ class TradeTypePage extends StatelessWidget {
               children: vm.allTypes
                   .map(
                     (t) => Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 14,
-                        vertical: 10,
-                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
                       child: Text(
                         t.label,
-                        style: theme.textTheme.bodyMedium?.copyWith(
-                          fontWeight: FontWeight.w600,
-                        ),
+                        style: theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600),
                       ),
                     ),
                   )
@@ -107,9 +100,7 @@ class TradeTypePage extends StatelessWidget {
           ),
 
           const SizedBox(height: 16),
-          const Text(
-            'Long: buy & hold • Short: profit from decline • Scalper: quick trades',
-          ),
+          const Text('Long: buy & hold • Short: profit from decline • Scalper: quick trades'),
         ],
       ),
     );

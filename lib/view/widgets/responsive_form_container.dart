@@ -28,10 +28,15 @@ class ResponsiveFormContainer extends StatelessWidget {
               padding: const EdgeInsets.all(16),
               child: ConstrainedBox(
                 // 🔑 Makes the content at least as tall as the viewport
-                constraints: BoxConstraints(minHeight: constraints.maxHeight),
+                constraints: BoxConstraints(
+                  minHeight: constraints.maxHeight,
+                ),
                 child: Align(
                   alignment: Alignment.center,
-                  child: SizedBox(width: targetWidth, child: child),
+                  child: SizedBox(
+                    width: targetWidth,
+                    child: child,
+                  ),
                 ),
               ),
             ),

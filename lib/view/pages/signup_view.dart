@@ -61,9 +61,10 @@ class _SignupViewBodyState extends State<_SignupViewBody> {
           children: [
             Text(
               'Create Account',
-              style: Theme.of(
-                context,
-              ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
+              style: Theme.of(context)
+                  .textTheme
+                  .headlineSmall
+                  ?.copyWith(fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 16),
 
@@ -100,7 +101,7 @@ class _SignupViewBodyState extends State<_SignupViewBody> {
               controller: _password,
               label: 'Password',
               obscure: true,
-              validator: (v) => Validation.password(v, _password.text),
+              validator: (v) => Validation.password(v,_password.text),
             ),
             const SizedBox(height: 12),
 
@@ -108,7 +109,8 @@ class _SignupViewBodyState extends State<_SignupViewBody> {
               controller: _confirmPassword,
               label: 'Confirm Password',
               obscure: true,
-              validator: (v) => Validation.confirmPassword(v, _password.text),
+              validator: (v) =>
+                  Validation.confirmPassword(v, _password.text),
             ),
             const SizedBox(height: 12),
 
@@ -226,7 +228,9 @@ class _SignupViewBodyState extends State<_SignupViewBody> {
                       Navigator.pushNamed(context, AppRouter.authRoute),
                   child: const Text(
                     'Log In',
-                    style: TextStyle(decoration: TextDecoration.underline),
+                    style: TextStyle(
+                      decoration: TextDecoration.underline,
+                    ),
                   ),
                 ),
               ],

@@ -77,7 +77,9 @@ class _TradeFlowViewState extends State<TradeFlowView> {
               Expanded(
                 child: Center(
                   child: ConstrainedBox(
-                    constraints: const BoxConstraints(maxWidth: 600),
+                    constraints: const BoxConstraints(
+                      maxWidth: 600,
+                    ),
                     child: PageView(
                       controller: _pageController,
                       physics: isWide
@@ -99,10 +101,8 @@ class _TradeFlowViewState extends State<TradeFlowView> {
 
               // BOTTOM NAVIGATION
               Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 12,
-                ),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                 child: Row(
                   children: [
                     if (_currentStep > 0)
@@ -133,7 +133,10 @@ class _StepHeader extends StatelessWidget {
   final int currentStep;
   final void Function(int index) onStepTap;
 
-  const _StepHeader({required this.currentStep, required this.onStepTap});
+  const _StepHeader({
+    required this.currentStep,
+    required this.onStepTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -156,13 +159,13 @@ class _StepHeader extends StatelessWidget {
         final bgColor = isActive
             ? colorScheme.primary
             : isDone
-            ? colorScheme.primary.withOpacity(0.15)
-            : colorScheme.surfaceContainerHighest;
+                ? colorScheme.primary.withOpacity(0.15)
+                : colorScheme.surfaceContainerHighest;
         final fgColor = isActive
             ? colorScheme.onPrimary
             : isDone
-            ? colorScheme.primary
-            : theme.textTheme.bodyMedium?.color;
+                ? colorScheme.primary
+                : theme.textTheme.bodyMedium?.color;
 
         return Expanded(
           child: InkWell(
@@ -173,10 +176,8 @@ class _StepHeader extends StatelessWidget {
               children: [
                 AnimatedContainer(
                   duration: const Duration(milliseconds: 200),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 8,
-                    vertical: 6,
-                  ),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
                   decoration: BoxDecoration(
                     color: bgColor,
                     borderRadius: BorderRadius.circular(999),
@@ -184,15 +185,18 @@ class _StepHeader extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(steps[index].$2, size: 18, color: fgColor),
+                      Icon(
+                        steps[index].$2,
+                        size: 18,
+                        color: fgColor,
+                      ),
                       const SizedBox(width: 6),
                       Text(
                         steps[index].$1,
                         style: theme.textTheme.labelMedium?.copyWith(
                           color: fgColor,
-                          fontWeight: isActive
-                              ? FontWeight.w600
-                              : FontWeight.w500,
+                          fontWeight:
+                              isActive ? FontWeight.w600 : FontWeight.w500,
                         ),
                       ),
                     ],

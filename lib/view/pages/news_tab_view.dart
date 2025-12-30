@@ -6,7 +6,7 @@ import 'package:tawaqu3_final/view/widgets/card_container.dart';
 enum NewsFilter { all, forex, crypto, metals }
 
 class NewsView extends StatefulWidget {
-  const NewsView({super.key});
+  const NewsView({super.key}); 
 
   @override
   State<NewsView> createState() => _NewsViewState();
@@ -177,9 +177,7 @@ class _NewsViewState extends State<NewsView> {
                     children: [
                       Container(
                         padding: const EdgeInsets.symmetric(
-                          horizontal: 8,
-                          vertical: 4,
-                        ),
+                            horizontal: 8, vertical: 4),
                         decoration: BoxDecoration(
                           color: catColor.withOpacity(0.1),
                           borderRadius: BorderRadius.circular(999),
@@ -196,12 +194,14 @@ class _NewsViewState extends State<NewsView> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          Text(pubText, style: theme.textTheme.labelSmall),
+                          Text(
+                            pubText,
+                            style: theme.textTheme.labelSmall,
+                          ),
                           Text(
                             _formatAge(item.age),
-                            style: theme.textTheme.labelSmall?.copyWith(
-                              color: Colors.grey,
-                            ),
+                            style: theme.textTheme.labelSmall
+                                ?.copyWith(color: Colors.grey),
                           ),
                         ],
                       ),
@@ -219,7 +219,9 @@ class _NewsViewState extends State<NewsView> {
                     item.summary.isNotEmpty
                         ? item.summary
                         : 'No additional details available.',
-                    style: theme.textTheme.bodyMedium?.copyWith(height: 1.4),
+                    style: theme.textTheme.bodyMedium?.copyWith(
+                      height: 1.4,
+                    ),
                   ),
                 ],
               ),
@@ -252,9 +254,7 @@ class _NewsViewState extends State<NewsView> {
                 children: [
                   Container(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 8,
-                      vertical: 4,
-                    ),
+                        horizontal: 8, vertical: 4),
                     decoration: BoxDecoration(
                       color: catColor.withOpacity(0.1),
                       borderRadius: BorderRadius.circular(999),
@@ -290,7 +290,9 @@ class _NewsViewState extends State<NewsView> {
                     : 'No summary available.',
                 maxLines: 3, // 👈 only preview
                 overflow: TextOverflow.ellipsis,
-                style: theme.textTheme.bodyMedium?.copyWith(height: 1.3),
+                style: theme.textTheme.bodyMedium?.copyWith(
+                  height: 1.3,
+                ),
               ),
             ],
           ),
@@ -309,10 +311,8 @@ class _NewsViewState extends State<NewsView> {
         children: [
           // Header
           Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 16.0,
-              vertical: 8.0,
-            ),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
             child: Row(
               children: [
                 Text(
@@ -336,10 +336,8 @@ class _NewsViewState extends State<NewsView> {
             height: 56,
             child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
-              padding: const EdgeInsets.symmetric(
-                horizontal: 8.0,
-                vertical: 8.0,
-              ),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
               child: Row(
                 children: [
                   _buildFilterChip("All", NewsFilter.all),
@@ -356,34 +354,35 @@ class _NewsViewState extends State<NewsView> {
             child: _loading
                 ? const Center(child: CircularProgressIndicator())
                 : _error != null
-                ? Center(
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Text(
-                        'Error loading news.\n$_error',
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(color: Colors.redAccent),
-                      ),
-                    ),
-                  )
-                : news.isEmpty
-                ? const Center(
-                    child: Text(
-                      'No news found.\nTry refreshing in a moment.',
-                      textAlign: TextAlign.center,
-                    ),
-                  )
-                : RefreshIndicator(
-                    onRefresh: _loadAllNews,
-                    child: ListView.builder(
-                      physics: const AlwaysScrollableScrollPhysics(),
-                      itemCount: news.length,
-                      itemBuilder: (context, index) {
-                        final item = news[index];
-                        return _buildNewsCard(item);
-                      },
-                    ),
-                  ),
+                    ? Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Text(
+                            'Error loading news.\n$_error',
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(color: Colors.redAccent),
+                          ),
+                        ),
+                      )
+                    : news.isEmpty
+                        ? const Center(
+                            child: Text(
+                              'No news found.\nTry refreshing in a moment.',
+                              textAlign: TextAlign.center,
+                            ),
+                          )
+                        : RefreshIndicator(
+                            onRefresh: _loadAllNews,
+                            child: ListView.builder(
+                              physics:
+                                  const AlwaysScrollableScrollPhysics(),
+                              itemCount: news.length,
+                              itemBuilder: (context, index) {
+                                final item = news[index];
+                                return _buildNewsCard(item);
+                              },
+                            ),
+                          ),
           ),
         ],
       ),
