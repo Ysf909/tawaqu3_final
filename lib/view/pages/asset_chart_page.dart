@@ -3,7 +3,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:tawaqu3_final/models/market_model.dart';
+import 'package:tawaqu3_final/models/signal_msg.dart';
 import 'package:tawaqu3_final/services/price_websocket_service.dart';
+import 'package:tawaqu3_final/view/widgets/interactive_candlestick_chart.dart';
 
 class AssetChartView extends StatefulWidget {
   final String symbol;
@@ -23,29 +25,34 @@ class AssetChartView extends StatefulWidget {
 
 class _AssetChartViewState extends State<AssetChartView> {
   late String _tf;
+  late String _symbol;
+
   PriceWebSocketService? _ws;
   StreamSubscription? _candSub;
   StreamSubscription? _sigSub;
+  StreamSubscription? _priceSub;
+
   List<Candle> _candles = const [];
   SignalMsg? _lastSignal;
+  double? _livePrice;
 
   String _defaultWsUrl() {
-    if (kIsWeb) return 'ws://127.0.0.1:8080';
-    switch (defaultTargetPlatform) {
-      case TargetPlatform.android:
-        return 'ws://10.0.2.2:8080';
-      default:
-        return 'ws://127.0.0.1:8080';
+    if (widget.wsUrlOverride != null && widget.wsUrlOverride!.trim().isNotEmpty) {
+      return widget.wsUrlOverride!.trim();
     }
+    return PriceWebSocketService.defaultWsUrl;
   }
 
   @override
   void initState() {
     super.initState();
     _tf = widget.initialTf;
-    _ws = PriceWebSocketService(wsUrl: widget.wsUrlOverride ?? _defaultWsUrl());
+    _symbol = widget.symbol.trim();
+    if (_symbol.endsWith('_')) _symbol = _symbol.substring(0, _symbol.length - 1);
 
-    // fetch stored candles from server
+    _ws = PriceWebSocketService(wsUrl: _defaultWsUrl());
+    unawaited(_ws!.connect());
+
     _fetchCandles();
 
     _candSub = _ws!.candlesStream.listen((_) {
@@ -55,27 +62,38 @@ class _AssetChartViewState extends State<AssetChartView> {
 
     _sigSub = _ws!.signalsStream.listen((s) {
       if (!mounted) return;
-      if (s.symbol.toUpperCase() == widget.symbol.toUpperCase() && s.tf.toLowerCase() == _tf.toLowerCase()) {
+      if (s.symbol.toUpperCase() == _symbol.toUpperCase() &&
+          s.tf.toLowerCase() == _tf.toLowerCase()) {
         setState(() => _lastSignal = s);
       }
+    });
+
+    _priceSub = _ws!.pricesStream.listen((m) {
+      if (!mounted) return;
+      final p = m[_symbol.toUpperCase()] ?? _ws!.getPrice(_symbol);
+      setState(() => _livePrice = p?.effectiveMid);
     });
   }
 
   void _refreshCandles() {
-    final list = _ws?.candlesFor(widget.symbol, _tf) ?? const <Candle>[];
+    final list = _ws?.candlesFor(_symbol, _tf) ?? const <Candle>[];
     setState(() => _candles = List<Candle>.from(list));
   }
 
   Future<void> _fetchCandles() async {
-    await _ws?.requestCandles(widget.symbol, _tf, limit: 300);
+    await _ws?.requestCandles(_symbol, _tf, limit: 300);
     if (!mounted) return;
     _refreshCandles();
+    setState(() {
+      _livePrice = _ws?.getPrice(_symbol)?.effectiveMid;
+    });
   }
 
   @override
   void dispose() {
     _candSub?.cancel();
     _sigSub?.cancel();
+    _priceSub?.cancel();
     _ws?.dispose();
     super.dispose();
   }
@@ -86,7 +104,7 @@ class _AssetChartViewState extends State<AssetChartView> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("${widget.symbol} • $_tf"),
+        title: Text("$_symbol • $_tf"),
         actions: [
           PopupMenuButton<String>(
             initialValue: _tf,
@@ -117,13 +135,14 @@ class _AssetChartViewState extends State<AssetChartView> {
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
-                  color: (_lastSignal!.side == "BUY")
-                      ? Colors.green.withOpacity(0.12)
-                      : Colors.red.withOpacity(0.12),
+                  color: (_lastSignal!.side.toUpperCase() == "BUY")
+                      ? Colors.green.withOpacity(0.10)
+                      : Colors.red.withOpacity(0.10),
+                  border: Border.all(color: theme.dividerColor.withOpacity(0.30)),
                 ),
                 child: Text(
-                  "Signal: ${_lastSignal!.side}"
-                  "${_lastSignal!.entry != null ? "  • entry ${_lastSignal!.entry}" : ""}"
+                  "Signal: ${_lastSignal!.side.isEmpty ? '—' : _lastSignal!.side}"
+                  "${_lastSignal!.entry != null ? "  • entry ${_lastSignal!.entry!.toStringAsFixed(4)}" : ""}"
                   "${_lastSignal!.score != null ? "  • score ${_lastSignal!.score!.toStringAsFixed(2)}" : ""}"
                   "${(_lastSignal!.note ?? "").isNotEmpty ? "\n${_lastSignal!.note}" : ""}",
                   style: theme.textTheme.bodyMedium,
@@ -135,11 +154,17 @@ class _AssetChartViewState extends State<AssetChartView> {
                 width: double.infinity,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(16),
-                  border: Border.all(color: Colors.grey.withOpacity(0.3)),
+                  border: Border.all(color: theme.dividerColor.withOpacity(0.35)),
                 ),
                 child: _candles.isEmpty
                     ? const Center(child: Text("Waiting for candles…"))
-                    : CustomPaint(painter: _CandlePainter(_candles)),
+                    : ClipRRect(
+                        borderRadius: BorderRadius.circular(16),
+                        child: InteractiveCandlestickChart(
+                          candles: _candles,
+                          livePrice: _livePrice,
+                        ),
+                      ),
               ),
             ),
           ],
@@ -147,53 +172,4 @@ class _AssetChartViewState extends State<AssetChartView> {
       ),
     );
   }
-}
-
-class _CandlePainter extends CustomPainter {
-  final List<Candle> candles;
-  _CandlePainter(this.candles);
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final visible = candles.length > 120 ? candles.sublist(candles.length - 120) : candles;
-
-    double minP = visible.first.low;
-    double maxP = visible.first.high;
-    for (final c in visible) {
-      if (c.low < minP) minP = c.low;
-      if (c.high > maxP) maxP = c.high;
-    }
-    if ((maxP - minP).abs() < 1e-9) return;
-
-    double y(double p) => size.height - ((p - minP) / (maxP - minP)) * size.height;
-
-    final candleW = size.width / visible.length;
-    final wickPaint = Paint()..strokeWidth = 1.2;
-
-    for (int i = 0; i < visible.length; i++) {
-      final c = visible[i];
-      final x = i * candleW + candleW * 0.5;
-      final isUp = c.close >= c.open;
-
-      final bodyPaint = Paint()..color = isUp ? Colors.green : Colors.red;
-      wickPaint.color = bodyPaint.color;
-
-      // wick
-      canvas.drawLine(Offset(x, y(c.high)), Offset(x, y(c.low)), wickPaint);
-
-      // body
-      final top = y(isUp ? c.close : c.open);
-      final bot = y(isUp ? c.open : c.close);
-      final rect = Rect.fromLTRB(
-        x - candleW * 0.22,
-        top,
-        x + candleW * 0.22,
-        bot,
-      );
-      canvas.drawRect(rect, bodyPaint);
-    }
-  }
-
-  @override
-  bool shouldRepaint(covariant _CandlePainter oldDelegate) => true;
 }

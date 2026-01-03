@@ -1,113 +1,124 @@
-﻿import 'dart:math';
+﻿import 'dart:async';
+import 'dart:math';
+
 import 'package:flutter/foundation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-
-import 'package:tawaqu3_final/models/market_model.dart' show Candle;
-import 'package:tawaqu3_final/models/trade_entity.dart';
-import 'package:tawaqu3_final/models/trade_models.dart' hide TradeEntity;
-import 'package:tawaqu3_final/repository/history_repository.dart';
+import 'package:tawaqu3_final/models/market_model.dart';
+import 'package:tawaqu3_final/models/trade_models.dart';
 import 'package:tawaqu3_final/repository/trade_repository.dart';
 import 'package:tawaqu3_final/services/ict_ort_service.dart';
 import 'package:tawaqu3_final/services/price_websocket_service.dart';
 
-class TradePrediction {
+class TradeRecommendation {
+  final String id;
   final String pair;
+  final String side; // BUY / SELL
+  final double confidence; // 0-100
   final double entry;
   final double sl;
   final double tp;
   final double lot;
-  final double confidence; // 0..100
-  final String side; // BUY/SELL/NONE (derived from model output)
+  final TradeOutcome? outcome;
+  final DateTime createdAt;
 
-  TradePrediction({
+  const TradeRecommendation({
+    required this.id,
     required this.pair,
+    required this.side,
+    required this.confidence,
     required this.entry,
     required this.sl,
     required this.tp,
     required this.lot,
-    required this.confidence,
-    required this.side,
+    required this.createdAt,
+    this.outcome,
   });
+
+  TradeRecommendation copyWith({TradeOutcome? outcome}) => TradeRecommendation(
+        id: id,
+        pair: pair,
+        side: side,
+        confidence: confidence,
+        entry: entry,
+        sl: sl,
+        tp: tp,
+        lot: lot,
+        createdAt: createdAt,
+        outcome: outcome ?? this.outcome,
+      );
 }
 
 class TradeViewModel extends ChangeNotifier {
-  final HistoryRepository _historyRepo = HistoryRepository();
-  final TradeRepository _tradeRepo = TradeRepository();
+  TradeViewModel({
+    PriceWebSocketService? ws,
+    TradeRepository? history,
+  })  : _ws = ws ?? PriceWebSocketService.instance,
+        _history = history ?? TradeRepository() {
+    unawaited(_ws.connect());
+    unawaited(_initIct());
+  }
+
+  final PriceWebSocketService _ws;
+  final TradeRepository _history;
+
   final SupabaseClient _client = Supabase.instance.client;
 
-  // Candle/tick stream (from local bridge server)
-  late final PriceWebSocketService _ws;
+  bool _ictReady = false;
 
-  TradeEntity? _lastTrade;
-  TradeEntity? get lastTrade => _lastTrade;
+  Future<void> _initIct() async {
+    try {
+      await IctOrtService.instance.init();
+      _ictReady = true;
+      notifyListeners();
+    } catch (e) {
+      _ictReady = false;
+      _lastError = 'ICT model init failed: $e';
+      notifyListeners();
+    }
+  }
 
-  // UI state
-  bool loading = false;
-  String? lastError;
+  static const List<String> supportedPairs = <String>[
+    'XAUUSD',
+    'XAGUSD',
+    'BTCUSD',
+    'ETHUSD',
+  ];
 
-  TradePrediction? lastPrediction;
-
-  // â”€â”€ selection (pair / timeframe / type) â”€â”€
-  static const List<String> supportedPairs = ['XAUUSD', 'XAGUSD'];
-
-  String _pair = 'XAUUSD';
+  String _pair = supportedPairs.first;
   String get pair => _pair;
   set pair(String v) {
-    final next = v.toUpperCase();
-    if (_pair == next) return;
-    _pair = next;
-    // Pull candles for the newly selected asset
-    _ws.requestCandles(_pair, _tf, limit: 300);
+    _pair = v;
     notifyListeners();
   }
 
-  String _tf = '1m'; // "1m" or "5m"
+  String _tf = '5m';
   String get tf => _tf;
   set tf(String v) {
-    final next = v.toLowerCase();
-    // ICT model currently supports only 1m/5m.
-    final normalized = (selectedModel == 'ict' && next != '1m' && next != '5m') ? '5m' : next;
-    if (_tf == normalized) return;
-    _tf = normalized;
-    // Pull candles for the newly selected TF
-    _ws.requestCandles(_pair, _tf, limit: 300);
+    _tf = v;
     notifyListeners();
   }
 
-  // trading type / model (auto-selected)
+  // Trading type toggle (kept for UI flow) — model is locked to ICT for now
   List<TradingType> get allTypes => TradingType.values;
-  TradingType _selectedType = TradingType.long;
+
+  TradingType _selectedType = TradingType.values.first;
   TradingType get selectedType => _selectedType;
   set selectedType(TradingType v) {
     _selectedType = v;
-
-    // sensible default TF per style (you can still override in the UI)
-    if (v == TradingType.scalper) {
-      _tf = '1m';
-    } else {
-      _tf = '5m';
-    }
-
-    // Refresh candles after the TF changes
-    _ws.requestCandles(_pair, _tf, limit: 300);
-
-    // Ensure candles are available for the new (pair, tf)
-    _ws.requestCandles(_pair, _tf, limit: 300);
-
     notifyListeners();
   }
 
-  TradingModel get selectedModel => modelForType(_selectedType);
+  // LOCKED
+  TradingModel get selectedModel => TradingModel.ict;
 
-  // risk inputs
-  double _margin = 1000;
+  double _margin = 1000.0;
   double get margin => _margin;
   set margin(double v) {
     _margin = v;
     notifyListeners();
   }
 
-  double _riskPercent = 2;
+  double _riskPercent = 1.0;
   double get riskPercent => _riskPercent;
   set riskPercent(double v) {
     _riskPercent = v;
@@ -115,331 +126,238 @@ class TradeViewModel extends ChangeNotifier {
   }
 
   double get calculatedLot {
-    final spec = specForPair(_pair);
-    const stopLossPips = 30.0; // business rule for lot sizing
-    final riskMoney = _margin * (_riskPercent / 100);
-    final lot = riskMoney / (spec.pipValuePerLot * stopLossPips);
-    return double.parse(lot.toStringAsFixed(2));
+    final riskAmount = _margin * (_riskPercent / 100.0);
+    final lot = riskAmount / 100.0;
+    return lot.clamp(0.01, 50.0);
   }
 
-  // ORT init
-  bool _ortReady = false;
-  String _defaultWsUrl() {
-  // Web/Desktop: local bridge on this machine
-  if (kIsWeb) return 'ws://127.0.0.1:8080';
+  bool _loading = false;
+  bool get loading => _loading;
 
-  // Android emulator can't access PC localhost, use 10.0.2.2
-  // Real device: change to your PC IP (e.g. ws://192.168.1.10:8080)
-  switch (defaultTargetPlatform) {
-    case TargetPlatform.android:
-      return 'ws://10.0.2.2:8080';
-    case TargetPlatform.iOS:
-      return 'ws://127.0.0.1:8080';
-    default:
-      return 'ws://127.0.0.1:8080';
-  }
-}
+  String? _lastError;
+  String? get lastError => _lastError;
 
-  TradeViewModel() {
-    _ws = PriceWebSocketService(wsUrl: _defaultWsUrl());
-    // Preload candles for default pair/timeframe
-    _ws.requestCandles(_pair, _tf, limit: 300);
-  }
+  TradeRecommendation? _lastPrediction;
+  TradeRecommendation? get lastPrediction => _lastPrediction;
 
-  Future<void> markOutcome(TradeOutcome outcome) async {
-  final trade = _lastTrade;
-  final prediction = lastPrediction;
-  if (trade == null || prediction == null) return;
-
-  loading = true;
-  notifyListeners();
-
-  try {
-    // 1) Direction: long / scalper = +1, short = -1
-    final int direction;
-    switch (selectedType) {
-      case TradingType.short:
-        direction = -1;
-        break;
-      default:
-        direction = 1; // long + scalper
-        break;
-    }
-
-    // 2) Choose which price was hit
-    final double exitPrice =
-        (outcome == TradeOutcome.tpHit) ? prediction.tp : prediction.sl;
-
-    // raw difference (exit - entry)
-    final double rawDiff = exitPrice - prediction.entry;
-
-    // signed diff (positive if profit, negative if loss)
-    final double signedDiff = direction * rawDiff;
-
-    // 3) Get instrument spec (pipSize, pipValuePerLot)
-    final spec = specForPair(prediction.pair);
-
-    // number of pips
-    final double pips = signedDiff / spec.pipSize;
-
-    // 4) Final profit in USD
-    final double profit = pips * spec.pipValuePerLot * prediction.lot;
-
-    // 5) Update trade row with outcome + profit
-    final updatedTrade = await _client
-        .from('trades')
-        .update({
-          'outcome': outcome.dbValue,
-          'profit': profit,
-        })
-        .eq('id', trade.id)
-        .select()
-        .single();
-
-    _lastTrade = TradeEntity.fromMap(updatedTrade);
-
-    // 6) If you REALLY want to keep users.profit, you can still use RPC:
-    await _client.rpc(
-      'increment_user_profit',
-      params: {
-        'p_user_id': trade.userId,
-        'p_delta': profit,
-      },
-    );
-
-    // 7) Also write a snapshot into history with final outcome (optional but nice)
-    await _historyRepo.insertHistoryForTrade(
-      tradeId: trade.id,
-      previousEntry: prediction.entry,
-      previousSl: prediction.sl,
-      previousTp: prediction.tp,
-      previousLot: prediction.lot,
-      dateSaved: DateTime.now(),
-      outcome: outcome,
-    );
-  } catch (e, st) {
-    debugPrint('markOutcome error: $e\n$st');
-  } finally {
-    loading = false;
+  void _setLoading(bool v) {
+    _loading = v;
     notifyListeners();
   }
-}
 
+  void generate() {
+    unawaited(_generateAsync());
+  }
 
-  
-
-  Future<void> generate() async {
-    lastError = null;
-    loading = true;
-    notifyListeners();
+  Future<void> _generateAsync() async {
+    if (_loading) return;
+    _lastError = null;
+    _setLoading(true);
 
     try {
-final authUser = _client.auth.currentUser;
-      if (authUser == null) {
-        throw Exception('User not logged in');
+      if (!_ictReady) {
+        // try init once more
+        await _initIct();
       }
-      final String userId = authUser.id;
-
-      // 1) Ensure ORT sessions loaded
-      if (!_ortReady) {
-        await IctOrtService.instance.init();
-        _ortReady = true;
+      if (!_ictReady) {
+        throw Exception('ICT model not ready yet.');
       }
 
-      // 2) Fetch stored candles from the WebSocket server (and wait briefly)
-      final candles = await _ws.requestCandles(
-        _pair,
-        _tf,
-        limit: 300,
-        timeout: const Duration(seconds: 5),
-      );
-
-      // If we still don't have enough candles, the model input won't be valid.
-      if (candles.length < 60) {
-        throw Exception(
-          'Not enough candle data for $_pair ($_tf).\n'
-          'Received: ${candles.length}. Needed: at least 60.\n'
-          'Make sure your WS server is running and supports get_candles.'
+      // candles
+      List<Candle> candles = const [];
+      try {
+        candles = await _ws.requestCandles(
+          _pair,
+          _tf,
+          limit: 600,
+          timeout: const Duration(seconds: 6),
         );
+      } catch (_) {
+        candles = _ws.getCandles(_pair, _tf);
       }
 
-      // 3) Build model input
-      const seqLen = 256; // keep aligned with your training window
-      final input = _buildFeatures(candles, seqLen: seqLen);
-      final shape = <int>[1, seqLen, 7];
-
-      // 4) Run the model
-      final Object? rawOut = (_tf == '1m')
-          ? await IctOrtService.instance.predict1m(input, shape)
-          : await IctOrtService.instance.predict5m(input, shape);
-
-      final out = _flattenToDoubles(rawOut);
-      if (out.isEmpty) {
-        throw Exception('Model returned empty output');
+      if (candles.length < 60) {
+        _lastPrediction = null;
+        _lastError =
+            'Not enough candles for $_pair ($_tf). Need at least 60, got ${candles.length}.';
+        notifyListeners();
+        return;
       }
 
-      final (side, conf01) = _decodeSideAndConfidence(out);
-      final confPct = (conf01 * 100).clamp(0, 100).toDouble();
+      final last = candles.last;
+      final entry = last.close;
 
-      // 5) Convert model output â†’ entry / SL / TP
-      final lastClose = candles.last.close;
-      final spec = specForPair(_pair);
+      // -------- ICT inference (uses real candles as features) --------
+      final features = _buildFeatures60(candles);
+      final out = await _predictWithIct(features, tf: _tf);
 
-      const stopLossPips = 30.0;
-      const takeProfitPips = 60.0;
+      final side = out.side;
+      final confidence = out.confidence;
 
-      final double entry = lastClose;
+      // SL/TP derived from volatility (ATR) for now (still data-driven, no constants)
+      final atr = _atr(candles, 14);
+      final slDist = max(atr * 1.5, entry.abs() * 0.0008);
+      final tpDist = slDist * 2.0;
 
-      final bool isSell = (side == 'SELL');
-      final double sl = isSell
-          ? entry + stopLossPips * spec.pipSize
-          : entry - stopLossPips * spec.pipSize;
+      final sl = (side == 'BUY') ? (entry - slDist) : (entry + slDist);
+      final tp = (side == 'BUY') ? (entry + tpDist) : (entry - tpDist);
 
-      final double tp = isSell
-          ? entry - takeProfitPips * spec.pipSize
-          : entry + takeProfitPips * spec.pipSize;
-
-      final lot = calculatedLot;
-
-      final prediction = TradePrediction(
+      final rec = TradeRecommendation(
+        id: DateTime.now().millisecondsSinceEpoch.toString(),
         pair: _pair,
+        side: side,
+        confidence: confidence,
         entry: entry,
         sl: sl,
         tp: tp,
-        lot: lot,
-        confidence: confPct,
-        side: side,
+        lot: calculatedLot,
+        createdAt: DateTime.now().toUtc(),
       );
 
-      lastPrediction = prediction;
+      _lastPrediction = rec;
 
-      // 6) Store into Supabase trades
-      final trade = await _tradeRepo.insertTrade(
-        userId: userId,
-        entry: prediction.entry,
-        sl: prediction.sl,
-        tp: prediction.tp,
-        lot: prediction.lot,
-        school: selectedModel.label,
-        time: DateTime.now(),
-      );
-      _lastTrade = trade;
+      // Save to Supabase if user is logged in
+      final uid = _client.auth.currentUser?.id;
+      if (uid != null) {
+        await _history.insertTrade(
+          userId: uid,
+          entry: rec.entry,
+          sl: rec.sl,
+          tp: rec.tp,
+          lot: rec.lot,
+          school: 'ICT',
+          time: rec.createdAt,
+          pair: rec.pair,
+          side: rec.side,
+          confidence: rec.confidence,
+          outcome: rec.outcome?.toString(),
+          profit: 0,
+        );
+      }
 
-      // 7) Initial history snapshot (optional but helpful)
-      await _historyRepo.insertHistoryForTrade(
-        tradeId: trade.id,
-        previousEntry: prediction.entry,
-        previousSl: prediction.sl,
-        previousTp: prediction.tp,
-        previousLot: prediction.lot,
-        dateSaved: DateTime.now(),
-      );
-    } catch (e, st) {
-      debugPrint('generate() error: $e\n$st');
-      lastError = e.toString();
-    } finally {
-      loading = false;
       notifyListeners();
+    } catch (e) {
+      _lastPrediction = null;
+      _lastError = 'Generate failed: $e';
+      notifyListeners();
+    } finally {
+      _setLoading(false);
     }
   }
 
-  /// Build a [1, seqLen, 7] feature tensor from candles.
-  /// We use *relative* features so the model is less sensitive to absolute price levels.
-  Float32List _buildFeatures(List<Candle> candles, {required int seqLen}) {
-    // use last seqLen candles; pad if needed
-    final List<Candle> seq;
-    if (candles.length >= seqLen) {
-      seq = candles.sublist(candles.length - seqLen);
-    } else {
-      final pad = List<Candle>.filled(seqLen - candles.length, candles.first, growable: true);
-      seq = [...pad, ...candles];
+  void markOutcome(TradeOutcome outcome) {
+    final cur = _lastPrediction;
+    if (cur == null) return;
+    _lastPrediction = cur.copyWith(outcome: outcome);
+    notifyListeners();
+    // optional: add update call in repository if you want to persist outcome
+  }
+
+  // ---------------- helpers ----------------
+
+  List<double> _buildFeatures60(List<Candle> candles) {
+    // last 60 candles => 60 * 5 = 300 floats
+    final last60 = candles.length > 60 ? candles.sublist(candles.length - 60) : candles;
+    final out = <double>[];
+    for (final c in last60) {
+      out.add(c.open);
+      out.add(c.high);
+      out.add(c.low);
+      out.add(c.close);
+      out.add(c.volume);
     }
-
-    final double ref = seq.last.close == 0 ? 1.0 : seq.last.close;
-
-    final out = Float32List(seqLen * 7);
-    for (int i = 0; i < seqLen; i++) {
-      final c = seq[i];
-
-      final o = c.open / ref - 1.0;
-      final h = c.high / ref - 1.0;
-      final l = c.low / ref - 1.0;
-      final cl = c.close / ref - 1.0;
-
-      final body = (c.close - c.open) / ref;
-      final range = (c.high - c.low) / ref;
-
-      final vol = (log(1 + max(0.0, c.volume)) / 10.0);
-
-      final base = i * 7;
-      out[base + 0] = o.toDouble();
-      out[base + 1] = h.toDouble();
-      out[base + 2] = l.toDouble();
-      out[base + 3] = cl.toDouble();
-      out[base + 4] = body.toDouble();
-      out[base + 5] = range.toDouble();
-      out[base + 6] = vol.toDouble();
-    }
-
+    // ensure exactly 300
+    if (out.length > 300) return out.sublist(out.length - 300);
+    while (out.length < 300) out.insertAll(0, [0, 0, 0, 0, 0]);
     return out;
   }
 
-  (String side, double confidence01) _decodeSideAndConfidence(List<double> out) {
-    // Heuristics that work for common model heads:
-    // - 3 logits/probs => [SELL, NONE, BUY]
-    // - 2 logits/probs => [SELL, BUY]
-    // - 1 logit        => sign-based BUY/SELL
-    if (out.length >= 3) {
-      final probs = _softmax(out.take(3).toList());
-      final maxIdx = probs.indexWhere((p) => p == probs.reduce(max));
-      final side = (maxIdx == 0) ? 'SELL' : (maxIdx == 2) ? 'BUY' : 'NONE';
-      return (side, probs[maxIdx]);
+  double _atr(List<Candle> candles, int period) {
+    if (candles.length < period + 1) {
+      final c = candles.last;
+      return (c.high - c.low).abs().clamp(0.00001, double.infinity);
     }
-
-    if (out.length == 2) {
-      final probs = _softmax(out);
-      final side = (probs[0] >= probs[1]) ? 'SELL' : 'BUY';
-      return (side, max(probs[0], probs[1]));
+    double sum = 0;
+    for (int i = candles.length - period; i < candles.length; i++) {
+      final cur = candles[i];
+      final prevClose = candles[i - 1].close;
+      final tr = max(
+        cur.high - cur.low,
+        max((cur.high - prevClose).abs(), (cur.low - prevClose).abs()),
+      );
+      sum += tr;
     }
-
-    final pBuy = _sigmoid(out.first);
-    final side = (pBuy >= 0.5) ? 'BUY' : 'SELL';
-    final conf = (pBuy - 0.5).abs() * 2.0; // 0..1
-    return (side, conf);
+    return (sum / period).clamp(0.00001, double.infinity);
   }
 
-  List<double> _softmax(List<double> logits) {
-    final mx = logits.reduce(max);
-    final exps = logits.map((x) => exp(x - mx)).toList(growable: false);
-    final s = exps.fold<double>(0, (a, b) => a + b);
-    return exps.map((e) => e / (s == 0 ? 1.0 : s)).toList(growable: false);
+  Future<_IctOut> _predictWithIct(List<double> features, {required String tf}) async {
+    final service = IctOrtService.instance;
+    Object? raw;
+
+    // your assets include 1m and 5m — map others to 5m
+    final Float32List x = Float32List.fromList(features);
+
+// ✅ now call predict using Float32List
+final out1m = await IctOrtService.instance.predict1m(x, [1, 60, 5]);
+// OR if your service uses length instead of shape:
+// final out1m = await IctOrtService.instance.predict1m(x, 300);
+
+final out5m = await IctOrtService.instance.predict5m(x, [1, 60, 5]);
+// OR:
+// final out5m = await IctOrtService.instance.predict5m(x, 300);
+
+    final vec = _flattenToDoubles(raw);
+    if (vec.isEmpty) {
+      throw Exception('ICT model returned empty output.');
+    }
+
+    // Robust interpretation:
+    // - if 1 value => sigmoid => buyProb
+    // - if 2+ values => softmax(first 2) => [sell,buy]
+    double buyProb;
+    if (vec.length == 1) {
+      buyProb = 1.0 / (1.0 + exp(-vec[0]));
+    } else {
+      final probs = _softmax(vec.take(2).toList());
+      buyProb = (probs.length > 1) ? probs[1] : probs[0];
+    }
+
+    buyProb = buyProb.clamp(0.0, 1.0);
+    final side = buyProb >= 0.5 ? 'BUY' : 'SELL';
+    final confidence = ((side == 'BUY') ? buyProb : (1.0 - buyProb)) * 100.0;
+
+    return _IctOut(side: side, confidence: confidence.clamp(0.0, 100.0));
   }
 
-  double _sigmoid(double x) => 1.0 / (1.0 + exp(-x));
+  List<double> _softmax(List<double> x) {
+    if (x.isEmpty) return const [];
+    final mx = x.reduce(max);
+    final exps = x.map((v) => exp(v - mx)).toList();
+    final sumExp = exps.fold<double>(0.0, (a, b) => a + b);
+    if (sumExp == 0) return x.map((_) => 0.0).toList();
+    return exps.map((e) => e / sumExp).toList();
+  }
 
-  List<double> _flattenToDoubles(Object? v) {
-    if (v == null) return const [];
-    if (v is Float32List) return v.map((e) => e.toDouble()).toList(growable: false);
-    if (v is Float64List) return v.toList(growable: false);
-    if (v is Int64List) return v.map((e) => e.toDouble()).toList(growable: false);
-    if (v is List) {
-      final out = <double>[];
-      for (final item in v) {
-        out.addAll(_flattenToDoubles(item));
-      }
-      return out;
+  List<double> _flattenToDoubles(Object? o) {
+    if (o == null) return const [];
+
+    if (o is List) {
+      if (o.isEmpty) return const [];
+      final first = o.first;
+      if (first is List) return _flattenToDoubles(first);
+      return o.map((e) => (e as num).toDouble()).toList();
     }
-    if (v is num) return [v.toDouble()];
+
+    // Some runtimes return typed lists
+    if (o is Float32List) return o.map((e) => e.toDouble()).toList();
+    if (o is Float64List) return o.toList();
+
     return const [];
-  }
-
-  @override
-  void dispose() {
-    _ws.dispose();
-    IctOrtService.instance.dispose();
-    super.dispose();
   }
 }
 
-
-
+class _IctOut {
+  final String side;
+  final double confidence;
+  _IctOut({required this.side, required this.confidence});
+}

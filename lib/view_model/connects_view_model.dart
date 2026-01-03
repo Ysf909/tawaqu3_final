@@ -8,8 +8,8 @@ class ConnectsViewModel extends ChangeNotifier {
   final SupabaseClient _client;
 
   ConnectsViewModel({PlatformRepository? repo, SupabaseClient? client})
-      : _repo = repo ?? PlatformRepository(),
-        _client = client ?? Supabase.instance.client;
+    : _repo = repo ?? PlatformRepository(),
+      _client = client ?? Supabase.instance.client;
 
   bool loading = false;
   String? error;

@@ -59,10 +59,9 @@ class _LoginViewBodyState extends State<_LoginViewBody> {
           children: [
             Text(
               'Tawaqu3',
-              style: Theme.of(context)
-                  .textTheme
-                  .headlineMedium
-                  ?.copyWith(fontWeight: FontWeight.bold),
+              style: Theme.of(
+                context,
+              ).textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 16),
 
@@ -82,7 +81,6 @@ class _LoginViewBodyState extends State<_LoginViewBody> {
               obscure: true,
               // password() only takes one argument
               validator: (value) => Validation.password(value, _password.text),
-
             ),
             const SizedBox(height: 12),
 
@@ -115,13 +113,15 @@ class _LoginViewBodyState extends State<_LoginViewBody> {
 
                 switch (status) {
                   case LoginStatus.success:
-                   final appUser = vm.loggedInUser;
+                    final appUser = vm.loggedInUser;
 
                     if (appUser != null) {
                       // Store it globally so MenuView & others can show the name
                       context.read<UserSessionViewModel>().setUser(appUser);
                     } else {
-                      debugPrint('LoginStatus.success but vm.loggedInUser is null 🤔');
+                      debugPrint(
+                        'LoginStatus.success but vm.loggedInUser is null 🤔',
+                      );
                     }
                     Navigator.pushReplacementNamed(
                       context,
@@ -141,9 +141,7 @@ class _LoginViewBodyState extends State<_LoginViewBody> {
 
                   case LoginStatus.wrongPassword:
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Wrong email or password.'),
-                      ),
+                      const SnackBar(content: Text('Wrong email or password.')),
                     );
                     break;
 
@@ -174,30 +172,40 @@ class _LoginViewBodyState extends State<_LoginViewBody> {
             const Divider(),
 
             OutlinedButton.icon(
-  onPressed: () async {
-    try {
-      final res = await socialAuth.signInWithGoogle();
-if (res?.session == null) return; // cancelled
+              onPressed: () async {
+                try {
+                  final res = await socialAuth.signInWithGoogle();
+                  if (res?.session == null) return; // cancelled
 
-final userRow = await userService.ensureUserRow(provider: 'google');
-context.read<UserSessionViewModel>().setUser(userRow); // or AppUser.fromMap(userRow)
-Navigator.pushReplacementNamed(context, AppRouter.MainPageRoute); // cancelled
+                  final userRow = await userService.ensureUserRow(
+                    provider: 'google',
+                  );
+                  context.read<UserSessionViewModel>().setUser(
+                    userRow,
+                  ); // or AppUser.fromMap(userRow)
+                  Navigator.pushReplacementNamed(
+                    context,
+                    AppRouter.MainPageRoute,
+                  ); // cancelled
 
-      if (!mounted) return;
-      Navigator.pushReplacementNamed(context, AppRouter.MainPageRoute);
-    } on AuthException catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(e.message)),
-      );
-    } catch (_) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Google sign-in failed.')),
-      );
-    }
-  },
-  icon: const Icon(Icons.g_mobiledata),
-  label: const Text('Continue with Google'),
-),
+                  if (!mounted) return;
+                  Navigator.pushReplacementNamed(
+                    context,
+                    AppRouter.MainPageRoute,
+                  );
+                } on AuthException catch (e) {
+                  ScaffoldMessenger.of(
+                    context,
+                  ).showSnackBar(SnackBar(content: Text(e.message)));
+                } catch (_) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Google sign-in failed.')),
+                  );
+                }
+              },
+              icon: const Icon(Icons.g_mobiledata),
+              label: const Text('Continue with Google'),
+            ),
             const SizedBox(height: 8),
             OutlinedButton.icon(
               onPressed: () {},
@@ -205,33 +213,41 @@ Navigator.pushReplacementNamed(context, AppRouter.MainPageRoute); // cancelled
               label: const Text('Continue with Apple'),
             ),
             const SizedBox(height: 8),
-            
-OutlinedButton.icon(
-  onPressed: () async {
-    try {
-      final res = await socialAuth.signInWithFacebook();
-if (res?.session == null) return;
 
-final userRow = await userService.ensureUserRow(provider: 'facebook');
-context.read<UserSessionViewModel>().setUser(userRow);
-Navigator.pushReplacementNamed(context, AppRouter.MainPageRoute);
- // cancelled
+            OutlinedButton.icon(
+              onPressed: () async {
+                try {
+                  final res = await socialAuth.signInWithFacebook();
+                  if (res?.session == null) return;
 
-      if (!mounted) return;
-      Navigator.pushReplacementNamed(context, AppRouter.MainPageRoute);
-    } on AuthException catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(e.message)),
-      );
-    } catch (_) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Facebook sign-in failed.')),
-      );
-    }
-  },
-  icon: const Icon(Icons.facebook),
-  label: const Text('Continue with Facebook'),
-),
+                  final userRow = await userService.ensureUserRow(
+                    provider: 'facebook',
+                  );
+                  context.read<UserSessionViewModel>().setUser(userRow);
+                  Navigator.pushReplacementNamed(
+                    context,
+                    AppRouter.MainPageRoute,
+                  );
+                  // cancelled
+
+                  if (!mounted) return;
+                  Navigator.pushReplacementNamed(
+                    context,
+                    AppRouter.MainPageRoute,
+                  );
+                } on AuthException catch (e) {
+                  ScaffoldMessenger.of(
+                    context,
+                  ).showSnackBar(SnackBar(content: Text(e.message)));
+                } catch (_) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Facebook sign-in failed.')),
+                  );
+                }
+              },
+              icon: const Icon(Icons.facebook),
+              label: const Text('Continue with Facebook'),
+            ),
             const SizedBox(height: 16),
 
             // Resend verification email
@@ -251,10 +267,7 @@ Navigator.pushReplacementNamed(context, AppRouter.MainPageRoute);
 
                 final client = Supabase.instance.client;
                 try {
-                  await client.auth.resend(
-                    type: OtpType.signup,
-                    email: email,
-                  );
+                  await client.auth.resend(type: OtpType.signup, email: email);
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
                       content: Text(
@@ -265,9 +278,7 @@ Navigator.pushReplacementNamed(context, AppRouter.MainPageRoute);
                 } catch (e) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
-                      content: Text(
-                        'Could not resend verification email.',
-                      ),
+                      content: Text('Could not resend verification email.'),
                     ),
                   );
                 }
@@ -285,9 +296,7 @@ Navigator.pushReplacementNamed(context, AppRouter.MainPageRoute);
                       Navigator.pushNamed(context, AppRouter.signupRoute),
                   child: const Text(
                     'Sign Up',
-                    style: TextStyle(
-                      decoration: TextDecoration.underline,
-                    ),
+                    style: TextStyle(decoration: TextDecoration.underline),
                   ),
                 ),
               ],
@@ -302,7 +311,6 @@ Navigator.pushReplacementNamed(context, AppRouter.MainPageRoute);
       body: ResponsiveFormContainer(
         maxWidth: BouncingScrollSimulation.maxSpringTransferVelocity,
         child: loginCard,
-        
       ),
     );
   }

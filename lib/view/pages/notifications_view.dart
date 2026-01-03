@@ -15,7 +15,7 @@ class NotificationsView extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SectionTitle('', Title: '',),
+          const SectionTitle('', Title: ''),
           SwitchListTile(
             title: const Text('Trade Alerts'),
             value: noti.tradeAlerts,
@@ -79,10 +79,7 @@ class NotificationsView extends StatelessWidget {
         automaticallyImplyLeading: true,
         title: const Text('Notifications'),
       ),
-      body: ListView(
-        padding: const EdgeInsets.all(16),
-        children: [content],
-      ),
+      body: ListView(padding: const EdgeInsets.all(16), children: [content]),
     );
   }
 }

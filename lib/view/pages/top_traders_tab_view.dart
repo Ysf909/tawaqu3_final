@@ -65,9 +65,7 @@ class _TopTradersTabViewState extends State<TopTradersTabView> {
                 ),
                 child: Row(
                   children: [
-                    CircleAvatar(
-                      child: Text('${i + 1}'),
-                    ),
+                    CircleAvatar(child: Text('${i + 1}')),
                     const SizedBox(width: 12),
                     Expanded(
                       child: Column(
@@ -83,8 +81,16 @@ class _TopTradersTabViewState extends State<TopTradersTabView> {
                             runSpacing: 6,
                             children: [
                               _chip('Win%', '${t.winRate.toStringAsFixed(1)}%'),
-                              _chip('Model', t.mostUsedModel.isEmpty ? 'ICT' : t.mostUsedModel),
-                              _chip('Asset', t.mostUsedAsset.isEmpty ? '—' : t.mostUsedAsset),
+                              _chip(
+                                'Model',
+                                t.mostUsedModel.isEmpty
+                                    ? 'ICT'
+                                    : t.mostUsedModel,
+                              ),
+                              _chip(
+                                'Asset',
+                                t.mostUsedAsset.isEmpty ? '—' : t.mostUsedAsset,
+                              ),
                             ],
                           ),
                         ],

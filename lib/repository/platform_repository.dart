@@ -4,7 +4,7 @@ class PlatformRepository {
   final SupabaseClient _client;
 
   PlatformRepository({SupabaseClient? client})
-      : _client = client ?? Supabase.instance.client;
+    : _client = client ?? Supabase.instance.client;
 
   static const List<String> supportedPlatforms = ['MT4', 'MT5'];
 
@@ -28,7 +28,10 @@ class PlatformRepository {
     return out;
   }
 
-  Future<void> connectPlatform({required String userId, required String platformName}) async {
+  Future<void> connectPlatform({
+    required String userId,
+    required String platformName,
+  }) async {
     final name = platformName.toUpperCase().trim();
     if (!supportedPlatforms.contains(name)) {
       throw Exception('Unsupported platform: $platformName');
@@ -73,7 +76,10 @@ class PlatformRepository {
     });
   }
 
-  Future<void> disconnectPlatform({required String userId, required String platformName}) async {
+  Future<void> disconnectPlatform({
+    required String userId,
+    required String platformName,
+  }) async {
     final name = platformName.toUpperCase().trim();
 
     final platformRows = await _client

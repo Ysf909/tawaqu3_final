@@ -12,8 +12,6 @@ import 'package:tawaqu3_final/view/pages/news_tab_view.dart';
 import 'package:tawaqu3_final/view/pages/top_traders_tab_view.dart';
 import '../../core/router/app_router.dart';
 import '../../view_model/navigation_view_model.dart';
-import '../../view_model/portfolio_view_model.dart';
-import '../../services/api_service.dart' show ApiService;
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -23,64 +21,55 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  String _wsUrl() {
-    // Web (Chrome on PC): localhost
-    if (kIsWeb) return 'ws://127.0.0.1:8080';
-
-    // Android emulator:
-    // 10.0.2.2 maps to your PC (host)
-    return 'ws://10.0.2.2:8080';
-
-    // If you test on real phone, replace with:
-    // return 'ws://192.168.1.29:8080';
-  }
-
-  final _api = ApiService();
-
-  Map<String, MarketPrice> _prices = {};
+  final Map<String, MarketPrice> _prices = {};
   Map<String, double> _previousPrices = {};
 
-  PriceWebSocketService? _wsService;
-  StreamSubscription<Map<String, MarketPrice>>? _wsSub;
-
-  void _seedSymbols() {
-    // Your project focuses on gold & silver. Keep crypto too.
-    const symbols = <String>['XAUUSD_', 'XAGUSD_', 'BTCUSD', 'ETHUSD', 'EURUSD_'];
-
-    setState(() {
-      _prices = {
-        for (final s in symbols)
-          s: const MarketPrice(price: 0.0, change24h: null),
-      };
-      _previousPrices = {for (final s in symbols) s: 0.0};
-    });
-  }
+  late final PriceWebSocketService _ws = PriceWebSocketService.instance;
+  StreamSubscription<Map<String, MarketPrice>>? _priceSub;
 
   @override
   void initState() {
     super.initState();
     _seedSymbols();
     _startWebSocket();
+  }
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (!mounted) return;
-      context.read<PortfolioViewModel>().loadForCurrentUser();
-    });
+  void _seedSymbols() {
+    // Use symbols WITHOUT underscore. Your WS bridge accepts XAUUSD and maps to XAUUSD_. (server.js)
+    const symbols = <String>['XAUUSD', 'XAGUSD', 'BTCUSD', 'ETHUSD', 'EURUSD'];
+
+    final now = DateTime.now().toUtc();
+    for (final s in symbols) {
+      _prices[s] = MarketPrice(
+        symbol: s,
+        price: 0,
+        mid: 0,
+        buy: 0,
+        sell: 0,
+        change24h: 0,
+        time: now,
+      );
+    }
+
+    _previousPrices = {for (final e in _prices.entries) e.key: e.value.effectiveMid};
+
+    if (mounted) setState(() {});
   }
 
   void _startWebSocket() {
-    _wsService = PriceWebSocketService(wsUrl: _wsUrl());
-    _wsSub = _wsService!.pricesStream.listen((wsPrices) {
+    // IMPORTANT: connect() so pricesStream actually emits
+    unawaited(_ws.connect());
+
+    _priceSub = _ws.pricesStream.listen((wsPrices) {
       if (!mounted) return;
 
       setState(() {
-        _previousPrices = {
-          for (final entry in _prices.entries) entry.key: entry.value.price,
-        };
+        // save previous mid for color direction
+        _previousPrices = {for (final e in _prices.entries) e.key: e.value.effectiveMid};
 
-        wsPrices.forEach((symbol, marketPrice) {
+        wsPrices.forEach((symbol, mp) {
           final key = symbol.toUpperCase();
-          _prices[key] = marketPrice;
+          _prices[key] = mp;
         });
       });
     });
@@ -88,48 +77,23 @@ class _MainPageState extends State<MainPage> {
 
   @override
   void dispose() {
-    _wsSub?.cancel();
-    _wsService?.dispose();
+    _priceSub?.cancel();
     super.dispose();
-  }
-
-  Future<void> _loadInitialPrices() async {
-    // uses your existing ApiService.fetchAllOnce()
-    final raw = await _api.fetchAllOnce(); // Map<String, double>
-
-    if (!mounted) return;
-
-    setState(() {
-      // convert Map<String, double> ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¾Ãƒâ€šÃ‚Â¢ Map<String, MarketPrice>
-      _prices = raw.map(
-        (symbol, price) => MapEntry(
-          symbol,
-          MarketPrice(
-            price: price,
-            change24h: null, // WebSocket will override this for BTC/ETH
-          ),
-        ),
-      );
-
-      _previousPrices = {
-        for (final entry in _prices.entries) entry.key: entry.value.price,
-      };
-    });
   }
 
   @override
   Widget build(BuildContext context) {
-    final nav = context.watch<NavigationViewModel>();
+    final nav = Provider.of<NavigationViewModel>(context);
+    final theme = Theme.of(context);
 
-    final tabs = [
+    final pages = <Widget>[
       HomeTabView(
         prices: _prices,
         previousPrices: _previousPrices,
-        // from Home "Trade" button ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¾Ãƒâ€šÃ‚Â¢ go to Trade tab (index 2)
-        onTradeTap: () => nav.setIndex(2),
+        onTradeTap: () => nav.setIndex(1),
       ),
       const NewsView(),
-      const TradeFlowView(), // ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â°ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¦ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¸ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¹Ãƒâ€¦Ã¢â‚¬Å“ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¹ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â  your 4-step flow as the Trade tab
+      const TradeFlowView(),
       const TopTradersTabView(),
     ];
 
@@ -146,7 +110,10 @@ class _MainPageState extends State<MainPage> {
           ),
         ],
       ),
-      body: tabs[nav.currentIndex],
+      body: Container(
+        color: theme.colorScheme.surface,
+        child: pages[nav.currentIndex],
+      ),
       bottomNavigationBar: const TabNavBar(),
     );
   }

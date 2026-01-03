@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:supabase_flutter/supabase_flutter.dart'; 
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:tawaqu3_final/view_model/portfolio_view_model.dart';
 import 'package:tawaqu3_final/view_model/user_session_view_model.dart';
 import 'core/theme/app_theme.dart';
@@ -19,7 +19,8 @@ Future<void> main() async {
 
   await Supabase.initialize(
     url: 'https://nuqjhagbndaiwswfgvfg.supabase.co',
-    anonKey: 'sb_publishable_XHoZFWS7OOsXK-IVZ6nuTA_sBokkVBg', // 👈 not service_role
+    anonKey:
+        'sb_publishable_XHoZFWS7OOsXK-IVZ6nuTA_sBokkVBg', // 👈 not service_role
   );
 
   runApp(const Tawaqu3App());
@@ -39,7 +40,9 @@ class Tawaqu3App extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => NotificationsViewModel()),
         ChangeNotifierProvider(create: (_) => HistoryViewModel()),
         ChangeNotifierProvider(create: (_) => UserSessionViewModel()),
-        ChangeNotifierProvider(create: (_) => PortfolioViewModel(baseBalance: 0)),
+        ChangeNotifierProvider(
+          create: (_) => PortfolioViewModel(baseBalance: 0),
+        ),
         ChangeNotifierProvider(create: (_) => TopTradersViewModel()),
         ChangeNotifierProvider(create: (_) => ConnectsViewModel()),
       ],

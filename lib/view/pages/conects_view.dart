@@ -23,9 +23,7 @@ class _ConnectsViewState extends State<ConnectsView> {
 
   Future<void> _openPlatformLogin(String name) async {
     await Navigator.of(context).push<bool>(
-      MaterialPageRoute(
-        builder: (_) => PlatformLoginView(platformName: name),
-      ),
+      MaterialPageRoute(builder: (_) => PlatformLoginView(platformName: name)),
     );
     if (!mounted) return;
     await context.read<ConnectsViewModel>().load();
@@ -45,7 +43,10 @@ class _ConnectsViewState extends State<ConnectsView> {
                 if (vm.error != null)
                   Padding(
                     padding: const EdgeInsets.only(bottom: 12),
-                    child: Text(vm.error!, style: const TextStyle(color: Colors.red)),
+                    child: Text(
+                      vm.error!,
+                      style: const TextStyle(color: Colors.red),
+                    ),
                   ),
                 Text(
                   'Add a platform',
@@ -119,9 +120,7 @@ class _PlatformCard extends StatelessWidget {
                 Text(name, style: Theme.of(context).textTheme.titleMedium),
                 const SizedBox(height: 4),
                 Text(
-                  connected
-                      ? 'Connected'
-                      : 'Not connected',
+                  connected ? 'Connected' : 'Not connected',
                   style: Theme.of(context).textTheme.bodySmall,
                 ),
               ],

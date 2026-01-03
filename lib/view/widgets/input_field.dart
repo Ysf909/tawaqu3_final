@@ -25,7 +25,7 @@ class InputField extends StatelessWidget {
       obscureText: obscure,
       keyboardType: keyboardType,
       decoration: InputDecoration(labelText: label),
-      validator: validator,     // 👈 correct type: String? Function(String?)
+      validator: validator, // 👈 correct type: String? Function(String?)
       onChanged: onChanged,
     );
   }

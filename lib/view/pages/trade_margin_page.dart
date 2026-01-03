@@ -27,8 +27,7 @@ class TradeMarginPage extends StatelessWidget {
           const SizedBox(height: 16),
           TextFormField(
             initialValue: vm.margin.toStringAsFixed(2),
-            keyboardType:
-                const TextInputType.numberWithOptions(decimal: true),
+            keyboardType: const TextInputType.numberWithOptions(decimal: true),
             decoration: const InputDecoration(
               labelText: 'Margin / Account balance (\$)',
               border: OutlineInputBorder(),
@@ -41,8 +40,9 @@ class TradeMarginPage extends StatelessWidget {
           const SizedBox(height: 16),
           Text(
             'Risk per trade',
-            style: theme.textTheme.bodySmall
-                ?.copyWith(fontWeight: FontWeight.w600),
+            style: theme.textTheme.bodySmall?.copyWith(
+              fontWeight: FontWeight.w600,
+            ),
           ),
           Row(
             children: [

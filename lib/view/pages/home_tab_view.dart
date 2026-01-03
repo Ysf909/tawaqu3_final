@@ -1,12 +1,6 @@
 ﻿import 'package:flutter/material.dart';
-import 'package:tawaqu3_final/view/pages/asset_chart_live_view.dart';
-import 'package:tawaqu3_final/view/pages/asset_chart_page.dart';
-import 'package:provider/provider.dart';
 import 'package:tawaqu3_final/models/market_model.dart';
-import 'package:tawaqu3_final/services/api_service.dart';
-import 'package:tawaqu3_final/view/widgets/card_container.dart';
-import 'package:tawaqu3_final/view/widgets/section_title.dart';
-import 'package:tawaqu3_final/view_model/portfolio_view_model.dart';
+import 'package:tawaqu3_final/view/pages/asset_chart_live_view.dart';
 
 class HomeTabView extends StatelessWidget {
   final Map<String, MarketPrice> prices;
@@ -22,185 +16,78 @@ class HomeTabView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final portfolio = context.watch<PortfolioViewModel>();
+    final theme = Theme.of(context);
 
-    return SafeArea(
-      child: LayoutBuilder(
-        builder: (context, constraints) {
-          final width = constraints.maxWidth;
-          final bool isWide = width >= 800;
+    final items = prices.entries.toList()
+      ..sort((a, b) => a.key.compareTo(b.key));
 
-          final Widget balanceCard = CardContainer(
-            child: portfolio.loading
-                ? const SizedBox(
-                    height: 80,
-                    child: Center(child: CircularProgressIndicator()),
-                  )
-                : Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text('Total Balance'),
-                      const SizedBox(height: 8),
-                      Text(
-                        '\$${portfolio.totalBalance.toStringAsFixed(2)}',
-                        style: Theme.of(context).textTheme.headlineSmall
-                            ?.copyWith(fontWeight: FontWeight.bold),
-                      ),
-                      const SizedBox(height: 6),
-                      Text(
-                        '${portfolio.monthlyProfit >= 0 ? '+' : '-'} '
-                        '\$${portfolio.monthlyProfit.abs().toStringAsFixed(2)} '
-                        '(${portfolio.monthlyPercent.toStringAsFixed(1)}%) this month',
-                        style: TextStyle(
-                          color: portfolio.monthlyProfit >= 0
-                              ? Colors.green
-                              : Colors.red,
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text("Markets", style: theme.textTheme.titleLarge),
+          const SizedBox(height: 10),
+
+          if (items.isEmpty)
+            const Center(child: Padding(
+              padding: EdgeInsets.symmetric(vertical: 40),
+              child: Text("Waiting for live prices…"),
+            ))
+          else
+            ...items.map((entry) {
+              final symbol = entry.key.toUpperCase();
+              final market = entry.value;
+
+              final price = market.effectiveMid;
+              final prev = previousPrices[symbol];
+
+              final isUp = prev == null ? null : price >= prev;
+              final priceColor = isUp == null
+                  ? theme.colorScheme.onSurface
+                  : (isUp ? Colors.green : Colors.red);
+
+              final change = market.change24h;
+              final changeText = (change == null)
+                  ? "--"
+                  : "${change >= 0 ? "+" : ""}${change.toStringAsFixed(2)}%";
+
+              return Card(
+                margin: const EdgeInsets.only(bottom: 10),
+                child: ListTile(
+                  leading: CircleAvatar(child: Text(symbol.substring(0, 1))),
+                  title: Text(symbol),
+                  subtitle: Text("24h: $changeText"),
+                  trailing: Text(
+                    price == 0 ? "--" : price.toStringAsFixed(2),
+                    style: theme.textTheme.titleMedium?.copyWith(color: priceColor),
+                  ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => AssetChartLiveView(
+                          symbol: symbol,
+                          initialTf: "5m",
                         ),
                       ),
-                    ],
-                  ),
-          );
-
-          // marketsCard: keep as you have it
-          final Widget marketsCard = CardContainer(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text('Markets'),
-            const SizedBox(height: 8),
-            Align(
-              alignment: Alignment.centerRight,
-              child: TextButton.icon(
-                onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (_) => AssetChartView(symbol: 'XAUUSD_', initialTf: '1m'),
-                    ),
-                  );
-                },
-                icon: const Icon(Icons.show_chart),
-                label: const Text('Open Chart'),
-              ),
-            ),
-                const SizedBox(height: 12),
-                if (prices.isEmpty)
-                  const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 8.0),
-                    child: Center(
-                      child: Text(
-                        'Loading pricesâ€¦',
-                        style: TextStyle(color: Colors.grey),
-                      ),
-                    ),
-                  )
-                else
-                  ...prices.entries.map((e) {
-                    final symbol = e.key;
-                    final market = e.value;
-                    final price = market.price;
-                    final change24h =
-                        market.change24h; // null for XAU/EUR initially
-
-                    final prev = previousPrices[symbol];
-
-                    // default color = normal text color
-                    Color priceColor =
-                        Theme.of(context).textTheme.bodyMedium?.color ??
-                        Colors.black;
-
-                    if (prev != null) {
-                      if (price > prev) {
-                        priceColor = Colors.green;
-                      } else if (price < prev) {
-                        priceColor = Colors.red;
-                      }
-                    }
-
-                    String? changeText;
-                    Color? changeColor;
-
-                    // We only have change24h from Binance for BTC/ETH
-                    if (change24h != null) {
-                      final sign = change24h >= 0 ? '+' : '';
-                      changeText = '$sign${change24h.toStringAsFixed(2)}%';
-                      changeColor = change24h >= 0 ? Colors.green : Colors.red;
-                    }
-
-                    return ListTile(
-                      onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(builder: (_) => AssetChartLiveView(symbol: symbol, initialTf: '1m')));
-                      },
-                      dense: true,
-                      contentPadding: EdgeInsets.zero,
-                      title: Text(symbol, overflow: TextOverflow.ellipsis),
-                      trailing: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Text(
-                            price.toStringAsFixed(2),
-                            style: TextStyle(
-                              color: priceColor,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                          if (changeText != null)
-                            Text(
-                              changeText,
-                              style: TextStyle(
-                                color: changeColor,
-                                fontSize: 12,
-                              ),
-                            ),
-                        ],
-                      ),
                     );
-                  }),
-
-                const SizedBox(height: 8),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: TextButton(
-                    onPressed: onTradeTap,
-                    child: const Text('Trade'),
-                  ),
+                  },
                 ),
-              ],
-            ),
-          );
+              );
+            }),
 
-          return SingleChildScrollView(
-            padding: EdgeInsets.symmetric(
-              horizontal: isWide ? width * 0.15 : 16,
-              vertical: 16,
+          const SizedBox(height: 14),
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton.icon(
+              icon: const Icon(Icons.auto_graph),
+              label: const Text("Go to Trade"),
+              onPressed: onTradeTap,
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                const SectionTitle('Tawaqu3', Title: ''),
-                const SizedBox(height: 16),
-                if (isWide)
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(child: balanceCard),
-                      const SizedBox(width: 16),
-                      Expanded(child: marketsCard),
-                    ],
-                  )
-                else ...[
-                  balanceCard,
-                  const SizedBox(height: 16),
-                  marketsCard,
-                ],
-              ],
-            ),
-          );
-        },
+          ),
+        ],
       ),
     );
   }
 }
-
-
-

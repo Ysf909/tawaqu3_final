@@ -7,7 +7,7 @@ class TopTradersViewModel extends ChangeNotifier {
   final TopTradersRepository _repo;
 
   TopTradersViewModel({TopTradersRepository? repo})
-      : _repo = repo ?? TopTradersRepository();
+    : _repo = repo ?? TopTradersRepository();
 
   bool loading = false;
   String? error;

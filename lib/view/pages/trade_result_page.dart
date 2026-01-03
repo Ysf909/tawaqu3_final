@@ -1,6 +1,7 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tawaqu3_final/models/trade_models.dart';
+import 'package:tawaqu3_final/models/trading_labels.dart';
 import 'package:tawaqu3_final/view/widgets/card_container.dart';
 import 'package:tawaqu3_final/view/widgets/section_title.dart';
 import '../../view_model/trade_view_model.dart';
@@ -20,7 +21,7 @@ class TradeResultPage extends StatelessWidget {
           const SectionTitle('Result', Title: ''),
           const SizedBox(height: 8),
           Text(
-            'Your trade recommendation is generated from the selected model + latest candles.',
+            'Your trade recommendation is generated from the ICT model + latest candles.',
             style: theme.textTheme.bodySmall,
           ),
           const SizedBox(height: 12),
@@ -32,11 +33,15 @@ class TradeResultPage extends StatelessWidget {
               decoration: BoxDecoration(
                 color: theme.colorScheme.error.withOpacity(0.08),
                 borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: theme.colorScheme.error.withOpacity(0.25)),
+                border: Border.all(
+                  color: theme.colorScheme.error.withOpacity(0.25),
+                ),
               ),
               child: Text(
                 vm.lastError!,
-                style: theme.textTheme.bodySmall?.copyWith(color: theme.colorScheme.error),
+                style: theme.textTheme.bodySmall?.copyWith(
+                  color: theme.colorScheme.error,
+                ),
               ),
             ),
             const SizedBox(height: 12),
@@ -50,7 +55,6 @@ class TradeResultPage extends StatelessWidget {
             ),
             const SizedBox(height: 16),
           ] else ...[
-            // Summary
             Container(
               width: double.infinity,
               padding: const EdgeInsets.all(14),
@@ -65,18 +69,25 @@ class TradeResultPage extends StatelessWidget {
                     children: [
                       Text(
                         vm.lastPrediction!.pair,
-                        style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w700),
+                        style: theme.textTheme.titleMedium?.copyWith(
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                       const SizedBox(width: 10),
                       Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 6,
+                        ),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(999),
                           color: theme.colorScheme.primary.withOpacity(0.12),
                         ),
                         child: Text(
                           vm.lastPrediction!.side,
-                          style: theme.textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w700),
+                          style: theme.textTheme.bodySmall?.copyWith(
+                            fontWeight: FontWeight.w700,
+                          ),
                         ),
                       ),
                       const Spacer(),
@@ -84,11 +95,16 @@ class TradeResultPage extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 8),
-                  Text('Model: ${vm.selectedModel.label}', style: theme.textTheme.bodySmall),
+                  Text(
+                    'Model: ${vm.selectedModel.label}',
+                    style: theme.textTheme.bodySmall,
+                  ),
                   const SizedBox(height: 10),
                   Text(
                     'Confidence: ${vm.lastPrediction!.confidence.toStringAsFixed(1)}%',
-                    style: theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600),
+                    style: theme.textTheme.bodyMedium?.copyWith(
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                   const SizedBox(height: 6),
                   LinearProgressIndicator(
@@ -101,7 +117,6 @@ class TradeResultPage extends StatelessWidget {
 
             const SizedBox(height: 12),
 
-            // Levels
             Container(
               width: double.infinity,
               padding: const EdgeInsets.all(14),
@@ -125,7 +140,6 @@ class TradeResultPage extends StatelessWidget {
 
             const SizedBox(height: 14),
 
-            // Outcome buttons (updates trade + history + profit)
             Row(
               children: [
                 Expanded(

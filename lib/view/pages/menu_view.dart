@@ -14,7 +14,7 @@ class MenuView extends StatelessWidget {
     final initials = session.initials;
 
     debugPrint('MenuView -> fullName: $fullName');
-    
+
     final menu = CardContainer(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -32,10 +32,7 @@ class MenuView extends StatelessWidget {
             leading: const Icon(Icons.link),
             title: const Text('Connects'),
             onTap: () {
-              Navigator.pushNamed(
-                context,
-                AppRouter.connectsRoute,
-              );
+              Navigator.pushNamed(context, AppRouter.connectsRoute);
             },
           ),
           // Notifications
@@ -43,10 +40,7 @@ class MenuView extends StatelessWidget {
             leading: const Icon(Icons.notifications),
             title: const Text('Notifications'),
             onTap: () {
-              Navigator.pushNamed(
-                context,
-                AppRouter.notificationsRoute,
-              );
+              Navigator.pushNamed(context, AppRouter.notificationsRoute);
             },
           ),
           // History
@@ -54,10 +48,7 @@ class MenuView extends StatelessWidget {
             leading: const Icon(Icons.history),
             title: const Text('History'),
             onTap: () {
-              Navigator.pushNamed(
-                context,
-                AppRouter.historyRoute,
-              );
+              Navigator.pushNamed(context, AppRouter.historyRoute);
             },
           ),
           // Settings
@@ -65,10 +56,7 @@ class MenuView extends StatelessWidget {
             leading: const Icon(Icons.settings),
             title: const Text('Settings'),
             onTap: () {
-              Navigator.pushNamed(
-                context,
-                AppRouter.SettingsRoute,
-              );
+              Navigator.pushNamed(context, AppRouter.SettingsRoute);
             },
           ),
           const SizedBox(height: 8),
@@ -77,10 +65,7 @@ class MenuView extends StatelessWidget {
               // optional: clear user session on logout
               context.read<UserSessionViewModel>().clear();
 
-              Navigator.pushReplacementNamed(
-                context,
-                AppRouter.authRoute,
-              );
+              Navigator.pushReplacementNamed(context, AppRouter.authRoute);
             },
             child: const Text('LOGOUT'),
           ),
@@ -98,11 +83,7 @@ class MenuView extends StatelessWidget {
           builder: (context, c) {
             final wide = c.maxWidth > 1000;
             if (wide) {
-              return Row(
-                children: [
-                  Expanded(child: menu),
-                ],
-              );
+              return Row(children: [Expanded(child: menu)]);
             }
             return ListView(
               padding: const EdgeInsets.all(16),

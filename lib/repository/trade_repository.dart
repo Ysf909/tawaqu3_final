@@ -1,4 +1,4 @@
-import 'package:supabase_flutter/supabase_flutter.dart';
+﻿import 'package:supabase_flutter/supabase_flutter.dart';
 import '../models/trade_entity.dart';
 
 class TradeRepository {
@@ -12,18 +12,33 @@ class TradeRepository {
     required double lot,
     required String school,
     required DateTime time,
+
+    // optional extra fields
+    String? pair,
+    String? side,
+    double? confidence,
+    String? outcome,
+    double? profit,
   }) async {
+    final payload = <String, dynamic>{
+      'user_id': userId,
+      'entry': entry,
+      'sl': sl,
+      'tp': tp,
+      'lot': lot,
+      'school': school,
+      'time': time.toIso8601String(),
+
+      if (pair != null) 'pair': pair,
+      if (side != null) 'side': side,
+      if (confidence != null) 'confidence': confidence,
+      if (outcome != null) 'outcome': outcome,
+      if (profit != null) 'profit': profit,
+    };
+
     final response = await _client
         .from('trades')
-        .insert({
-          'user_id': userId,
-          'entry': entry,
-          'sl': sl,
-          'tp': tp,
-          'lot': lot,
-          'school': school,
-          'time': time.toIso8601String(),
-        })
+        .insert(payload)
         .select()
         .maybeSingle();
 

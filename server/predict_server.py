@@ -75,3 +75,10 @@ def predict(req: PredictReq):
     outs = sess.run(None, {inp_name: x})
 
     return {"output": np.asarray(outs[0]).tolist(), "tf": req.tf, "shape": shp}
+
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)
+
+

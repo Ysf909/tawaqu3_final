@@ -6,7 +6,7 @@ class TopTradersRepository {
   final SupabaseClient _client;
 
   TopTradersRepository({SupabaseClient? client})
-      : _client = client ?? Supabase.instance.client;
+    : _client = client ?? Supabase.instance.client;
 
   Future<List<TopTraderStats>> fetchTopTraders({int limit = 20}) async {
     // We aggregate in Dart because PostgREST "group by" is limited.
@@ -14,10 +14,7 @@ class TopTradersRepository {
     List<dynamic> rows;
 
     Future<List<dynamic>> runSelect(String select) async {
-      final res = await _client
-          .from('trades')
-          .select(select)
-          .limit(5000);
+      final res = await _client.from('trades').select(select).limit(5000);
       return res as List<dynamic>;
     }
 

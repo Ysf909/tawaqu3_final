@@ -18,7 +18,13 @@ class AiService {
     final tp = entry + (_rng.nextDouble() * 15 + 2);
     final lot = double.parse((amountUSD / 2000).toStringAsFixed(2));
     final conf = 80 + _rng.nextInt(19);
-    return Prediction(pair: pair, entry: entry, sl: sl, tp: tp, lot: lot, confidence: conf);
+    return Prediction(
+      pair: pair,
+      entry: entry,
+      sl: sl,
+      tp: tp,
+      lot: lot,
+      confidence: conf,
+    );
   }
 }
-

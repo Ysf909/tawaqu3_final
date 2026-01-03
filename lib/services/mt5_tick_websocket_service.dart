@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 import 'dart:convert';
 import 'package:tawaqu3_final/models/market_model.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
@@ -20,9 +20,8 @@ class Mt5TickWebSocketService {
     _channel = WebSocketChannel.connect(Uri.parse(wsUrl));
     print('WS connecting to: ' + wsUrl);
 
-    _sub = _channel!.stream.listen(
-      (msg) {
-        print('WS RAW: ' + (msg is String ? msg : msg.toString()));
+    _sub = _channel!.stream.listen((msg) {
+      print('WS RAW: ' + (msg is String ? msg : msg.toString()));
       final str = msg is String ? msg : msg.toString();
 
       try {
@@ -51,4 +50,3 @@ class Mt5TickWebSocketService {
     _controller.close();
   }
 }
-

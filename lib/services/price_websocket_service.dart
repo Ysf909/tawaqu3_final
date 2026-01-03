@@ -3,327 +3,429 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:tawaqu3_final/models/market_model.dart';
-import 'package:web_socket_channel/web_socket_channel.dart';
+import 'package:tawaqu3_final/models/signal_msg.dart';
+import 'package:tawaqu3_final/models/tick.dart';
 import 'package:web_socket_channel/status.dart' as ws_status;
+import 'package:web_socket_channel/web_socket_channel.dart';
 
+/// WebSocket client for:
+/// - live ticks
+/// - live candle updates
+/// - bulk candle snapshots (get_candles)
+/// - live signals
 class PriceWebSocketService {
+  /// Default WS URL for local development.
+  ///
+  /// - Android emulator must use 10.0.2.2 to reach your PC localhost.
+  /// - Other platforms can use 127.0.0.1.
+  static String get defaultWsUrl {
+    if (kIsWeb) return 'ws://127.0.0.1:8080';
+    switch (defaultTargetPlatform) {
+      case TargetPlatform.android:
+        return 'ws://10.0.2.2:8080';
+      default:
+        return 'ws://127.0.0.1:8080';
+    }
+  }
+
+  /// Global shared instance
+  static PriceWebSocketService instance = PriceWebSocketService();
+
+  /// Change the URL used by the shared instance.
+  static Future<void> configureInstance({required String wsUrl}) async {
+    if (instance.wsUrl == wsUrl) return;
+    try {
+      await instance.disconnect();
+    } catch (_) {}
+    instance = PriceWebSocketService(wsUrl: wsUrl);
+  }
+
+  /// Normalize symbols so "XAUUSD_" and "XAUUSD" map to the same key.
+  String _normSymbol(String s) {
+    final raw = (s).toString().trim();
+    if (raw.isEmpty) return raw;
+    if (raw.endsWith('_')) return raw.substring(0, raw.length - 1);
+    return raw;
+  }
+
+  String _key(String symbol, String tf) => '${_normSymbol(symbol)}__${tf.toLowerCase()}';
+
   final String wsUrl;
 
   WebSocketChannel? _channel;
   StreamSubscription? _sub;
 
+  // Streams
+  final _ticksCtrl = StreamController<Tick>.broadcast();
   final _pricesCtrl = StreamController<Map<String, MarketPrice>>.broadcast();
-  final _candlesCtrl = StreamController<Map<String, List<Candle>>>.broadcast(); // key: "$symbol__$tf"
-  final _signalsCtrl = StreamController<SignalMsg>.broadcast();
+  final _candlesCtrl = StreamController<CandleMsg>.broadcast();
+  final _signalCtrl = StreamController<SignalMsg>.broadcast();
 
-  Map<String, MarketPrice> _latestPrices = {};
-  Map<String, List<Candle>> _latestCandles = {};
+  // Cached snapshots
+  final Map<String, MarketPrice> _prices = {};
+  final Map<String, List<Candle>> _candles = {};
 
-  // Track which TFs we have candle history for (so we can update them live from ticks)
-  final Map<String, Set<String>> _loadedTfsBySymbol = {};
+  // Pending candle requests
+  final Map<String, Completer<List<Candle>>> _pendingCandles = {};
 
-  // Pending candle requests: key("SYMBOL__tf") -> completer
-  final Map<String, Completer<List<Candle>>> _pendingCandleRequests = {};
+  // Live candle building from ticks
+  final Map<String, Candle> _lastCandle = {};
+  final Map<String, DateTime> _lastCandleStart = {};
 
+  PriceWebSocketService({String? wsUrl}) : wsUrl = wsUrl ?? defaultWsUrl;
+
+  Stream<Tick> get ticksStream => _ticksCtrl.stream;
   Stream<Map<String, MarketPrice>> get pricesStream => _pricesCtrl.stream;
-  Stream<Map<String, List<Candle>>> get candlesStream => _candlesCtrl.stream;
-  Stream<SignalMsg> get signalsStream => _signalsCtrl.stream;
+  Stream<CandleMsg> get candlesStream => _candlesCtrl.stream;
+  Stream<SignalMsg> get signalsStream => _signalCtrl.stream;
 
-  PriceWebSocketService({String? wsUrl}) : wsUrl = wsUrl ?? _defaultWsUrl() {
-    _connect();
+  bool get isConnected => _channel != null;
+
+  List<Candle> candlesFor(String symbol, String tf) => getCandles(symbol, tf);
+
+  List<Candle> getCandles(String symbol, String tf) {
+    return List.unmodifiable(_candles[_key(symbol, tf)] ?? const []);
   }
 
-  static String _defaultWsUrl() {
-    // Web (Chrome on PC)
-    if (kIsWeb) return 'ws://127.0.0.1:8080';
-    // Android emulator -> host PC
-    return 'ws://10.0.2.2:8080';
-  }
+  MarketPrice? getPrice(String symbol) => _prices[_normSymbol(symbol)];
 
-  static String _alias(String s) =>
-      s.endsWith('_') ? s.substring(0, s.length - 1) : s;
+  Future<void> connect() async {
+    if (_channel != null) return;
 
-  static String _key(String symbol, String tf) =>
-      '${symbol.toUpperCase()}__${tf.toString()}';
-
-  List<Candle> candlesFor(String symbol, String tf) {
-    return _latestCandles[_key(symbol, tf)] ?? const <Candle>[];
-  }
-
-  void _putPrice(String symbol, double mid, {double? change24h}) {
-    final s1 = symbol.toUpperCase();
-    final s2 = _alias(s1);
-
-    _latestPrices = Map<String, MarketPrice>.from(_latestPrices);
-
-    _latestPrices[s1] = MarketPrice(
-      price: mid,
-      change24h: change24h ?? _latestPrices[s1]?.change24h,
-    );
-
-    if (s2 != s1) {
-      _latestPrices[s2] = MarketPrice(
-        price: mid,
-        change24h: change24h ?? _latestPrices[s2]?.change24h,
-      );
-    }
-
-    _pricesCtrl.add(_latestPrices);
-  }
-
-  void _setCandles(String symbol, String tf, List<Candle> candles) {
-    final s1 = symbol.toUpperCase();
-    final s2 = _alias(s1);
-
-    // remember that this symbol has this TF loaded
-    final tfKey = tf.toLowerCase();
-    _loadedTfsBySymbol.putIfAbsent(s1, () => <String>{}).add(tfKey);
-    if (s2 != s1) {
-      _loadedTfsBySymbol.putIfAbsent(s2, () => <String>{}).add(tfKey);
-    }
-
-    _latestCandles = Map<String, List<Candle>>.from(_latestCandles);
-
-    _latestCandles[_key(s1, tf)] = candles;
-    if (s2 != s1) _latestCandles[_key(s2, tf)] = candles;
-
-    _candlesCtrl.add(_latestCandles);
-
-    // complete pending request(s)
-    final k1 = _key(s1, tfKey);
-    final k2 = _key(s2, tfKey);
-    final c1 = _pendingCandleRequests.remove(k1);
-    c1?.complete(candles);
-    if (s2 != s1) {
-      final c2 = _pendingCandleRequests.remove(k2);
-    
-      // don't double-complete the same candles list
-      if (c2 != null && !c2.isCompleted) c2.complete(candles);
-    }
-  }
-
-  int _tfSeconds(String tf) {
-    final s = tf.toLowerCase();
-    if (s == '1m') return 60;
-    if (s == '5m') return 300;
-    if (s == '15m') return 900;
-    if (s == '1h') return 3600;
-    if (s == '4h') return 14400;
-    if (s == '1d') return 86400;
-    return 900;
-  }
-
-  DateTime _floorToTf(DateTime t, String tf) {
-    final sec = _tfSeconds(tf);
-    final ms = t.millisecondsSinceEpoch;
-    final startMs = (ms ~/ 1000 ~/ sec) * sec * 1000;
-    return DateTime.fromMillisecondsSinceEpoch(startMs, isUtc: true);
-  }
-
-  void _updateLiveCandlesFromTick(String symbol, String tf, double price, DateTime tickTime) {
-    final s1 = symbol.toUpperCase();
-    final s2 = _alias(s1);
-    final tfKey = tf.toLowerCase();
-
-    void updateForSym(String sym) {
-      final k = _key(sym, tfKey);
-      final prev = _latestCandles[k];
-      if (prev == null || prev.isEmpty) return;
-
-      final start = _floorToTf(tickTime, tfKey);
-      final last = prev.last;
-      final lastStart = _floorToTf(last.time, tfKey);
-
-      final next = List<Candle>.from(prev);
-
-      if (lastStart != start) {
-        // new candle
-        next.add(Candle(
-          time: start,
-          open: price,
-          high: price,
-          low: price,
-          close: price,
-          volume: 0.0,
-        ));
-      } else {
-        // update existing candle (immutable -> replace)
-        next[next.length - 1] = Candle(
-          time: last.time,
-          open: last.open,
-          high: (price > last.high) ? price : last.high,
-          low: (price < last.low) ? price : last.low,
-          close: price,
-          volume: last.volume,
-        );
-      }
-
-      // keep last 600 candles
-      if (next.length > 600) {
-        next.removeRange(0, next.length - 600);
-      }
-
-      _latestCandles[k] = next;
-    }
-
-    _latestCandles = Map<String, List<Candle>>.from(_latestCandles);
-    updateForSym(s1);
-    if (s2 != s1) updateForSym(s2);
-    _candlesCtrl.add(_latestCandles);
-  }
-
-  void sendJson(Map<String, dynamic> message) {
-    try {
-      _channel?.sink.add(jsonEncode(message));
-    } catch (_) {
-      // ignore
-    }
-  }
-
-  void subscribeSymbol(String symbol) {
-    sendJson({'type': 'subscribe', 'symbol': symbol});
-  }
-
-  void unsubscribeSymbol(String symbol) {
-    sendJson({'type': 'unsubscribe', 'symbol': symbol});
-  }
-
-  Future<List<Candle>> requestCandles(
-    String symbol,
-    String tf, {
-    int limit = 200,
-    Duration timeout = const Duration(seconds: 4),
-  }) async {
-    final tfKey = tf.toLowerCase();
-    final k = _key(symbol, tfKey);
-    final completer = Completer<List<Candle>>();
-
-    // overwrite any older pending request for the same key
-    _pendingCandleRequests[k] = completer;
-
-    sendJson({
-      'type': 'get_candles',
-      'symbol': symbol,
-      'tf': tfKey,
-      'limit': limit,
-    });
-
-    try {
-      return await completer.future.timeout(timeout);
-    } catch (_) {
-      _pendingCandleRequests.remove(k);
-      return candlesFor(symbol, tfKey);
-    }
-  }
-
-  void _appendCandle(String symbol, String tf, Candle candle) {
-    final s1 = symbol.toUpperCase();
-    final s2 = _alias(s1);
-
-    _latestCandles = Map<String, List<Candle>>.from(_latestCandles);
-
-    void appendOne(String sym) {
-      final k = _key(sym, tf);
-      final prev = _latestCandles[k] ?? const <Candle>[];
-      final next = List<Candle>.from(prev)..add(candle);
-
-      // keep last 600 candles
-      if (next.length > 600) {
-        next.removeRange(0, next.length - 600);
-      }
-
-      _latestCandles[k] = next;
-    }
-
-    appendOne(s1);
-    if (s2 != s1) appendOne(s2);
-
-    _candlesCtrl.add(_latestCandles);
-  }
-
-  void _connect() {
     _channel = WebSocketChannel.connect(Uri.parse(wsUrl));
 
     _sub = _channel!.stream.listen(
-      (data) {
+      (event) {
         try {
-          final str = data is String ? data : data.toString();
-          final m = jsonDecode(str) as Map<String, dynamic>;
+          final m = jsonDecode(event.toString()) as Map<String, dynamic>;
           final type = (m['type'] ?? '').toString();
 
           if (type == 'tick') {
-            final symbol = (m['symbol'] ?? '').toString();
-            if (symbol.isEmpty) return;
-
-            final mid = (m['price'] as num?)?.toDouble() ??
-                (m['mid'] as num?)?.toDouble() ??
-                (((m['bid'] as num?)?.toDouble() ?? 0.0) +
-                        ((m['ask'] as num?)?.toDouble() ?? 0.0)) /
-                    2.0;
-
-            final change24h = (m['change24h'] as num?)?.toDouble();
-            final tickTime = DateTime.tryParse((m['time'] ?? '').toString()) ??
-                DateTime.now().toUtc();
-
-            _putPrice(symbol, mid, change24h: change24h);
-
-            // Turn ticks into live candles for any TF that already has history
-            final s1 = symbol.toUpperCase();
-            final s2 = _alias(s1);
-            final tfs = <String>{
-              ...(_loadedTfsBySymbol[s1] ?? const <String>{}),
-              ...(_loadedTfsBySymbol[s2] ?? const <String>{}),
-            };
-            for (final tf in tfs) {
-              _updateLiveCandlesFromTick(symbol, tf, mid, tickTime);
-            }
-          } else if (type == 'candle') {
-            final symbol = (m['symbol'] ?? '').toString();
-            final tf = (m['tf'] ?? '').toString();
-            if (symbol.isEmpty || tf.isEmpty) return;
-
-            final candle = Candle(
-              time: DateTime.tryParse((m['time'] ?? '').toString()) ??
-                  DateTime.now().toUtc(),
-              open: (m['open'] as num).toDouble(),
-              high: (m['high'] as num).toDouble(),
-              low: (m['low'] as num).toDouble(),
-              close: (m['close'] as num).toDouble(),
-              volume: (m['volume'] as num?)?.toDouble() ?? (m['v'] as num?)?.toDouble() ?? 0.0,
-            );
-
-            _appendCandle(symbol, tf, candle);
+            _handleTick(m);
           } else if (type == 'candles' || type == 'ohlc') {
-            // bulk candles
-            final symbol = (m['symbol'] ?? '').toString();
-            final tf = (m['tf'] ?? '').toString();
-            if (symbol.isEmpty || tf.isEmpty) return;
-
-            final raw = (m['candles'] as List?) ?? const [];
-            final list = raw.cast<Map<String, dynamic>>();
-            final candles = list
-                .map((e) => Candle.fromJson(e))
-                .toList(growable: false);
-
-            _setCandles(symbol, tf.toLowerCase(), candles);
+            _handleBulkCandles(m);
+          } else if (type == 'candle') {
+            _handleSingleCandle(m);
           } else if (type == 'signal') {
-            _signalsCtrl.add(SignalMsg.fromJson(m));
+            _handleSignal(m);
           }
         } catch (_) {
-          // ignore bad payload
+          // ignore noisy frames
         }
       },
-      onError: (_) {},
-      onDone: () {},
+      onDone: () => disconnect(),
+      onError: (_) => disconnect(),
+      cancelOnError: true,
     );
   }
 
+  Future<void> disconnect() async {
+    try {
+      await _sub?.cancel();
+    } catch (_) {}
+    _sub = null;
+
+    try {
+      await _channel?.sink.close(ws_status.normalClosure);
+    } catch (_) {}
+    _channel = null;
+  }
+
+  /// Request candle snapshot from server and wait for response.
+  Future<List<Candle>> requestCandles(
+    String symbol,
+    String tf, {
+    int limit = 600,
+    Duration timeout = const Duration(seconds: 6),
+  }) async {
+    await connect();
+
+    final sym = _normSymbol(symbol);
+    final k = _key(sym, tf);
+
+    final existing = _pendingCandles[k];
+    if (existing != null) return existing.future.timeout(timeout);
+
+    final c = Completer<List<Candle>>();
+    _pendingCandles[k] = c;
+
+    _channel!.sink.add(jsonEncode({
+      'type': 'get_candles',
+      'symbol': sym,
+      'tf': tf,
+      'limit': limit,
+    }));
+
+    return c.future.timeout(timeout);
+  }
+
+  // ---------------- message handlers ----------------
+
+  void _handleTick(Map<String, dynamic> m) {
+    final symbol = _normSymbol((m['symbol'] ?? '').toString());
+    final time = DateTime.tryParse((m['time'] ?? '').toString()) ?? DateTime.now().toUtc();
+
+    final price = (m['price'] as num?)?.toDouble() ??
+        (m['mid'] as num?)?.toDouble() ??
+        (m['last'] as num?)?.toDouble() ??
+        0.0;
+
+    final bid = (m['bid'] as num?)?.toDouble() ?? price;
+    final ask = (m['ask'] as num?)?.toDouble() ?? price;
+    final mid = (m['mid'] as num?)?.toDouble() ?? ((bid + ask) / 2.0);
+
+    final t = Tick.fromJson({
+      'symbol': symbol,
+      'bid': bid,
+      'ask': ask,
+      'mid': mid,
+      'time': time.toIso8601String(),
+      'price': price,
+    });
+
+    _ticksCtrl.add(t);
+
+    // IMPORTANT: set `price` so Home page shows it
+    _prices[symbol] = MarketPrice(
+      symbol: symbol,
+      buy: bid,
+      sell: ask,
+      mid: mid,
+      time: time,
+      price: price == 0.0 ? mid : price,
+      change24h: (m['change24h'] as num?)?.toDouble(),
+    );
+
+    _pricesCtrl.add(Map.unmodifiable(_prices));
+
+    // build candles locally for instant chart updates
+    for (final tf in const ['1m', '5m', '15m', '1h']) {
+      _buildLiveCandle(symbol, tf, t);
+    }
+  }
+
+  void _handleSingleCandle(Map<String, dynamic> m) {
+    final symbol = _normSymbol((m['symbol'] ?? '').toString());
+    final tf = (m['tf'] ?? '').toString();
+    if (symbol.isEmpty || tf.isEmpty) return;
+
+    final candle = Candle(
+      time: DateTime.tryParse((m['time'] ?? '').toString()) ?? DateTime.now().toUtc(),
+      open: (m['open'] as num).toDouble(),
+      high: (m['high'] as num).toDouble(),
+      low: (m['low'] as num).toDouble(),
+      close: (m['close'] as num).toDouble(),
+      volume: (m['volume'] as num?)?.toDouble() ?? (m['v'] as num?)?.toDouble() ?? 0.0,
+    );
+
+    _appendCandle(symbol, tf, candle);
+  }
+
+  void _handleBulkCandles(Map<String, dynamic> m) {
+    final symbol = _normSymbol((m['symbol'] ?? '').toString());
+    final tf = (m['tf'] ?? '').toString();
+    if (symbol.isEmpty || tf.isEmpty) return;
+
+    final raw = (m['candles'] as List?) ?? const [];
+
+    final candles = raw
+        .cast<Map<String, dynamic>>()
+        .map((e) {
+          final time = DateTime.tryParse((e['time'] ?? '').toString()) ??
+              DateTime.fromMillisecondsSinceEpoch(
+                (e['startTime'] as num?)?.toInt() ?? DateTime.now().millisecondsSinceEpoch,
+                isUtc: true,
+              );
+
+          return Candle(
+            time: time.toUtc(),
+            open: (e['open'] as num).toDouble(),
+            high: (e['high'] as num).toDouble(),
+            low: (e['low'] as num).toDouble(),
+            close: (e['close'] as num).toDouble(),
+            volume: (e['volume'] as num?)?.toDouble() ?? (e['v'] as num?)?.toDouble() ?? 0.0,
+          );
+        })
+        .toList();
+
+    final k = _key(symbol, tf);
+    _candles[k] = _dedupeAndSort(candles);
+
+    final pending = _pendingCandles.remove(k);
+    if (pending != null && !pending.isCompleted) {
+      pending.complete(List.unmodifiable(_candles[k]!));
+    }
+
+    if (_candles[k]!.isNotEmpty) {
+      final last = _candles[k]!.last;
+      _candlesCtrl.add(CandleMsg.fromCandle(symbol: symbol, tf: tf, c: last));
+    }
+  }
+
+  void _handleSignal(Map<String, dynamic> m) {
+    final symbol = _normSymbol((m['symbol'] ?? '').toString());
+    final tf = (m['tf'] ?? '').toString();
+    final entry = (m['entry'] as num?)?.toDouble();
+    final score = (m['score'] as num?)?.toDouble();
+    final side = (m['side'] ?? '').toString();
+    final note = (m['note'] ?? '').toString();
+
+    _signalCtrl.add(
+      SignalMsg(
+        symbol: symbol,
+        tf: tf,
+        side: side,
+        entry: entry,
+        score: score,
+        note: note.isEmpty ? null : note,
+      ),
+    );
+  }
+
+  // ---------------- candle helpers ----------------
+
+  void _appendCandle(String symbol, String tf, Candle candle) {
+    final k = _key(symbol, tf);
+    final list = _candles[k] ?? <Candle>[];
+
+    if (list.isNotEmpty) {
+      final last = list.last;
+      if (last.time.isAtSameMomentAs(candle.time)) {
+        list[list.length - 1] = candle;
+      } else if (candle.time.isAfter(last.time)) {
+        list.add(candle);
+      }
+    } else {
+      list.add(candle);
+    }
+
+    _candles[k] = _dedupeAndSort(list);
+    _candlesCtrl.add(CandleMsg.fromCandle(symbol: _normSymbol(symbol), tf: tf, c: candle));
+  }
+
+  List<Candle> _dedupeAndSort(List<Candle> list) {
+    list.sort((a, b) => a.time.compareTo(b.time));
+    final out = <Candle>[];
+    DateTime? lastTime;
+    for (final c in list) {
+      if (lastTime != null && c.time.isAtSameMomentAs(lastTime)) {
+        out[out.length - 1] = c;
+      } else {
+        out.add(c);
+        lastTime = c.time;
+      }
+    }
+    return out;
+  }
+
+  DateTime _floorTime(DateTime t, String tf) {
+    final s = tf.toLowerCase();
+    Duration d;
+    if (s == '1m') {
+      d = const Duration(minutes: 1);
+    } else if (s == '5m') {
+      d = const Duration(minutes: 5);
+    } else if (s == '15m') {
+      d = const Duration(minutes: 15);
+    } else if (s == '30m') {
+      d = const Duration(minutes: 30);
+    } else if (s == '1h') {
+      d = const Duration(hours: 1);
+    } else if (s == '4h') {
+      d = const Duration(hours: 4);
+    } else if (s == '1d') {
+      d = const Duration(days: 1);
+    } else {
+      d = const Duration(minutes: 15);
+    }
+
+    final ms = d.inMilliseconds;
+    final floored = (t.millisecondsSinceEpoch ~/ ms) * ms;
+    return DateTime.fromMillisecondsSinceEpoch(floored, isUtc: true);
+  }
+
+  void _buildLiveCandle(String symbol, String tf, Tick tick) {
+    final sym = _normSymbol(symbol);
+    final k = _key(sym, tf);
+    final start = _floorTime(tick.time.toUtc(), tf);
+
+    final lastStart = _lastCandleStart[k];
+
+    if (lastStart == null || start.isAfter(lastStart)) {
+      final candle = Candle(
+        time: start,
+        open: tick.mid,
+        high: tick.mid,
+        low: tick.mid,
+        close: tick.mid,
+        volume: 0,
+      );
+      _lastCandleStart[k] = start;
+      _lastCandle[k] = candle;
+      _appendCandle(sym, tf, candle);
+      return;
+    }
+
+    var candle = _lastCandle[k] ??
+        Candle(
+          time: start,
+          open: tick.mid,
+          high: tick.mid,
+          low: tick.mid,
+          close: tick.mid,
+          volume: 0,
+        );
+
+    candle = Candle(
+      time: candle.time,
+      open: candle.open,
+      high: tick.mid > candle.high ? tick.mid : candle.high,
+      low: tick.mid < candle.low ? tick.mid : candle.low,
+      close: tick.mid,
+      volume: candle.volume,
+    );
+
+    _lastCandle[k] = candle;
+    _appendCandle(sym, tf, candle);
+  }
+
   void dispose() {
-    _sub?.cancel();
-    _channel?.sink.close(ws_status.goingAway);
+    disconnect();
+    _ticksCtrl.close();
     _pricesCtrl.close();
     _candlesCtrl.close();
-    _signalsCtrl.close();
+    _signalCtrl.close();
   }
 }
 
+class CandleMsg {
+  final String symbol;
+  final String tf;
+  final DateTime time;
+  final double open, high, low, close;
+
+  CandleMsg({
+    required this.symbol,
+    required this.tf,
+    required this.time,
+    required this.open,
+    required this.high,
+    required this.low,
+    required this.close,
+  });
+
+  factory CandleMsg.fromCandle({
+    required String symbol,
+    required String tf,
+    required Candle c,
+  }) =>
+      CandleMsg(
+        symbol: symbol,
+        tf: tf,
+        time: c.time,
+        open: c.open,
+        high: c.high,
+        low: c.low,
+        close: c.close,
+      );
+}

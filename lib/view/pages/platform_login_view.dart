@@ -50,9 +50,7 @@ class _PlatformLoginViewState extends State<PlatformLoginView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Connect ${widget.platformName}'),
-      ),
+      appBar: AppBar(title: Text('Connect ${widget.platformName}')),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -92,17 +90,13 @@ class _PlatformLoginViewState extends State<PlatformLoginView> {
             Text(
               'Note: This step saves the platform connection (MT4/MT5) in your database.\n'
               'The next step is the real integration via a bridge/EA or broker API.',
-              style: Theme.of(context)
-                  .textTheme
-                  .bodySmall
-                  ?.copyWith(color: Colors.grey),
+              style: Theme.of(
+                context,
+              ).textTheme.bodySmall?.copyWith(color: Colors.grey),
             ),
             if (_err != null) ...[
               const SizedBox(height: 12),
-              Text(
-                _err!,
-                style: const TextStyle(color: Colors.red),
-              ),
+              Text(_err!, style: const TextStyle(color: Colors.red)),
             ],
             const SizedBox(height: 16),
             SizedBox(
