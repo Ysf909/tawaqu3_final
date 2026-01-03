@@ -1,0 +1,260 @@
+﻿--- server/server.js
++++ server/server.js
+@@ -142,6 +142,55 @@
+   wsBroadcast({ type: "candle", ...candle });
+   return true;
+ }
++
++function ingestCandlesBulk(msg) {
++  const sym = normSymbol(msg.symbol);
++  const tf = String(msg.tf || "").toLowerCase();
++  const raw = Array.isArray(msg.candles) ? msg.candles : [];
++  if (!sym || !tf || raw.length === 0) return false;
++
++  const k = key(sym, tf);
++  const arr = [];
++
++  for (const e of raw) {
++    const c = {
++      symbol: sym,
++      tf,
++      time: e.time ? String(e.time) : nowIso(),
++      open: Number(e.open),
++      high: Number(e.high),
++      low:  Number(e.low),
++      close:Number(e.close),
++      volume: Number.isFinite(Number(e.volume)) ? Number(e.volume) : 0,
++    };
++    if (![c.open, c.high, c.low, c.close].every(Number.isFinite)) continue;
++    arr.push(c);
++  }
++
++  if (arr.length === 0) return false;
++
++  // sort + dedupe by time
++  arr.sort((a, b) => String(a.time).localeCompare(String(b.time)));
++  const out = [];
++  let lastTime = null;
++  for (const c of arr) {
++    if (lastTime && c.time === lastTime) {
++      out[out.length - 1] = c;
++    } else {
++      out.push(c);
++      lastTime = c.time;
++    }
++  }
++
++  // keep last ~800
++  const trimmed = out.length > 800 ? out.slice(out.length - 800) : out;
++  candlesByKey[k] = trimmed.map((c) => ({ ...c })); // store without type
++
++  // broadcast bulk so web can instantly draw
++  wsBroadcast({ type: "candles", symbol: sym, tf, candles: trimmed });
++  return true;
++}
+ 
+ function ingestSignal(msg) {
+   const sym = normSymbol(msg.symbol);
+@@ -203,10 +252,33 @@
+     if (req.method === "GET" && path === "/health") {
+       return jsonResponse(res, 200, { ok: true, mock: MOCK, time: nowIso() });
+     }
++
++    if (req.method === "GET" && path === "/tick") {
++      const sym = normSymbol(u.searchParams.get("symbol") || "");
++      if (!sym) return jsonResponse(res, 200, { ok: true, ticks: latestTicks });
++      return jsonResponse(res, 200, { ok: true, tick: latestTicks[sym] || null });
++    }
++
++    if (req.method === "GET" && path === "/candles") {
++      const sym = normSymbol(u.searchParams.get("symbol") || "");
++      const tf = String(u.searchParams.get("tf") || "").toLowerCase();
++      const limit = Math.max(1, Math.min(2000, parseInt(u.searchParams.get("limit") || "300", 10)));
++      if (!sym || !tf) return jsonResponse(res, 400, { ok: false, error: "symbol and tf required" });
++      const k = key(sym, tf);
++      const arr = candlesByKey[k] || [];
++      const out = arr.length > limit ? arr.slice(arr.length - limit) : arr;
++      return jsonResponse(res, 200, { ok: true, symbol: sym, tf, candles: out });
++    }
+ 
+-    if (req.method === "POST" && (path === "/tick" || path === "/candle" || path === "/signal")) {
++    if (req.method === "POST" && (path === "/tick" || path === "/candle" || path === "/candles" || path === "/signal")) {
+       const body = await readJson(req);
+ 
+       let ok = false;
+       if (path === "/tick") ok = ingestTick(body);
+       if (path === "/candle") ok = ingestCandle(body);
++      if (path === "/candles") ok = ingestCandlesBulk(body);
+       if (path === "/signal") ok = ingestSignal(body);
+ 
+       return jsonResponse(res, ok ? 200 : 400, { ok });
+@@ -245,6 +317,19 @@
+       if (m && m.type === "subscribe" && Array.isArray(m.symbols)) {
+         ws._subs = new Set(m.symbols.map((x) => normSymbol(String(x))));
+         snapshotFor(ws);
+       }
++
++      if (m && (m.type === "get_candles" || m.type === "history_request")) {
++        const sym = normSymbol(m.symbol || "");
++        const tf = String(m.tf || "").toLowerCase();
++        const limit = Math.max(1, Math.min(2000, parseInt(m.limit || "300", 10)));
++        if (!sym || !tf) return;
++
++        const k = key(sym, tf);
++        const arr = candlesByKey[k] || [];
++        const out = arr.length > limit ? arr.slice(arr.length - limit) : arr;
++
++        ws.send(JSON.stringify({ type: "candles", symbol: sym, tf, candles: out, time: nowIso() }));
++      }
+     } catch (_) {}
+   });
+--- lib/services/price_websocket_service.dart
++++ lib/services/price_websocket_service.dart
+@@ -100,7 +100,9 @@
+           final m = jsonDecode(event.toString()) as Map<String, dynamic>;
+           final type = (m['type'] ?? '').toString();
+ 
+-          if (type == 'tick') {
++          if (type == 'snapshot') {
++            _handleSnapshot(m);
++          } else if (type == 'tick') {
+             _handleTick(m);
+           } else if (type == 'candles' || type == 'ohlc') {
+             _handleBulkCandles(m);
+@@ -167,6 +169,49 @@
+ 
+   // ---------------- message handlers ----------------
+ 
++  void _handleSnapshot(Map<String, dynamic> m) {
++    // Node sends: {type:"snapshot", ticks:{...}, candles:{ "SYM__tf":[...]} , signals:{...} }
++    final ticks = (m['ticks'] as Map?)?.cast<String, dynamic>() ?? const {};
++    for (final entry in ticks.entries) {
++      final v = entry.value;
++      if (v is Map<String, dynamic>) {
++        _handleTick(v);
++      }
++    }
++
++    final candles = (m['candles'] as Map?)?.cast<String, dynamic>() ?? const {};
++    for (final entry in candles.entries) {
++      final list = entry.value;
++      if (list is List && list.isNotEmpty) {
++        final first = list.first;
++        if (first is Map<String, dynamic>) {
++          final symbol = _normSymbol((first['symbol'] ?? '').toString());
++          final tf = (first['tf'] ?? '').toString();
++          if (symbol.isEmpty || tf.isEmpty) continue;
++
++          _handleBulkCandles({
++            'symbol': symbol,
++            'tf': tf,
++            'candles': list,
++          });
++        }
++      }
++    }
++
++    final signals = (m['signals'] as Map?)?.cast<String, dynamic>() ?? const {};
++    for (final entry in signals.entries) {
++      final v = entry.value;
++      if (v is Map<String, dynamic>) {
++        _handleSignal(v);
++      }
++    }
++  }
++
+   void _handleTick(Map<String, dynamic> m) {
+     final symbol = _normSymbol((m['symbol'] ?? '').toString());
+     final time = DateTime.tryParse((m['time'] ?? '').toString()) ?? DateTime.now().toUtc();
+@@ -286,24 +331,27 @@
+   }
+ 
+   void _handleSignal(Map<String, dynamic> m) {
+     final symbol = _normSymbol((m['symbol'] ?? '').toString());
+     final tf = (m['tf'] ?? '').toString();
+-    final entry = (m['entry'] as num?)?.toDouble();
+-    final score = (m['score'] as num?)?.toDouble();
+-    final side = (m['side'] ?? '').toString();
+-    final note = (m['note'] ?? '').toString();
++    // Supported formats:
++    // 1) Node: {type:"signal", symbol, tf, signal:"BUY", meta:{entry,score,note}}
++    // 2) App:  {side, entry, score, note}
++    final meta = (m['meta'] as Map?)?.cast<String, dynamic>();
++    final side = (m['side'] ?? m['signal'] ?? '').toString();
++    final entry = (m['entry'] as num?)?.toDouble() ?? (meta?['entry'] as num?)?.toDouble();
++    final score = (m['score'] as num?)?.toDouble() ?? (meta?['score'] as num?)?.toDouble();
++    final note = (m['note'] ?? meta?['note'] ?? '').toString();
+ 
+     _signalCtrl.add(
+       SignalMsg(
+         symbol: symbol,
+         tf: tf,
+         side: side,
+         entry: entry,
+         score: score,
+         note: note.isEmpty ? null : note,
+       ),
+     );
+   }
+--- server/tawaqu3tickbridge.py
++++ server/tawaqu3tickbridge.py
+@@ -9,6 +9,7 @@
+ SERVER_HTTP = "http://127.0.0.1:8080"
+ POST_TICK   = f"{SERVER_HTTP}/tick"
+ POST_OHLC   = f"{SERVER_HTTP}/candle"
++POST_CANDLES= f"{SERVER_HTTP}/candles"
+ POST_SIGNAL = f"{SERVER_HTTP}/signal"
+@@ -34,6 +35,7 @@
+ 
+ CANDLES_LIMIT = 120
++HISTORY_LIMIT = 400  # candles sent once at start so charts load immediately
+ TICK_SLEEP_SEC = 0.25
+ CANDLE_PUSH_EVERY_SEC = 3.0
+@@ -70,6 +72,30 @@
+     return out
+ 
++def push_history(ok_symbols):
++    print("[tawaqu3tickbridge] pushing history candles...")
++    for sym in ok_symbols:
++        for tf_name, tf_mt5 in TF_MAP.items():
++            candles = get_candles(sym, tf_name, tf_mt5, HISTORY_LIMIT)
++            if not candles:
++                continue
++            payload = {
++                "symbol": sym,
++                "tf": tf_name,
++                "candles": [
++                    {
++                        "time": datetime.fromtimestamp(c["t"]/1000, tz=timezone.utc).isoformat(),
++                        "open": c["o"],
++                        "high": c["h"],
++                        "low": c["l"],
++                        "close": c["c"],
++                        "volume": c.get("v", 0.0),
++                    }
++                    for c in candles
++                ],
++            }
++            code, txt = post_json(POST_CANDLES, payload)
++            if code != 200:
++                print(f"[tawaqu3tickbridge] history POST /candles failed {sym} {tf_name}: {code} {txt}")
++    print("[tawaqu3tickbridge] history done.")
++
+ def main():
+     if not mt5.initialize():
+         raise RuntimeError(f"MT5 init failed: {mt5.last_error()}")
+@@ -82,6 +108,9 @@
+     if not ok_symbols:
+         raise RuntimeError("No valid symbols. Fix SYMBOLS to match Market Watch.")
+ 
++    # Send history once so the app loads candles immediately (no need to wait for 60 bars)
++    push_history(ok_symbols)
++
+     last_candle_push = 0.0
+@@ -112,7 +141,8 @@
+                             "open": last["o"],
+                             "high": last["h"],
+                             "low": last["l"],
+                             "close": last["c"],
++                            "volume": last.get("v", 0.0),
+                         })
