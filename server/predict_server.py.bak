@@ -1,0 +1,221 @@
+﻿from fastapi import FastAPI, HTTPException, Body
+from fastapi.middleware.cors import CORSMiddleware
+from typing import Any, Dict, List, Optional, Tuple
+import os
+import numpy as np
+import requests
+import onnxruntime as ort
+
+app = FastAPI()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=False,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+MODEL_DIR = os.path.abspath(os.path.join(HERE, "..", "assets", "models", "ict"))
+NODE_HTTP = os.getenv("NODE_HTTP", "http://127.0.0.1:8080")
+DEFAULT_LOOKBACK = int(os.getenv("LOOKBACK", "60"))
+
+_sessions: Dict[str, ort.InferenceSession] = {}
+
+def _discover_models() -> Dict[str, str]:
+    """Return mapping like {'1m': path, '5m': path, 'default': path}."""
+    out: Dict[str, str] = {}
+    if not os.path.isdir(MODEL_DIR):
+        return out
+    for fn in os.listdir(MODEL_DIR):
+        if not fn.lower().endswith(".onnx"):
+            continue
+        p = os.path.join(MODEL_DIR, fn)
+        f = fn.lower()
+        if "1m" in f:
+            out["1m"] = p
+        elif "5m" in f:
+            out["5m"] = p
+        elif "15m" in f:
+            out["15m"] = p
+        elif "1h" in f:
+            out["1h"] = p
+        else:
+            out.setdefault("default", p)
+    if "default" not in out:
+        # pick any onnx as default
+        for k, v in out.items():
+            out["default"] = v
+            break
+    return out
+
+_MODELS = _discover_models()
+
+def _get_session(tf: str) -> Tuple[ort.InferenceSession, str]:
+    tf = (tf or "").lower()
+    model_path = _MODELS.get(tf) or _MODELS.get("default")
+    if not model_path:
+        raise HTTPException(500, f"No .onnx model found in {MODEL_DIR}")
+    key = f"{tf}:{model_path}"
+    if key in _sessions:
+        return _sessions[key], model_path
+    sess = ort.InferenceSession(model_path, providers=["CPUExecutionProvider"])
+    _sessions[key] = sess
+    return sess, model_path
+
+def _fetch_candles(symbol: str, tf: str, limit: int) -> List[Dict[str, Any]]:
+    url = f"{NODE_HTTP}/candles"
+    r = requests.get(url, params={"symbol": symbol, "tf": tf, "limit": limit}, timeout=8)
+    r.raise_for_status()
+    j = r.json()
+    return j.get("candles") or []
+
+def _candles_to_features(candles: List[Dict[str, Any]], n: int, f: int) -> List[List[float]]:
+    candles = candles[-n:] if len(candles) > n else candles
+    feats: List[List[float]] = []
+    for c in candles:
+        o = float(c.get("open", 0.0))
+        h = float(c.get("high", 0.0))
+        l = float(c.get("low",  0.0))
+        cl= float(c.get("close",0.0))
+        v = float(c.get("volume", c.get("v", 0.0)) or 0.0)
+        row = [o, h, l, cl, v]
+        feats.append(row[:f])
+    # pad if too short
+    if len(feats) < n and len(feats) > 0:
+        last = feats[-1]
+        while len(feats) < n:
+            feats.insert(0, last)
+    return feats
+
+def _prepare_input(sess: ort.InferenceSession, features: Any) -> Tuple[str, np.ndarray, Dict[str, Any]]:
+    inp = sess.get_inputs()[0]
+    name = inp.name
+    shape = inp.shape  # may contain None / strings
+
+    arr = np.array(features, dtype=np.float32)
+    debug = {"input_name": name, "input_shape": shape, "features_ndim": int(arr.ndim), "features_shape": list(arr.shape)}
+
+    # Normalize to a model-friendly shape
+    # Common cases: (1,60,5) or (1,60,4) or (1,300) etc.
+    # Replace non-int dims with None
+    s = [d if isinstance(d, int) else None for d in shape]
+
+    if len(s) == 3:
+        # (B,T,F)
+        T = s[1] or (arr.shape[0] if arr.ndim >= 2 else DEFAULT_LOOKBACK)
+        F = s[2] or (arr.shape[1] if arr.ndim >= 2 else 5)
+
+        if arr.ndim == 1:
+            # try reshape from flat
+            if arr.size == T * F:
+                arr = arr.reshape(T, F)
+            else:
+                # pad/trim flat then reshape
+                flat = arr.flatten()
+                if flat.size < T * F:
+                    flat = np.pad(flat, (T * F - flat.size, 0))
+                else:
+                    flat = flat[-(T * F):]
+                arr = flat.reshape(T, F)
+
+        if arr.ndim == 2:
+            # ensure (T,F)
+            if arr.shape[1] != F:
+                # adjust feature columns
+                if arr.shape[1] > F:
+                    arr = arr[:, :F]
+                else:
+                    pad = np.zeros((arr.shape[0], F - arr.shape[1]), dtype=np.float32)
+                    arr = np.concatenate([arr, pad], axis=1)
+            if arr.shape[0] != T:
+                if arr.shape[0] > T:
+                    arr = arr[-T:, :]
+                else:
+                    # pad rows at front
+                    pad = np.repeat(arr[:1, :], T - arr.shape[0], axis=0)
+                    arr = np.concatenate([pad, arr], axis=0)
+
+            arr = arr.reshape(1, T, F)
+
+    elif len(s) == 2:
+        # (B,K)
+        K = s[1] or arr.size
+        flat = arr.flatten()
+        if flat.size < K:
+            flat = np.pad(flat, (K - flat.size, 0))
+        else:
+            flat = flat[-K:]
+        arr = flat.reshape(1, K)
+
+    else:
+        # fallback: just float32 array
+        if arr.ndim == 0:
+            arr = arr.reshape(1)
+
+    debug["final_input_shape"] = list(arr.shape)
+    return name, arr, debug
+
+def _pick_side_and_score(outputs: List[np.ndarray]) -> Tuple[Optional[str], Optional[float]]:
+    if not outputs:
+        return None, None
+    o = outputs[0]
+    a = np.array(o).astype(np.float32).flatten()
+    if a.size == 0:
+        return None, None
+    if a.size == 1:
+        score = float(a[0])
+        side = "BUY" if score >= 0 else "SELL"
+        return side, float(abs(score))
+    if a.size >= 2:
+        idx = int(np.argmax(a))
+        side = "BUY" if idx == 1 else "SELL"
+        score = float(a[idx])
+        return side, score
+    return None, None
+
+@app.get("/health")
+def health():
+    return {"ok": True, "model_dir": MODEL_DIR, "node_http": NODE_HTTP, "models": _MODELS}
+
+@app.post("/predict")
+def predict(payload: Dict[str, Any] = Body(default_factory=dict)):
+    # Accept: features OR input OR candles
+    symbol = str(payload.get("symbol") or "BTCUSD")
+    tf = str(payload.get("tf") or "1m").lower()
+    lookback = int(payload.get("lookback") or DEFAULT_LOOKBACK)
+
+    features = payload.get("features", None)
+    if features is None:
+        features = payload.get("input", None)
+
+    sess, model_path = _get_session(tf)
+
+    # If no features given, build them from Node candles
+    if features is None:
+        candles = payload.get("candles", None)
+        if candles is None:
+            candles = _fetch_candles(symbol, tf, lookback)
+        # decide feature count from model input
+        inp = sess.get_inputs()[0]
+        s = [d if isinstance(d, int) else None for d in inp.shape]
+        F = (s[2] if len(s) == 3 else None) or 5
+        features = _candles_to_features(candles, lookback, F)
+
+    in_name, X, dbg = _prepare_input(sess, features)
+    outs = sess.run(None, {in_name: X})
+    outs_list = [np.array(o).tolist() for o in outs]
+
+    side, score = _pick_side_and_score([np.array(o) for o in outs])
+
+    return {
+        "ok": True,
+        "symbol": symbol,
+        "tf": tf,
+        "lookback": lookback,
+        "model": os.path.basename(model_path),
+        "side": side,
+        "score": score,
+        "outputs": outs_list,
+        "debug": dbg,
+    }

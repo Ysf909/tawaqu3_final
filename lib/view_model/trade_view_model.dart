@@ -291,43 +291,47 @@ class TradeViewModel extends ChangeNotifier {
   }
 
   Future<_IctOut> _predictWithIct(List<double> features, {required String tf}) async {
-    final service = IctOrtService.instance;
-    Object? raw;
+  final service = IctOrtService.instance;
 
-    // your assets include 1m and 5m — map others to 5m
-    final Float32List x = Float32List.fromList(features);
+  // ✅ define x (this fixes your error)
+  final Float32List x = Float32List.fromList(features);
 
-// ✅ now call predict using Float32List
-final out1m = await IctOrtService.instance.predict1m(x, [1, 60, 5]);
-// OR if your service uses length instead of shape:
-// final out1m = await IctOrtService.instance.predict1m(x, 300);
+  final tfNorm = tf.toLowerCase();
 
-final out5m = await IctOrtService.instance.predict5m(x, [1, 60, 5]);
-// OR:
-// final out5m = await IctOrtService.instance.predict5m(x, 300);
+  // We only have ICT models for 1m + 5m.
+  // Anything else maps to 5m model for now.
+  final bool use1m = (tfNorm == '1m');
 
-    final vec = _flattenToDoubles(raw);
-    if (vec.isEmpty) {
-      throw Exception('ICT model returned empty output.');
-    }
+  final Object? raw = use1m
+      ? await service.predict1m(x, const [1, 60, 5])
+      : await service.predict5m(x, const [1, 60, 5]);
 
-    // Robust interpretation:
-    // - if 1 value => sigmoid => buyProb
-    // - if 2+ values => softmax(first 2) => [sell,buy]
-    double buyProb;
-    if (vec.length == 1) {
-      buyProb = 1.0 / (1.0 + exp(-vec[0]));
-    } else {
-      final probs = _softmax(vec.take(2).toList());
-      buyProb = (probs.length > 1) ? probs[1] : probs[0];
-    }
+  final vec = _flattenToDoubles(raw);
 
-    buyProb = buyProb.clamp(0.0, 1.0);
-    final side = buyProb >= 0.5 ? 'BUY' : 'SELL';
-    final confidence = ((side == 'BUY') ? buyProb : (1.0 - buyProb)) * 100.0;
-
-    return _IctOut(side: side, confidence: confidence.clamp(0.0, 100.0));
+  if (vec.isEmpty) {
+    throw Exception(
+      'ICT model returned empty output (no out/outputs/score). Check predict server response.',
+    );
   }
+
+  // Robust interpretation:
+  // - if 1 value => sigmoid => buyProb
+  // - if 2+ values => softmax(first 2) => [sell,buy]
+  double buyProb;
+  if (vec.length == 1) {
+    buyProb = 1.0 / (1.0 + exp(-vec[0]));
+  } else {
+    final probs = _softmax(vec.take(2).toList());
+    buyProb = (probs.length > 1) ? probs[1] : probs[0];
+  }
+
+  buyProb = buyProb.clamp(0.0, 1.0);
+  final side = buyProb >= 0.5 ? 'BUY' : 'SELL';
+  final confidence = ((side == 'BUY') ? buyProb : (1.0 - buyProb)) * 100.0;
+
+  return _IctOut(side: side, confidence: confidence.clamp(0.0, 100.0));
+}
+
 
   List<double> _softmax(List<double> x) {
     if (x.isEmpty) return const [];
@@ -361,3 +365,4 @@ class _IctOut {
   final double confidence;
   _IctOut({required this.side, required this.confidence});
 }
+

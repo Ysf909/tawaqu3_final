@@ -81,7 +81,7 @@ class _AssetChartViewState extends State<AssetChartView> {
   }
 
   Future<void> _fetchCandles() async {
-    await _ws?.requestCandles(_symbol, _tf, limit: 800);
+    await _ws?.requestCandles(_symbol, _tf, limit: 300);
     if (!mounted) return;
     _refreshCandles();
     setState(() {
@@ -164,8 +164,7 @@ class _AssetChartViewState extends State<AssetChartView> {
                     : ClipRRect(
                         borderRadius: BorderRadius.circular(16),
                         child: InteractiveCandlestickChart(
-                    symbol: _symbol,
-                    candles: _candles,
+                          candles: _candles,
                           livePrice: _livePrice,
                         ),
                       ),
@@ -177,5 +176,3 @@ class _AssetChartViewState extends State<AssetChartView> {
     );
   }
 }
-
-
