@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class CardContainer extends StatelessWidget {
   final Widget child;
   final EdgeInsets? padding;
-  const CardContainer({super.key, required this.child, this.padding});
+  const CardContainer(required Column child, {super.key, required this.child, this.padding});
 
   @override
   Widget build(BuildContext context) {

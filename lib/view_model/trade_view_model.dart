@@ -5,12 +5,13 @@ import 'package:flutter/foundation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:tawaqu3_final/models/market_model.dart';
 import 'package:tawaqu3_final/models/trade_models.dart';
+import 'package:tawaqu3_final/models/trading_labels.dart';
 import 'package:tawaqu3_final/repository/trade_repository.dart';
 import 'package:tawaqu3_final/services/ict_ort_service.dart';
 import 'package:tawaqu3_final/services/price_websocket_service.dart';
 
 class TradeRecommendation {
-  final String id;
+  final String id; // will become uuid from DB when saved
   final String pair;
   final String side; // BUY / SELL
   final double confidence; // 0-100
@@ -18,7 +19,9 @@ class TradeRecommendation {
   final double sl;
   final double tp;
   final double lot;
+
   final TradeOutcome? outcome;
+  final double profit; // computed when closed
   final DateTime createdAt;
 
   const TradeRecommendation({
@@ -32,10 +35,16 @@ class TradeRecommendation {
     required this.lot,
     required this.createdAt,
     this.outcome,
+    this.profit = 0.0,
   });
 
-  TradeRecommendation copyWith({TradeOutcome? outcome}) => TradeRecommendation(
-        id: id,
+  TradeRecommendation copyWith({
+    String? id,
+    TradeOutcome? outcome,
+    double? profit,
+  }) =>
+      TradeRecommendation(
+        id: id ?? this.id,
         pair: pair,
         side: side,
         confidence: confidence,
@@ -45,10 +54,46 @@ class TradeRecommendation {
         lot: lot,
         createdAt: createdAt,
         outcome: outcome ?? this.outcome,
+        profit: profit ?? this.profit,
       );
 }
 
+
 class TradeViewModel extends ChangeNotifier {
+  List<String> allowedTfsForType(TradingType type) {
+  switch (type) {
+    case TradingType.scalper:
+      return const ['1m', '5m'];
+    case TradingType.short:
+      return const ['15m', '30m'];
+    case TradingType.long:
+      return const ['1h', '4h', '1d'];
+  }
+}
+List<String> get availableTfs => allowedTfsForType(_selectedType);
+
+
+  bool _isUuid(String s) =>
+    RegExp(r'^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$')
+        .hasMatch(s);
+
+double _calcProfit(TradeRecommendation t, TradeOutcome outcome) {
+  final exitPrice = (outcome == TradeOutcome.tpHit) ? t.tp : t.sl;
+
+  // Use your specForPair() from trade_models.dart
+  final spec = specForPair(t.pair);
+
+  // Pips moved in our favor (positive = profit)
+  final diff = (t.side.toUpperCase() == 'BUY')
+      ? (exitPrice - t.entry)
+      : (t.entry - exitPrice);
+
+  final pips = diff / spec.pipSize;
+  final profit = pips * spec.pipValuePerLot * t.lot;
+
+  return profit;
+}
+
   TradeViewModel({
     PriceWebSocketService? ws,
     TradeRepository? history,
@@ -103,13 +148,17 @@ class TradeViewModel extends ChangeNotifier {
 
   TradingType _selectedType = TradingType.values.first;
   TradingType get selectedType => _selectedType;
-  set selectedType(TradingType v) {
-    _selectedType = v;
-    notifyListeners();
-  }
+ set selectedType(TradingType v) {
+  _selectedType = v;
+  final allowed = allowedTfsForType(v);
+  if (!allowed.contains(_tf)) _tf = allowed.first;
+  notifyListeners();
+}
+
 
   // LOCKED
-  TradingModel get selectedModel => TradingModel.ict;
+  TradingModel get selectedModel => modelForType(_selectedType);
+
 
   double _margin = 1000.0;
   double get margin => _margin;
@@ -211,29 +260,32 @@ class TradeViewModel extends ChangeNotifier {
         sl: sl,
         tp: tp,
         lot: calculatedLot,
-        createdAt: DateTime.now().toUtc(),
+        createdAt: DateTime.now(),
       );
 
       _lastPrediction = rec;
 
-      // Save to Supabase if user is logged in
-      final uid = _client.auth.currentUser?.id;
-      if (uid != null) {
-        await _history.insertTrade(
-          userId: uid,
-          entry: rec.entry,
-          sl: rec.sl,
-          tp: rec.tp,
-          lot: rec.lot,
-          school: 'ICT',
-          time: rec.createdAt,
-          pair: rec.pair,
-          side: rec.side,
-          confidence: rec.confidence,
-          outcome: rec.outcome?.toString(),
-          profit: 0,
-        );
-      }
+    // Save to Supabase if user is logged in
+final uid = _client.auth.currentUser?.id;
+if (uid != null) {
+  final tradeUuid = await _history.createTrade(
+    userId: uid,
+    entry: rec.entry,
+    sl: rec.sl,
+    tp: rec.tp,
+    lot: rec.lot,
+    school: selectedModel.label,
+    time: rec.createdAt,
+    pair: rec.pair,
+    side: rec.side,
+    confidence: rec.confidence, // 0-100
+  );
+
+  // IMPORTANT: keep DB uuid as the recommendation id
+  _lastPrediction = rec.copyWith(id: tradeUuid);
+} else {
+  _lastPrediction = rec; // local only
+}
 
       notifyListeners();
     } catch (e) {
@@ -245,13 +297,33 @@ class TradeViewModel extends ChangeNotifier {
     }
   }
 
-  void markOutcome(TradeOutcome outcome) {
-    final cur = _lastPrediction;
-    if (cur == null) return;
-    _lastPrediction = cur.copyWith(outcome: outcome);
+  Future<void> markOutcome(TradeOutcome outcome) async {
+  final cur = _lastPrediction;
+  if (cur == null) return;
+
+  final profit = _calcProfit(cur, outcome);
+
+  // Update UI immediately
+  _lastPrediction = cur.copyWith(outcome: outcome, profit: profit);
+  notifyListeners();
+
+  // Persist if logged in + trade was saved (uuid)
+  final uid = _client.auth.currentUser?.id;
+  if (uid == null) return;
+  if (!_isUuid(cur.id)) return;
+
+  try {
+    await _history.closeTrade(
+      tradeId: cur.id,
+      outcome: outcome,
+      profit: profit,
+    );
+  } catch (e) {
+    _lastError = 'Failed to save outcome: $e';
     notifyListeners();
-    // optional: add update call in repository if you want to persist outcome
   }
+}
+
 
   // ---------------- helpers ----------------
 
@@ -365,4 +437,5 @@ class _IctOut {
   final double confidence;
   _IctOut({required this.side, required this.confidence});
 }
+
 

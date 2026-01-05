@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:tawaqu3_final/models/trade_models.dart';
@@ -48,23 +48,24 @@ class TradeTypePage extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 12),
-              ToggleButtons(
-                isSelected: ['1m', '5m'].map((t) => vm.tf == t).toList(),
-                onPressed: (index) {
-                  vm.tf = (index == 0) ? '1m' : '5m';
-                },
-                borderRadius: BorderRadius.circular(12),
-                constraints: const BoxConstraints(minHeight: 44, minWidth: 56),
-                children: const [
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10),
-                    child: Text('1m'),
+
+              // Dynamic TF buttons (based on selected type)
+              Flexible(
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: Wrap(
+                    spacing: 8,
+                    runSpacing: 6,
+                    children: vm.availableTfs.map((tf) {
+                      final selected = vm.tf == tf;
+                      return ChoiceChip(
+                        label: Text(tf),
+                        selected: selected,
+                        onSelected: (_) => vm.tf = tf,
+                      );
+                    }).toList(),
                   ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10),
-                    child: Text('5m'),
-                  ),
-                ],
+                ),
               ),
             ],
           ),

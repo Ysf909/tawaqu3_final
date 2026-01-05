@@ -18,7 +18,7 @@ InstrumentSpec specForPair(String pair) {
     case 'XAGUSD':
       return const InstrumentSpec(pipSize: 0.01, pipValuePerLot: 5.0);
     case 'EURUSD':
-    case 'GBPUSD':
+    case 'ETHUSD':
     case 'BTCUSD':
       return const InstrumentSpec(pipSize: 0.0001, pipValuePerLot: 10.0);
     default:
@@ -58,4 +58,14 @@ TradeOutcome? fromDb(String? value) {
 }
 
 /// TEMP: only ICT is enabled until SMC/Trend models are ready
-TradingModel modelForType(TradingType type) => TradingModel.ict;
+TradingModel modelForType(TradingType type) {
+  switch (type) {
+    case TradingType.scalper:
+      return TradingModel.ict;
+    case TradingType.short:
+      return TradingModel.smc;
+    case TradingType.long:
+      return TradingModel.trend;
+  }
+}
+

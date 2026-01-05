@@ -1,10 +1,14 @@
 ﻿import 'package:supabase_flutter/supabase_flutter.dart';
-import '../models/trade_entity.dart';
+import '../models/trade_models.dart';
 
 class TradeRepository {
-  final SupabaseClient _client = Supabase.instance.client;
+  final SupabaseClient _client;
+  TradeRepository({SupabaseClient? client})
+      : _client = client ?? Supabase.instance.client;
 
-  Future<TradeEntity> insertTrade({
+  String _isoUtc(DateTime dt) => dt.toUtc().toIso8601String(); // keep the 'Z'
+
+  Future<String> createTrade({
     required String userId,
     required double entry,
     required double sl,
@@ -12,40 +16,37 @@ class TradeRepository {
     required double lot,
     required String school,
     required DateTime time,
-
-    // optional extra fields
-    String? pair,
-    String? side,
-    double? confidence,
-    String? outcome,
-    double? profit,
+    required String pair,
+    required String side,
+    required double confidence, // 0-100
   }) async {
-    final payload = <String, dynamic>{
-      'user_id': userId,
-      'entry': entry,
-      'sl': sl,
-      'tp': tp,
-      'lot': lot,
-      'school': school,
-      'time': time.toIso8601String(),
+    final res = await _client.rpc('create_trade', params: {
+      'p_user_id': userId,
+      'p_entry': entry,
+      'p_sl': sl,
+      'p_tp': tp,
+      'p_lot': lot,
+      'p_school': school,
+      'p_time': _isoUtc(time),
+      'p_pair': pair,
+      'p_side': side,
+      'p_confidence': confidence,
+    });
 
-      if (pair != null) 'pair': pair,
-      if (side != null) 'side': side,
-      if (confidence != null) 'confidence': confidence,
-      if (outcome != null) 'outcome': outcome,
-      if (profit != null) 'profit': profit,
-    };
+    return res as String; // uuid
+  }
 
-    final response = await _client
-        .from('trades')
-        .insert(payload)
-        .select()
-        .maybeSingle();
-
-    if (response == null) {
-      throw Exception('Failed to insert trade');
-    }
-
-    return TradeEntity.fromMap(response);
+  Future<void> closeTrade({
+    required String tradeId,
+    required TradeOutcome outcome,
+    required double profit,
+    DateTime? closeTime,
+  }) async {
+    await _client.rpc('close_trade', params: {
+      'p_trade_id': tradeId,
+      'p_outcome': outcome.dbValue, // tp_hit / sl_hit
+      'p_profit': profit,
+      'p_close_time': _isoUtc(closeTime ?? DateTime.now()),
+    });
   }
 }

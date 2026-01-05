@@ -10,7 +10,7 @@ import 'package:tawaqu3_final/services/ict_ort_service.dart';
 import 'package:tawaqu3_final/services/price_websocket_service.dart';
 
 class TradeRecommendation {
-  final String id;
+  final String id; // will become uuid from DB when saved
   final String pair;
   final String side; // BUY / SELL
   final double confidence; // 0-100
@@ -18,7 +18,9 @@ class TradeRecommendation {
   final double sl;
   final double tp;
   final double lot;
+
   final TradeOutcome? outcome;
+  final double profit; // computed when closed
   final DateTime createdAt;
 
   const TradeRecommendation({
@@ -32,10 +34,16 @@ class TradeRecommendation {
     required this.lot,
     required this.createdAt,
     this.outcome,
+    this.profit = 0.0,
   });
 
-  TradeRecommendation copyWith({TradeOutcome? outcome}) => TradeRecommendation(
-        id: id,
+  TradeRecommendation copyWith({
+    String? id,
+    TradeOutcome? outcome,
+    double? profit,
+  }) =>
+      TradeRecommendation(
+        id: id ?? this.id,
         pair: pair,
         side: side,
         confidence: confidence,
@@ -45,10 +53,46 @@ class TradeRecommendation {
         lot: lot,
         createdAt: createdAt,
         outcome: outcome ?? this.outcome,
+        profit: profit ?? this.profit,
       );
 }
 
+
 class TradeViewModel extends ChangeNotifier {
+  List<String> allowedTfsForType(TradingType type) {
+  switch (type) {
+    case TradingType.scalper:
+      return const ['1m', '5m'];
+    case TradingType.short:
+      return const ['15m', '30m'];
+    case TradingType.long:
+      return const ['1h', '4h', '1d'];
+  }
+}
+List<String> get availableTfs => allowedTfsForType(_selectedType);
+
+
+  bool _isUuid(String s) =>
+    RegExp(r'^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$')
+        .hasMatch(s);
+
+double _calcProfit(TradeRecommendation t, TradeOutcome outcome) {
+  final exitPrice = (outcome == TradeOutcome.tpHit) ? t.tp : t.sl;
+
+  // Use your specForPair() from trade_models.dart
+  final spec = specForPair(t.pair);
+
+  // Pips moved in our favor (positive = profit)
+  final diff = (t.side.toUpperCase() == 'BUY')
+      ? (exitPrice - t.entry)
+      : (t.entry - exitPrice);
+
+  final pips = diff / spec.pipSize;
+  final profit = pips * spec.pipValuePerLot * t.lot;
+
+  return profit;
+}
+
   TradeViewModel({
     PriceWebSocketService? ws,
     TradeRepository? history,
@@ -103,13 +147,17 @@ class TradeViewModel extends ChangeNotifier {
 
   TradingType _selectedType = TradingType.values.first;
   TradingType get selectedType => _selectedType;
-  set selectedType(TradingType v) {
-    _selectedType = v;
-    notifyListeners();
-  }
+ set selectedType(TradingType v) {
+  _selectedType = v;
+  final allowed = allowedTfsForType(v);
+  if (!allowed.contains(_tf)) _tf = allowed.first;
+  notifyListeners();
+}
+
 
   // LOCKED
-  TradingModel get selectedModel => TradingModel.ict;
+  TradingModel get selectedModel => modelForType(_selectedType);
+
 
   double _margin = 1000.0;
   double get margin => _margin;
@@ -216,24 +264,27 @@ class TradeViewModel extends ChangeNotifier {
 
       _lastPrediction = rec;
 
-      // Save to Supabase if user is logged in
-      final uid = _client.auth.currentUser?.id;
-      if (uid != null) {
-        await _history.insertTrade(
-          userId: uid,
-          entry: rec.entry,
-          sl: rec.sl,
-          tp: rec.tp,
-          lot: rec.lot,
-          school: 'ICT',
-          time: rec.createdAt,
-          pair: rec.pair,
-          side: rec.side,
-          confidence: rec.confidence,
-          outcome: rec.outcome?.toString(),
-          profit: 0,
-        );
-      }
+    // Save to Supabase if user is logged in
+final uid = _client.auth.currentUser?.id;
+if (uid != null) {
+  final tradeUuid = await _history.createTrade(
+    userId: uid,
+    entry: rec.entry,
+    sl: rec.sl,
+    tp: rec.tp,
+    lot: rec.lot,
+    school: 'ICT',
+    time: rec.createdAt,
+    pair: rec.pair,
+    side: rec.side,
+    confidence: rec.confidence, // 0-100
+  );
+
+  // IMPORTANT: keep DB uuid as the recommendation id
+  _lastPrediction = rec.copyWith(id: tradeUuid);
+} else {
+  _lastPrediction = rec; // local only
+}
 
       notifyListeners();
     } catch (e) {
@@ -245,13 +296,33 @@ class TradeViewModel extends ChangeNotifier {
     }
   }
 
-  void markOutcome(TradeOutcome outcome) {
-    final cur = _lastPrediction;
-    if (cur == null) return;
-    _lastPrediction = cur.copyWith(outcome: outcome);
+  Future<void> markOutcome(TradeOutcome outcome) async {
+  final cur = _lastPrediction;
+  if (cur == null) return;
+
+  final profit = _calcProfit(cur, outcome);
+
+  // Update UI immediately
+  _lastPrediction = cur.copyWith(outcome: outcome, profit: profit);
+  notifyListeners();
+
+  // Persist if logged in + trade was saved (uuid)
+  final uid = _client.auth.currentUser?.id;
+  if (uid == null) return;
+  if (!_isUuid(cur.id)) return;
+
+  try {
+    await _history.closeTrade(
+      tradeId: cur.id,
+      outcome: outcome,
+      profit: profit,
+    );
+  } catch (e) {
+    _lastError = 'Failed to save outcome: $e';
     notifyListeners();
-    // optional: add update call in repository if you want to persist outcome
   }
+}
+
 
   // ---------------- helpers ----------------
 
@@ -291,43 +362,47 @@ class TradeViewModel extends ChangeNotifier {
   }
 
   Future<_IctOut> _predictWithIct(List<double> features, {required String tf}) async {
-    final service = IctOrtService.instance;
-    Object? raw;
+  final service = IctOrtService.instance;
 
-    // your assets include 1m and 5m — map others to 5m
-    final Float32List x = Float32List.fromList(features);
+  // ✅ define x (this fixes your error)
+  final Float32List x = Float32List.fromList(features);
 
-// ✅ now call predict using Float32List
-final out1m = await IctOrtService.instance.predict1m(x, [1, 60, 5]);
-// OR if your service uses length instead of shape:
-// final out1m = await IctOrtService.instance.predict1m(x, 300);
+  final tfNorm = tf.toLowerCase();
 
-final out5m = await IctOrtService.instance.predict5m(x, [1, 60, 5]);
-// OR:
-// final out5m = await IctOrtService.instance.predict5m(x, 300);
+  // We only have ICT models for 1m + 5m.
+  // Anything else maps to 5m model for now.
+  final bool use1m = (tfNorm == '1m');
 
-    final vec = _flattenToDoubles(raw);
-    if (vec.isEmpty) {
-      throw Exception('ICT model returned empty output.');
-    }
+  final Object? raw = use1m
+      ? await service.predict1m(x, const [1, 60, 5])
+      : await service.predict5m(x, const [1, 60, 5]);
 
-    // Robust interpretation:
-    // - if 1 value => sigmoid => buyProb
-    // - if 2+ values => softmax(first 2) => [sell,buy]
-    double buyProb;
-    if (vec.length == 1) {
-      buyProb = 1.0 / (1.0 + exp(-vec[0]));
-    } else {
-      final probs = _softmax(vec.take(2).toList());
-      buyProb = (probs.length > 1) ? probs[1] : probs[0];
-    }
+  final vec = _flattenToDoubles(raw);
 
-    buyProb = buyProb.clamp(0.0, 1.0);
-    final side = buyProb >= 0.5 ? 'BUY' : 'SELL';
-    final confidence = ((side == 'BUY') ? buyProb : (1.0 - buyProb)) * 100.0;
-
-    return _IctOut(side: side, confidence: confidence.clamp(0.0, 100.0));
+  if (vec.isEmpty) {
+    throw Exception(
+      'ICT model returned empty output (no out/outputs/score). Check predict server response.',
+    );
   }
+
+  // Robust interpretation:
+  // - if 1 value => sigmoid => buyProb
+  // - if 2+ values => softmax(first 2) => [sell,buy]
+  double buyProb;
+  if (vec.length == 1) {
+    buyProb = 1.0 / (1.0 + exp(-vec[0]));
+  } else {
+    final probs = _softmax(vec.take(2).toList());
+    buyProb = (probs.length > 1) ? probs[1] : probs[0];
+  }
+
+  buyProb = buyProb.clamp(0.0, 1.0);
+  final side = buyProb >= 0.5 ? 'BUY' : 'SELL';
+  final confidence = ((side == 'BUY') ? buyProb : (1.0 - buyProb)) * 100.0;
+
+  return _IctOut(side: side, confidence: confidence.clamp(0.0, 100.0));
+}
+
 
   List<double> _softmax(List<double> x) {
     if (x.isEmpty) return const [];
@@ -361,3 +436,4 @@ class _IctOut {
   final double confidence;
   _IctOut({required this.side, required this.confidence});
 }
+

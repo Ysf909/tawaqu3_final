@@ -1,0 +1,8002 @@
+﻿[
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-08T12:00:00Z",
+        "open":  58.3421,
+        "high":  58.515,
+        "low":  58.3381,
+        "close":  58.4777,
+        "volume":  3609
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-08T12:30:00Z",
+        "open":  58.4767,
+        "high":  58.5137,
+        "low":  58.333,
+        "close":  58.4157,
+        "volume":  3062
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-08T13:00:00Z",
+        "open":  58.4157,
+        "high":  58.4757,
+        "low":  58.353,
+        "close":  58.471,
+        "volume":  2960
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-08T13:30:00Z",
+        "open":  58.471,
+        "high":  58.4857,
+        "low":  58.337,
+        "close":  58.3507,
+        "volume":  3299
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-08T14:00:00Z",
+        "open":  58.3507,
+        "high":  58.4803,
+        "low":  58.3428,
+        "close":  58.443,
+        "volume":  2374
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-08T14:30:00Z",
+        "open":  58.443,
+        "high":  58.5277,
+        "low":  58.3967,
+        "close":  58.5087,
+        "volume":  2830
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-08T15:00:00Z",
+        "open":  58.51,
+        "high":  58.5283,
+        "low":  58.1083,
+        "close":  58.136,
+        "volume":  6197
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-08T15:30:00Z",
+        "open":  58.136,
+        "high":  58.3887,
+        "low":  58.0293,
+        "close":  58.179,
+        "volume":  6460
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-08T16:00:00Z",
+        "open":  58.189,
+        "high":  58.36,
+        "low":  58.0283,
+        "close":  58.2897,
+        "volume":  5693
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-08T16:30:00Z",
+        "open":  58.2887,
+        "high":  58.3987,
+        "low":  58.078,
+        "close":  58.1833,
+        "volume":  11699
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-08T17:00:00Z",
+        "open":  58.1843,
+        "high":  58.1843,
+        "low":  57.623,
+        "close":  57.9977,
+        "volume":  12442
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-08T17:30:00Z",
+        "open":  57.994,
+        "high":  58.18,
+        "low":  57.877,
+        "close":  57.908,
+        "volume":  7080
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-08T18:00:00Z",
+        "open":  57.908,
+        "high":  58.042,
+        "low":  57.681,
+        "close":  58.007,
+        "volume":  7125
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-08T18:30:00Z",
+        "open":  58.005,
+        "high":  58.077,
+        "low":  57.827,
+        "close":  57.976,
+        "volume":  5894
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-08T19:00:00Z",
+        "open":  57.9763,
+        "high":  58.0413,
+        "low":  57.8313,
+        "close":  58.0303,
+        "volume":  6014
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-08T19:30:00Z",
+        "open":  58.0307,
+        "high":  58.127,
+        "low":  57.963,
+        "close":  58.0973,
+        "volume":  4991
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-08T20:00:00Z",
+        "open":  58.0973,
+        "high":  58.1203,
+        "low":  57.9283,
+        "close":  58.0077,
+        "volume":  5598
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-08T20:30:00Z",
+        "open":  58.0037,
+        "high":  58.047,
+        "low":  57.8953,
+        "close":  57.9627,
+        "volume":  3981
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-08T21:00:00Z",
+        "open":  57.9627,
+        "high":  58.006,
+        "low":  57.8873,
+        "close":  57.9917,
+        "volume":  3826
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-08T21:30:00Z",
+        "open":  57.9907,
+        "high":  58.0235,
+        "low":  57.93,
+        "close":  57.9947,
+        "volume":  3548
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-08T22:00:00Z",
+        "open":  57.9947,
+        "high":  58.1097,
+        "low":  57.9743,
+        "close":  58.064,
+        "volume":  2706
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-08T22:30:00Z",
+        "open":  58.065,
+        "high":  58.143,
+        "low":  58.0607,
+        "close":  58.1175,
+        "volume":  3013
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-08T23:00:00Z",
+        "open":  58.1175,
+        "high":  58.1607,
+        "low":  58.0933,
+        "close":  58.145,
+        "volume":  534
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-08T23:30:00Z",
+        "open":  58.145,
+        "high":  58.1488,
+        "low":  58.095,
+        "close":  58.1483,
+        "volume":  481
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-09T01:00:00Z",
+        "open":  58.148,
+        "high":  58.166,
+        "low":  58.074,
+        "close":  58.089,
+        "volume":  256
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-09T01:30:00Z",
+        "open":  58.089,
+        "high":  58.12,
+        "low":  58.0713,
+        "close":  58.109,
+        "volume":  500
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-09T02:00:00Z",
+        "open":  58.104,
+        "high":  58.121,
+        "low":  58.069,
+        "close":  58.086,
+        "volume":  469
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-09T02:30:00Z",
+        "open":  58.09,
+        "high":  58.1,
+        "low":  57.972,
+        "close":  57.988,
+        "volume":  948
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-09T03:00:00Z",
+        "open":  57.987,
+        "high":  58.1357,
+        "low":  57.8818,
+        "close":  58.0437,
+        "volume":  4054
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-09T03:30:00Z",
+        "open":  58.045,
+        "high":  58.1743,
+        "low":  58.037,
+        "close":  58.127,
+        "volume":  2851
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-09T04:00:00Z",
+        "open":  58.1292,
+        "high":  58.162,
+        "low":  58.0197,
+        "close":  58.0625,
+        "volume":  2038
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-09T04:30:00Z",
+        "open":  58.067,
+        "high":  58.1935,
+        "low":  57.878,
+        "close":  58.1694,
+        "volume":  5353
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-09T05:00:00Z",
+        "open":  58.173,
+        "high":  58.4177,
+        "low":  58.169,
+        "close":  58.3441,
+        "volume":  4948
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-09T05:30:00Z",
+        "open":  58.3441,
+        "high":  58.3443,
+        "low":  58.203,
+        "close":  58.283,
+        "volume":  2876
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-09T06:00:00Z",
+        "open":  58.284,
+        "high":  58.323,
+        "low":  58.188,
+        "close":  58.315,
+        "volume":  1340
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-09T06:30:00Z",
+        "open":  58.3141,
+        "high":  58.369,
+        "low":  58.1617,
+        "close":  58.223,
+        "volume":  1701
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-09T07:00:00Z",
+        "open":  58.223,
+        "high":  58.24,
+        "low":  58.054,
+        "close":  58.104,
+        "volume":  2124
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-09T07:30:00Z",
+        "open":  58.104,
+        "high":  58.1157,
+        "low":  57.656,
+        "close":  57.696,
+        "volume":  5993
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-09T08:00:00Z",
+        "open":  57.706,
+        "high":  57.926,
+        "low":  57.585,
+        "close":  57.891,
+        "volume":  6878
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-09T08:30:00Z",
+        "open":  57.891,
+        "high":  58.067,
+        "low":  57.846,
+        "close":  57.976,
+        "volume":  3407
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-09T09:00:00Z",
+        "open":  57.977,
+        "high":  58.0737,
+        "low":  57.888,
+        "close":  57.973,
+        "volume":  3550
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-09T09:30:00Z",
+        "open":  57.973,
+        "high":  58.0734,
+        "low":  57.9237,
+        "close":  58.03,
+        "volume":  1456
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-09T10:00:00Z",
+        "open":  58.03,
+        "high":  58.3467,
+        "low":  58.03,
+        "close":  58.176,
+        "volume":  2975
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-09T10:30:00Z",
+        "open":  58.176,
+        "high":  58.352,
+        "low":  58.145,
+        "close":  58.347,
+        "volume":  2327
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-09T11:00:00Z",
+        "open":  58.3477,
+        "high":  58.916,
+        "low":  58.317,
+        "close":  58.776,
+        "volume":  6665
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-09T11:30:00Z",
+        "open":  58.776,
+        "high":  58.841,
+        "low":  58.4237,
+        "close":  58.519,
+        "volume":  3836
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-09T12:00:00Z",
+        "open":  58.522,
+        "high":  58.63,
+        "low":  58.386,
+        "close":  58.607,
+        "volume":  3649
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-09T12:30:00Z",
+        "open":  58.607,
+        "high":  58.623,
+        "low":  58.499,
+        "close":  58.595,
+        "volume":  4274
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-09T13:00:00Z",
+        "open":  58.595,
+        "high":  58.6178,
+        "low":  58.4443,
+        "close":  58.569,
+        "volume":  3474
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-09T13:30:00Z",
+        "open":  58.5723,
+        "high":  58.6327,
+        "low":  58.478,
+        "close":  58.5193,
+        "volume":  2265
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-09T14:00:00Z",
+        "open":  58.5193,
+        "high":  58.6431,
+        "low":  58.5193,
+        "close":  58.595,
+        "volume":  2781
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-09T14:30:00Z",
+        "open":  58.591,
+        "high":  58.7177,
+        "low":  58.5723,
+        "close":  58.697,
+        "volume":  2837
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-09T15:00:00Z",
+        "open":  58.697,
+        "high":  58.913,
+        "low":  58.599,
+        "close":  58.6827,
+        "volume":  8966
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-09T15:30:00Z",
+        "open":  58.6803,
+        "high":  58.893299999999996,
+        "low":  58.5153,
+        "close":  58.859,
+        "volume":  8207
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-09T16:00:00Z",
+        "open":  58.8608,
+        "high":  58.894,
+        "low":  58.613,
+        "close":  58.864,
+        "volume":  6771
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-09T16:30:00Z",
+        "open":  58.864,
+        "high":  59.219,
+        "low":  58.83,
+        "close":  59.0932,
+        "volume":  13999
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-09T17:00:00Z",
+        "open":  59.0915,
+        "high":  59.744,
+        "low":  58.8741,
+        "close":  59.6407,
+        "volume":  12093
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-09T17:30:00Z",
+        "open":  59.6437,
+        "high":  60.2943,
+        "low":  59.5673,
+        "close":  60.2213,
+        "volume":  12558
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-09T18:00:00Z",
+        "open":  60.2213,
+        "high":  60.529,
+        "low":  60.0543,
+        "close":  60.37,
+        "volume":  8914
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-09T18:30:00Z",
+        "open":  60.37,
+        "high":  60.566,
+        "low":  60.291,
+        "close":  60.3093,
+        "volume":  8324
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-09T19:00:00Z",
+        "open":  60.3093,
+        "high":  60.4733,
+        "low":  60.081,
+        "close":  60.1727,
+        "volume":  5282
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-09T19:30:00Z",
+        "open":  60.1727,
+        "high":  60.295,
+        "low":  60.064,
+        "close":  60.181,
+        "volume":  5222
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-09T20:00:00Z",
+        "open":  60.1773,
+        "high":  60.43,
+        "low":  60.166,
+        "close":  60.4229,
+        "volume":  5206
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-09T20:30:00Z",
+        "open":  60.422,
+        "high":  60.573,
+        "low":  60.2921,
+        "close":  60.543,
+        "volume":  3825
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-09T21:00:00Z",
+        "open":  60.543,
+        "high":  60.7134,
+        "low":  60.4923,
+        "close":  60.6866,
+        "volume":  4109
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-09T21:30:00Z",
+        "open":  60.6849,
+        "high":  60.734,
+        "low":  60.5857,
+        "close":  60.6627,
+        "volume":  2523
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-09T22:00:00Z",
+        "open":  60.6627,
+        "high":  60.7345,
+        "low":  60.562,
+        "close":  60.6443,
+        "volume":  2667
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-09T22:30:00Z",
+        "open":  60.6443,
+        "high":  60.794,
+        "low":  60.551,
+        "close":  60.7787,
+        "volume":  3283
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-09T23:00:00Z",
+        "open":  60.779,
+        "high":  60.823,
+        "low":  60.692,
+        "close":  60.7227,
+        "volume":  1372
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-09T23:30:00Z",
+        "open":  60.7227,
+        "high":  60.7367,
+        "low":  60.63,
+        "close":  60.649,
+        "volume":  718
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-10T01:00:00Z",
+        "open":  60.581,
+        "high":  60.914,
+        "low":  60.505,
+        "close":  60.845,
+        "volume":  983
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-10T01:30:00Z",
+        "open":  60.85,
+        "high":  60.886,
+        "low":  60.69,
+        "close":  60.842,
+        "volume":  926
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-10T02:00:00Z",
+        "open":  60.852,
+        "high":  60.892,
+        "low":  60.694,
+        "close":  60.734,
+        "volume":  687
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-10T02:30:00Z",
+        "open":  60.739,
+        "high":  60.749,
+        "low":  60.6357,
+        "close":  60.6607,
+        "volume":  903
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-10T03:00:00Z",
+        "open":  60.6605,
+        "high":  61.3347,
+        "low":  60.619,
+        "close":  61.3043,
+        "volume":  6899
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-10T03:30:00Z",
+        "open":  61.3023,
+        "high":  61.4193,
+        "low":  61.064,
+        "close":  61.2703,
+        "volume":  12315
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-10T04:00:00Z",
+        "open":  61.272,
+        "high":  61.4683,
+        "low":  60.9241,
+        "close":  61.024,
+        "volume":  6170
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-10T04:30:00Z",
+        "open":  61.024,
+        "high":  61.254,
+        "low":  60.994,
+        "close":  61.22,
+        "volume":  2631
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-10T05:00:00Z",
+        "open":  61.224,
+        "high":  61.2283,
+        "low":  60.8493,
+        "close":  61.007,
+        "volume":  4826
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-10T05:30:00Z",
+        "open":  61.0027,
+        "high":  61.136,
+        "low":  60.905,
+        "close":  61.005,
+        "volume":  2122
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-10T06:00:00Z",
+        "open":  61.009,
+        "high":  61.095,
+        "low":  60.947,
+        "close":  61.0783,
+        "volume":  2206
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-10T06:30:00Z",
+        "open":  61.083,
+        "high":  61.0947,
+        "low":  61.0131,
+        "close":  61.079,
+        "volume":  1129
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-10T07:00:00Z",
+        "open":  61.079,
+        "high":  61.0897,
+        "low":  60.875,
+        "close":  61.038,
+        "volume":  2078
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-10T07:30:00Z",
+        "open":  61.043,
+        "high":  61.3487,
+        "low":  61.018,
+        "close":  61.3073,
+        "volume":  4671
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-10T08:00:00Z",
+        "open":  61.3053,
+        "high":  61.4213,
+        "low":  61.246,
+        "close":  61.421,
+        "volume":  5176
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-10T08:30:00Z",
+        "open":  61.421,
+        "high":  61.5973,
+        "low":  61.249,
+        "close":  61.3787,
+        "volume":  4482
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-10T09:00:00Z",
+        "open":  61.3787,
+        "high":  61.5235,
+        "low":  61.2663,
+        "close":  61.4898,
+        "volume":  4971
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-10T09:30:00Z",
+        "open":  61.481,
+        "high":  61.517,
+        "low":  61.4493,
+        "close":  61.4641,
+        "volume":  4330
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-10T10:00:00Z",
+        "open":  61.4625,
+        "high":  61.57,
+        "low":  61.439,
+        "close":  61.467,
+        "volume":  4706
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-10T10:30:00Z",
+        "open":  61.467,
+        "high":  61.5,
+        "low":  60.9927,
+        "close":  61.009,
+        "volume":  5402
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-10T11:00:00Z",
+        "open":  61.0091,
+        "high":  61.122,
+        "low":  60.6153,
+        "close":  61.098,
+        "volume":  5106
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-10T11:30:00Z",
+        "open":  61.098,
+        "high":  61.113,
+        "low":  60.859,
+        "close":  60.877,
+        "volume":  2967
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-10T12:00:00Z",
+        "open":  60.881,
+        "high":  61.031,
+        "low":  60.785,
+        "close":  60.963,
+        "volume":  3982
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-10T12:30:00Z",
+        "open":  60.963,
+        "high":  61.086,
+        "low":  60.8486,
+        "close":  61.063,
+        "volume":  3547
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-10T13:00:00Z",
+        "open":  61.058,
+        "high":  61.14,
+        "low":  60.9536,
+        "close":  60.985,
+        "volume":  2674
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-10T13:30:00Z",
+        "open":  60.984,
+        "high":  61.0488,
+        "low":  60.853,
+        "close":  61.009,
+        "volume":  2737
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-10T14:00:00Z",
+        "open":  61.0098,
+        "high":  61.1,
+        "low":  60.9747,
+        "close":  61.0082,
+        "volume":  2732
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-10T14:30:00Z",
+        "open":  61.0082,
+        "high":  61.065,
+        "low":  60.983,
+        "close":  61.02,
+        "volume":  2780
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-10T15:00:00Z",
+        "open":  61.02,
+        "high":  61.268299999999996,
+        "low":  60.9497,
+        "close":  61.1464,
+        "volume":  8065
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-10T15:30:00Z",
+        "open":  61.1464,
+        "high":  61.1787,
+        "low":  60.741,
+        "close":  60.7905,
+        "volume":  10451
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-10T16:00:00Z",
+        "open":  60.786,
+        "high":  61.03,
+        "low":  60.751,
+        "close":  60.7882,
+        "volume":  8834
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-10T16:30:00Z",
+        "open":  60.7901,
+        "high":  60.793,
+        "low":  60.255,
+        "close":  60.385,
+        "volume":  13169
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-10T17:00:00Z",
+        "open":  60.3832,
+        "high":  60.623,
+        "low":  60.091,
+        "close":  60.509,
+        "volume":  14153
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-10T17:30:00Z",
+        "open":  60.509,
+        "high":  60.6823,
+        "low":  60.398,
+        "close":  60.537,
+        "volume":  11803
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-10T18:00:00Z",
+        "open":  60.537,
+        "high":  60.7773,
+        "low":  60.535,
+        "close":  60.7517,
+        "volume":  8534
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-10T18:30:00Z",
+        "open":  60.7517,
+        "high":  60.9077,
+        "low":  60.7152,
+        "close":  60.8717,
+        "volume":  6450
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-10T19:00:00Z",
+        "open":  60.8717,
+        "high":  60.891,
+        "low":  60.574,
+        "close":  60.5753,
+        "volume":  6372
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-10T19:30:00Z",
+        "open":  60.5753,
+        "high":  60.7273,
+        "low":  60.4707,
+        "close":  60.657,
+        "volume":  8245
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-10T20:00:00Z",
+        "open":  60.6576,
+        "high":  60.6833,
+        "low":  60.5137,
+        "close":  60.5977,
+        "volume":  5818
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-10T20:30:00Z",
+        "open":  60.5977,
+        "high":  60.6017,
+        "low":  60.3223,
+        "close":  60.329,
+        "volume":  6221
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-10T21:00:00Z",
+        "open":  60.283,
+        "high":  60.9785,
+        "low":  60.087,
+        "close":  60.258,
+        "volume":  14772
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-10T21:30:00Z",
+        "open":  60.2563,
+        "high":  61.111,
+        "low":  60.147,
+        "close":  61.1,
+        "volume":  13428
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-10T22:00:00Z",
+        "open":  61.1,
+        "high":  61.856,
+        "low":  60.928,
+        "close":  61.6507,
+        "volume":  13652
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-10T22:30:00Z",
+        "open":  61.66,
+        "high":  61.9435,
+        "low":  61.624,
+        "close":  61.7687,
+        "volume":  9544
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-10T23:00:00Z",
+        "open":  61.763,
+        "high":  61.86,
+        "low":  61.615,
+        "close":  61.7716,
+        "volume":  3633
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-10T23:30:00Z",
+        "open":  61.772,
+        "high":  61.852,
+        "low":  61.741,
+        "close":  61.825,
+        "volume":  1637
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-11T01:00:00Z",
+        "open":  61.8309,
+        "high":  61.904,
+        "low":  61.636,
+        "close":  61.7963,
+        "volume":  1041
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-11T01:30:00Z",
+        "open":  61.7963,
+        "high":  61.962,
+        "low":  61.767,
+        "close":  61.907,
+        "volume":  1861
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-11T02:00:00Z",
+        "open":  61.907,
+        "high":  62.363,
+        "low":  61.86,
+        "close":  62.295,
+        "volume":  2010
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-11T02:30:00Z",
+        "open":  62.295,
+        "high":  62.362,
+        "low":  62.1273,
+        "close":  62.2787,
+        "volume":  2752
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-11T03:00:00Z",
+        "open":  62.2787,
+        "high":  62.717,
+        "low":  62.228,
+        "close":  62.5717,
+        "volume":  10407
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-11T03:30:00Z",
+        "open":  62.571,
+        "high":  62.88,
+        "low":  62.265,
+        "close":  62.7727,
+        "volume":  5371
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-11T04:00:00Z",
+        "open":  62.772,
+        "high":  62.8627,
+        "low":  62.4727,
+        "close":  62.542,
+        "volume":  3005
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-11T04:30:00Z",
+        "open":  62.542,
+        "high":  62.801,
+        "low":  62.238,
+        "close":  62.261,
+        "volume":  5135
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-11T05:00:00Z",
+        "open":  62.2577,
+        "high":  62.439,
+        "low":  61.878,
+        "close":  61.8937,
+        "volume":  6873
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-11T05:30:00Z",
+        "open":  61.8987,
+        "high":  62.233,
+        "low":  61.824,
+        "close":  62.052,
+        "volume":  2855
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-11T06:00:00Z",
+        "open":  62.0484,
+        "high":  62.232,
+        "low":  61.7217,
+        "close":  61.859,
+        "volume":  3141
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-11T06:30:00Z",
+        "open":  61.859,
+        "high":  61.946,
+        "low":  61.667,
+        "close":  61.8917,
+        "volume":  2700
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-11T07:00:00Z",
+        "open":  61.885,
+        "high":  61.989,
+        "low":  61.7003,
+        "close":  61.715,
+        "volume":  2408
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-11T07:30:00Z",
+        "open":  61.7123,
+        "high":  61.8827,
+        "low":  61.428,
+        "close":  61.6217,
+        "volume":  5996
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-11T08:00:00Z",
+        "open":  61.6217,
+        "high":  61.949,
+        "low":  61.4777,
+        "close":  61.9267,
+        "volume":  4122
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-11T08:30:00Z",
+        "open":  61.93,
+        "high":  62.0697,
+        "low":  61.895,
+        "close":  62.053,
+        "volume":  3965
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-11T09:00:00Z",
+        "open":  62.053,
+        "high":  62.096,
+        "low":  61.88,
+        "close":  62.041,
+        "volume":  2857
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-11T09:30:00Z",
+        "open":  62.046,
+        "high":  62.104,
+        "low":  61.897,
+        "close":  62.0253,
+        "volume":  2546
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-11T10:00:00Z",
+        "open":  62.032,
+        "high":  62.1293,
+        "low":  61.933,
+        "close":  62.0407,
+        "volume":  3219
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-11T10:30:00Z",
+        "open":  62.0407,
+        "high":  62.2403,
+        "low":  62.0347,
+        "close":  62.138,
+        "volume":  3039
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-11T11:00:00Z",
+        "open":  62.137,
+        "high":  62.142,
+        "low":  61.961,
+        "close":  62.0347,
+        "volume":  3713
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-11T11:30:00Z",
+        "open":  62.031,
+        "high":  62.1103,
+        "low":  62,
+        "close":  62.064,
+        "volume":  3167
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-11T12:00:00Z",
+        "open":  62.065,
+        "high":  62.365,
+        "low":  62.045,
+        "close":  62.2637,
+        "volume":  2871
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-11T12:30:00Z",
+        "open":  62.263,
+        "high":  62.424,
+        "low":  62.152,
+        "close":  62.375,
+        "volume":  2373
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-11T13:00:00Z",
+        "open":  62.375,
+        "high":  62.47,
+        "low":  62.308,
+        "close":  62.345,
+        "volume":  1965
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-11T13:30:00Z",
+        "open":  62.345,
+        "high":  62.358,
+        "low":  61.9673,
+        "close":  62.017,
+        "volume":  2578
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-11T14:00:00Z",
+        "open":  62.017,
+        "high":  62.26,
+        "low":  62.005,
+        "close":  62.254,
+        "volume":  2482
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-11T14:30:00Z",
+        "open":  62.254,
+        "high":  62.294,
+        "low":  62.129,
+        "close":  62.283,
+        "volume":  3091
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-11T15:00:00Z",
+        "open":  62.288,
+        "high":  62.383,
+        "low":  62.095,
+        "close":  62.2435,
+        "volume":  7327
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-11T15:30:00Z",
+        "open":  62.2455,
+        "high":  62.57,
+        "low":  62.068,
+        "close":  62.458,
+        "volume":  7161
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-11T16:00:00Z",
+        "open":  62.462,
+        "high":  62.781,
+        "low":  62.415,
+        "close":  62.615,
+        "volume":  7785
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-11T16:30:00Z",
+        "open":  62.623,
+        "high":  62.82,
+        "low":  62.2985,
+        "close":  62.43,
+        "volume":  14203
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-11T17:00:00Z",
+        "open":  62.432,
+        "high":  62.8432,
+        "low":  62.375,
+        "close":  62.773,
+        "volume":  10634
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-11T17:30:00Z",
+        "open":  62.7737,
+        "high":  63.552,
+        "low":  62.773,
+        "close":  63.2797,
+        "volume":  11026
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-11T18:00:00Z",
+        "open":  63.282,
+        "high":  63.59,
+        "low":  63.14,
+        "close":  63.4207,
+        "volume":  11800
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-11T18:30:00Z",
+        "open":  63.4207,
+        "high":  63.958,
+        "low":  63.299,
+        "close":  63.895,
+        "volume":  9800
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-11T19:00:00Z",
+        "open":  63.895,
+        "high":  64.135,
+        "low":  63.785,
+        "close":  63.952,
+        "volume":  8620
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-11T19:30:00Z",
+        "open":  63.952,
+        "high":  64.078,
+        "low":  63.8243,
+        "close":  64,
+        "volume":  6092
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-11T20:00:00Z",
+        "open":  64,
+        "high":  64.295,
+        "low":  63.97,
+        "close":  64.22,
+        "volume":  5539
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-11T20:30:00Z",
+        "open":  64.2203,
+        "high":  64.301,
+        "low":  63.398,
+        "close":  63.432,
+        "volume":  5533
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-11T21:00:00Z",
+        "open":  63.432,
+        "high":  63.918,
+        "low":  63.209,
+        "close":  63.7953,
+        "volume":  7818
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-11T21:30:00Z",
+        "open":  63.7953,
+        "high":  63.8987,
+        "low":  63.67,
+        "close":  63.766,
+        "volume":  3800
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-11T22:00:00Z",
+        "open":  63.766,
+        "high":  63.8373,
+        "low":  63.2163,
+        "close":  63.343,
+        "volume":  5876
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-11T22:30:00Z",
+        "open":  63.34,
+        "high":  63.572,
+        "low":  63.328,
+        "close":  63.547,
+        "volume":  4271
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-11T23:00:00Z",
+        "open":  63.547,
+        "high":  63.632,
+        "low":  63.463,
+        "close":  63.601,
+        "volume":  1516
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-11T23:30:00Z",
+        "open":  63.601,
+        "high":  63.647,
+        "low":  63.4487,
+        "close":  63.566,
+        "volume":  2266
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-12T01:00:00Z",
+        "open":  63.563,
+        "high":  63.651,
+        "low":  63.339,
+        "close":  63.459,
+        "volume":  767
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-12T01:30:00Z",
+        "open":  63.459,
+        "high":  63.493,
+        "low":  62.73,
+        "close":  63.047,
+        "volume":  1982
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-12T02:00:00Z",
+        "open":  63.048,
+        "high":  63.415,
+        "low":  63.039,
+        "close":  63.243,
+        "volume":  2155
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-12T02:30:00Z",
+        "open":  63.248,
+        "high":  63.478,
+        "low":  63.204,
+        "close":  63.273,
+        "volume":  1999
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-12T03:00:00Z",
+        "open":  63.278,
+        "high":  63.448,
+        "low":  62.932,
+        "close":  62.9543,
+        "volume":  7011
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-12T03:30:00Z",
+        "open":  62.9563,
+        "high":  63.3867,
+        "low":  62.9563,
+        "close":  63.37,
+        "volume":  5332
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-12T04:00:00Z",
+        "open":  63.37,
+        "high":  63.8767,
+        "low":  63.355,
+        "close":  63.675,
+        "volume":  4595
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-12T04:30:00Z",
+        "open":  63.675,
+        "high":  63.935,
+        "low":  63.49,
+        "close":  63.63,
+        "volume":  4604
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-12T05:00:00Z",
+        "open":  63.63,
+        "high":  63.665,
+        "low":  63.313,
+        "close":  63.338,
+        "volume":  5175
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-12T05:30:00Z",
+        "open":  63.337,
+        "high":  63.5693,
+        "low":  63.337,
+        "close":  63.4973,
+        "volume":  3830
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-12T06:00:00Z",
+        "open":  63.4973,
+        "high":  63.505,
+        "low":  63.3493,
+        "close":  63.445,
+        "volume":  4285
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-12T06:30:00Z",
+        "open":  63.4453,
+        "high":  63.5237,
+        "low":  63.406,
+        "close":  63.4287,
+        "volume":  2629
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-12T07:00:00Z",
+        "open":  63.4333,
+        "high":  63.6667,
+        "low":  63.421,
+        "close":  63.5323,
+        "volume":  3320
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-12T07:30:00Z",
+        "open":  63.5287,
+        "high":  63.8483,
+        "low":  63.5287,
+        "close":  63.768,
+        "volume":  5125
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-12T08:00:00Z",
+        "open":  63.773,
+        "high":  63.8737,
+        "low":  63.714,
+        "close":  63.814,
+        "volume":  4325
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-12T08:30:00Z",
+        "open":  63.814,
+        "high":  63.8687,
+        "low":  63.6188,
+        "close":  63.6341,
+        "volume":  4444
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-12T09:00:00Z",
+        "open":  63.6341,
+        "high":  63.784,
+        "low":  63.539,
+        "close":  63.7205,
+        "volume":  3837
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-12T09:30:00Z",
+        "open":  63.7205,
+        "high":  63.8587,
+        "low":  63.664,
+        "close":  63.7096,
+        "volume":  2975
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-12T10:00:00Z",
+        "open":  63.7094,
+        "high":  63.8787,
+        "low":  63.6,
+        "close":  63.7062,
+        "volume":  4363
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-12T10:30:00Z",
+        "open":  63.7077,
+        "high":  64.009,
+        "low":  63.686,
+        "close":  63.9739,
+        "volume":  4925
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-12T11:00:00Z",
+        "open":  63.972,
+        "high":  64.3525,
+        "low":  63.935,
+        "close":  64.1027,
+        "volume":  6426
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-12T11:30:00Z",
+        "open":  64.1027,
+        "high":  64.157,
+        "low":  63.67,
+        "close":  64.112,
+        "volume":  5687
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-12T12:00:00Z",
+        "open":  64.117,
+        "high":  64.1493,
+        "low":  63.927,
+        "close":  63.927,
+        "volume":  3687
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-12T12:30:00Z",
+        "open":  63.927,
+        "high":  64.356,
+        "low":  63.923,
+        "close":  64.302,
+        "volume":  3651
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-12T13:00:00Z",
+        "open":  64.307,
+        "high":  64.563,
+        "low":  64.2429,
+        "close":  64.3953,
+        "volume":  4910
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-12T13:30:00Z",
+        "open":  64.398,
+        "high":  64.5163,
+        "low":  64.257,
+        "close":  64.4977,
+        "volume":  3760
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-12T14:00:00Z",
+        "open":  64.4977,
+        "high":  64.5631,
+        "low":  64.295,
+        "close":  64.323,
+        "volume":  4372
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-12T14:30:00Z",
+        "open":  64.323,
+        "high":  64.3717,
+        "low":  64.0057,
+        "close":  64.0467,
+        "volume":  5596
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-12T15:00:00Z",
+        "open":  64.045,
+        "high":  64.537,
+        "low":  63.935,
+        "close":  64.179,
+        "volume":  9050
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-12T15:30:00Z",
+        "open":  64.1764,
+        "high":  64.472,
+        "low":  64.06,
+        "close":  64.4416,
+        "volume":  9952
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-12T16:00:00Z",
+        "open":  64.4416,
+        "high":  64.646,
+        "low":  64.3353,
+        "close":  64.55,
+        "volume":  6660
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-12T16:30:00Z",
+        "open":  64.555,
+        "high":  64.57,
+        "low":  63.9086,
+        "close":  64.3662,
+        "volume":  15250
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-12T17:00:00Z",
+        "open":  64.3665,
+        "high":  64.3709,
+        "low":  62.7796,
+        "close":  62.92,
+        "volume":  15507
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-12T17:30:00Z",
+        "open":  62.92,
+        "high":  63.147,
+        "low":  61.958,
+        "close":  62.081,
+        "volume":  15572
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-12T18:00:00Z",
+        "open":  62.081,
+        "high":  62.312,
+        "low":  61.58,
+        "close":  62.034,
+        "volume":  15450
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-12T18:30:00Z",
+        "open":  62.0343,
+        "high":  62.0343,
+        "low":  60.796,
+        "close":  61.281,
+        "volume":  14186
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-12T19:00:00Z",
+        "open":  61.281,
+        "high":  61.738,
+        "low":  61.0402,
+        "close":  61.408,
+        "volume":  13618
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-12T19:30:00Z",
+        "open":  61.408,
+        "high":  61.863,
+        "low":  61.373,
+        "close":  61.753,
+        "volume":  9515
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-12T20:00:00Z",
+        "open":  61.753,
+        "high":  62.0024,
+        "low":  61.593,
+        "close":  61.856,
+        "volume":  9083
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-12T20:30:00Z",
+        "open":  61.86,
+        "high":  61.981,
+        "low":  61.5241,
+        "close":  61.6287,
+        "volume":  8353
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-12T21:00:00Z",
+        "open":  61.6304,
+        "high":  61.7763,
+        "low":  61.322,
+        "close":  61.738,
+        "volume":  7734
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-12T21:30:00Z",
+        "open":  61.7411,
+        "high":  61.9003,
+        "low":  61.701,
+        "close":  61.8341,
+        "volume":  5452
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-12T22:00:00Z",
+        "open":  61.8345,
+        "high":  62.009,
+        "low":  61.4455,
+        "close":  61.575,
+        "volume":  5315
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-12T22:30:00Z",
+        "open":  61.576,
+        "high":  61.909,
+        "low":  61.3373,
+        "close":  61.838,
+        "volume":  7181
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-12T23:00:00Z",
+        "open":  61.838,
+        "high":  62.0077,
+        "low":  61.828,
+        "close":  61.9844,
+        "volume":  1578
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-12T23:30:00Z",
+        "open":  61.9841,
+        "high":  62.0173,
+        "low":  61.9223,
+        "close":  61.9705,
+        "volume":  1292
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-15T01:00:00Z",
+        "open":  61.711,
+        "high":  62.134,
+        "low":  61.6185,
+        "close":  62.0027,
+        "volume":  3235
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-15T01:30:00Z",
+        "open":  62.0027,
+        "high":  62.101,
+        "low":  61.9307,
+        "close":  61.962,
+        "volume":  1688
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-15T02:00:00Z",
+        "open":  61.9607,
+        "high":  62.0877,
+        "low":  61.926,
+        "close":  61.969,
+        "volume":  1616
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-15T02:30:00Z",
+        "open":  61.969,
+        "high":  62.062,
+        "low":  61.947,
+        "close":  62.06,
+        "volume":  1533
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-15T03:00:00Z",
+        "open":  62.06,
+        "high":  62.1207,
+        "low":  61.725,
+        "close":  62.048,
+        "volume":  7809
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-15T03:30:00Z",
+        "open":  62.05,
+        "high":  62.7627,
+        "low":  62.035,
+        "close":  62.5787,
+        "volume":  9176
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-15T04:00:00Z",
+        "open":  62.578,
+        "high":  62.6784,
+        "low":  62.473,
+        "close":  62.599,
+        "volume":  4739
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-15T04:30:00Z",
+        "open":  62.599,
+        "high":  62.7507,
+        "low":  62.4985,
+        "close":  62.6457,
+        "volume":  4689
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-15T05:00:00Z",
+        "open":  62.6413,
+        "high":  62.8077,
+        "low":  62.437,
+        "close":  62.5757,
+        "volume":  4930
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-15T05:30:00Z",
+        "open":  62.5757,
+        "high":  62.743,
+        "low":  62.517,
+        "close":  62.603,
+        "volume":  1754
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-15T06:00:00Z",
+        "open":  62.603,
+        "high":  62.6937,
+        "low":  62.5253,
+        "close":  62.5877,
+        "volume":  1817
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-15T06:30:00Z",
+        "open":  62.5927,
+        "high":  62.64,
+        "low":  62.4657,
+        "close":  62.5957,
+        "volume":  1803
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-15T07:00:00Z",
+        "open":  62.5957,
+        "high":  62.6885,
+        "low":  62.52,
+        "close":  62.638,
+        "volume":  2691
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-15T07:30:00Z",
+        "open":  62.6357,
+        "high":  63.105,
+        "low":  62.6287,
+        "close":  63.0417,
+        "volume":  6254
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-15T08:00:00Z",
+        "open":  63.0417,
+        "high":  63.187,
+        "low":  62.8195,
+        "close":  63.1593,
+        "volume":  4993
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-15T08:30:00Z",
+        "open":  63.1593,
+        "high":  63.3155,
+        "low":  63.0617,
+        "close":  63.2855,
+        "volume":  4560
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-15T09:00:00Z",
+        "open":  63.2855,
+        "high":  63.366,
+        "low":  63.1703,
+        "close":  63.2817,
+        "volume":  3847
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-15T09:30:00Z",
+        "open":  63.2817,
+        "high":  63.3415,
+        "low":  63.0855,
+        "close":  63.264,
+        "volume":  3780
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-15T10:00:00Z",
+        "open":  63.264,
+        "high":  63.558,
+        "low":  63.2431,
+        "close":  63.5135,
+        "volume":  3769
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-15T10:30:00Z",
+        "open":  63.512,
+        "high":  63.8767,
+        "low":  63.4685,
+        "close":  63.8205,
+        "volume":  3606
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-15T11:00:00Z",
+        "open":  63.8204,
+        "high":  63.9547,
+        "low":  63.711,
+        "close":  63.885,
+        "volume":  4017
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-15T11:30:00Z",
+        "open":  63.887,
+        "high":  63.946,
+        "low":  63.62,
+        "close":  63.659,
+        "volume":  3625
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-15T12:00:00Z",
+        "open":  63.6587,
+        "high":  63.8623,
+        "low":  63.621,
+        "close":  63.764,
+        "volume":  2479
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-15T12:30:00Z",
+        "open":  63.764,
+        "high":  63.784,
+        "low":  63.5237,
+        "close":  63.728,
+        "volume":  3554
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-15T13:00:00Z",
+        "open":  63.721,
+        "high":  63.7503,
+        "low":  63.584,
+        "close":  63.718,
+        "volume":  2801
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-15T13:30:00Z",
+        "open":  63.7203,
+        "high":  63.867,
+        "low":  63.691,
+        "close":  63.864,
+        "volume":  2588
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-15T14:00:00Z",
+        "open":  63.867,
+        "high":  63.9057,
+        "low":  63.784,
+        "close":  63.8967,
+        "volume":  2217
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-15T14:30:00Z",
+        "open":  63.8967,
+        "high":  64.03,
+        "low":  63.865,
+        "close":  64.028,
+        "volume":  3014
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-15T15:00:00Z",
+        "open":  64.029,
+        "high":  64.034,
+        "low":  63.644,
+        "close":  63.9255,
+        "volume":  8936
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-15T15:30:00Z",
+        "open":  63.928,
+        "high":  64.087,
+        "low":  63.7347,
+        "close":  63.7637,
+        "volume":  7895
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-15T16:00:00Z",
+        "open":  63.7637,
+        "high":  64.027,
+        "low":  63.668,
+        "close":  63.7697,
+        "volume":  9017
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-15T16:30:00Z",
+        "open":  63.77,
+        "high":  63.8167,
+        "low":  63.108,
+        "close":  63.419,
+        "volume":  15708
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-15T17:00:00Z",
+        "open":  63.419,
+        "high":  63.7237,
+        "low":  63.186,
+        "close":  63.385,
+        "volume":  16278
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-15T17:30:00Z",
+        "open":  63.391,
+        "high":  63.998,
+        "low":  63.319,
+        "close":  63.794,
+        "volume":  11864
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-15T18:00:00Z",
+        "open":  63.797,
+        "high":  63.816,
+        "low":  63.163,
+        "close":  63.286,
+        "volume":  12308
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-15T18:30:00Z",
+        "open":  63.286,
+        "high":  63.4047,
+        "low":  62.874,
+        "close":  63.315,
+        "volume":  11940
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-15T19:00:00Z",
+        "open":  63.315,
+        "high":  63.5526,
+        "low":  63.173,
+        "close":  63.5037,
+        "volume":  7496
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-15T19:30:00Z",
+        "open":  63.5037,
+        "high":  63.592,
+        "low":  63.356,
+        "close":  63.4587,
+        "volume":  6606
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-15T20:00:00Z",
+        "open":  63.458,
+        "high":  63.595,
+        "low":  63.3437,
+        "close":  63.504,
+        "volume":  4787
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-15T20:30:00Z",
+        "open":  63.504,
+        "high":  63.769,
+        "low":  63.3767,
+        "close":  63.759,
+        "volume":  5984
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-15T21:00:00Z",
+        "open":  63.757,
+        "high":  64.013,
+        "low":  63.6635,
+        "close":  63.7977,
+        "volume":  5937
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-15T21:30:00Z",
+        "open":  63.7953,
+        "high":  64.11,
+        "low":  63.7817,
+        "close":  64.0887,
+        "volume":  5887
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-15T22:00:00Z",
+        "open":  64.0887,
+        "high":  64.1553,
+        "low":  63.569,
+        "close":  63.7763,
+        "volume":  5812
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-15T22:30:00Z",
+        "open":  63.78,
+        "high":  64.1047,
+        "low":  63.5843,
+        "close":  64.0413,
+        "volume":  5838
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-15T23:00:00Z",
+        "open":  64.0407,
+        "high":  64.0747,
+        "low":  63.898,
+        "close":  63.9684,
+        "volume":  1704
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-15T23:30:00Z",
+        "open":  63.968,
+        "high":  64.0843,
+        "low":  63.9383,
+        "close":  64.078,
+        "volume":  876
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-16T01:00:00Z",
+        "open":  64.094,
+        "high":  64.1445,
+        "low":  64.0347,
+        "close":  64.095,
+        "volume":  588
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-16T01:30:00Z",
+        "open":  64.0947,
+        "high":  64.1347,
+        "low":  63.844,
+        "close":  63.8947,
+        "volume":  799
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-16T02:00:00Z",
+        "open":  63.8994,
+        "high":  63.9997,
+        "low":  63.7318,
+        "close":  63.8447,
+        "volume":  1729
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-16T02:30:00Z",
+        "open":  63.8447,
+        "high":  63.91,
+        "low":  63.6441,
+        "close":  63.6777,
+        "volume":  2530
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-16T03:00:00Z",
+        "open":  63.6777,
+        "high":  63.954,
+        "low":  63.27,
+        "close":  63.9207,
+        "volume":  7535
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-16T03:30:00Z",
+        "open":  63.9213,
+        "high":  64.07,
+        "low":  63.5983,
+        "close":  63.7623,
+        "volume":  7002
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-16T04:00:00Z",
+        "open":  63.7623,
+        "high":  63.8757,
+        "low":  63.65,
+        "close":  63.775,
+        "volume":  4956
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-16T04:30:00Z",
+        "open":  63.7757,
+        "high":  63.8657,
+        "low":  62.945,
+        "close":  63.0167,
+        "volume":  6817
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-16T05:00:00Z",
+        "open":  63.0167,
+        "high":  63.1697,
+        "low":  62.375,
+        "close":  62.6497,
+        "volume":  7811
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-16T05:30:00Z",
+        "open":  62.659,
+        "high":  62.7647,
+        "low":  62.219,
+        "close":  62.7273,
+        "volume":  4881
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-16T06:00:00Z",
+        "open":  62.7273,
+        "high":  62.8807,
+        "low":  62.584,
+        "close":  62.7344,
+        "volume":  3051
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-16T06:30:00Z",
+        "open":  62.734,
+        "high":  62.96,
+        "low":  62.714,
+        "close":  62.8447,
+        "volume":  2026
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-16T07:00:00Z",
+        "open":  62.8447,
+        "high":  63.0467,
+        "low":  62.4541,
+        "close":  62.5127,
+        "volume":  5315
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-16T07:30:00Z",
+        "open":  62.5127,
+        "high":  62.8007,
+        "low":  62.149,
+        "close":  62.6717,
+        "volume":  7417
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-16T08:00:00Z",
+        "open":  62.6697,
+        "high":  63.0967,
+        "low":  62.6397,
+        "close":  62.9967,
+        "volume":  4888
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-16T08:30:00Z",
+        "open":  62.9967,
+        "high":  63.132,
+        "low":  62.9467,
+        "close":  63.076,
+        "volume":  4291
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-16T09:00:00Z",
+        "open":  63.076,
+        "high":  63.1365,
+        "low":  62.8867,
+        "close":  62.9917,
+        "volume":  3875
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-16T09:30:00Z",
+        "open":  62.9917,
+        "high":  63.154,
+        "low":  62.961,
+        "close":  63.149,
+        "volume":  2792
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-16T10:00:00Z",
+        "open":  63.149,
+        "high":  63.256,
+        "low":  62.87,
+        "close":  63,
+        "volume":  4442
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-16T10:30:00Z",
+        "open":  62.996,
+        "high":  63.213,
+        "low":  62.9153,
+        "close":  63.184,
+        "volume":  3468
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-16T11:00:00Z",
+        "open":  63.1843,
+        "high":  63.231,
+        "low":  63.052,
+        "close":  63.0817,
+        "volume":  2249
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-16T11:30:00Z",
+        "open":  63.0817,
+        "high":  63.1497,
+        "low":  62.85,
+        "close":  62.947,
+        "volume":  2766
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-16T12:00:00Z",
+        "open":  62.947,
+        "high":  63.0797,
+        "low":  62.866,
+        "close":  63.028,
+        "volume":  2646
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-16T12:30:00Z",
+        "open":  63.028,
+        "high":  63.1283,
+        "low":  62.9373,
+        "close":  63.003,
+        "volume":  2533
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-16T13:00:00Z",
+        "open":  63.003,
+        "high":  63.0563,
+        "low":  62.7863,
+        "close":  62.849,
+        "volume":  2869
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-16T13:30:00Z",
+        "open":  62.849,
+        "high":  63.025,
+        "low":  62.849,
+        "close":  62.96,
+        "volume":  1624
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-16T14:00:00Z",
+        "open":  62.963,
+        "high":  63.195,
+        "low":  62.89,
+        "close":  63.1447,
+        "volume":  4152
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-16T14:30:00Z",
+        "open":  63.149,
+        "high":  63.154,
+        "low":  63.011,
+        "close":  63.062,
+        "volume":  3014
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-16T15:00:00Z",
+        "open":  63.061,
+        "high":  63.2777,
+        "low":  62.8203,
+        "close":  63.2345,
+        "volume":  8798
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-16T15:30:00Z",
+        "open":  63.2305,
+        "high":  63.66,
+        "low":  63.0825,
+        "close":  63.554,
+        "volume":  12105
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-16T16:00:00Z",
+        "open":  63.554,
+        "high":  63.8173,
+        "low":  63.436,
+        "close":  63.5417,
+        "volume":  10160
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-16T16:30:00Z",
+        "open":  63.5377,
+        "high":  63.8147,
+        "low":  63.4313,
+        "close":  63.473,
+        "volume":  15545
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-16T17:00:00Z",
+        "open":  63.471,
+        "high":  63.835,
+        "low":  63.266,
+        "close":  63.4647,
+        "volume":  15182
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-16T17:30:00Z",
+        "open":  63.465,
+        "high":  63.651,
+        "low":  63.3855,
+        "close":  63.578,
+        "volume":  12713
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-16T18:00:00Z",
+        "open":  63.579,
+        "high":  63.671,
+        "low":  63.316,
+        "close":  63.476,
+        "volume":  11047
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-16T18:30:00Z",
+        "open":  63.4743,
+        "high":  63.4783,
+        "low":  62.9667,
+        "close":  63.3865,
+        "volume":  12295
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-16T19:00:00Z",
+        "open":  63.3867,
+        "high":  63.705,
+        "low":  63.3723,
+        "close":  63.4813,
+        "volume":  9300
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-16T19:30:00Z",
+        "open":  63.4813,
+        "high":  63.6163,
+        "low":  63.314,
+        "close":  63.374,
+        "volume":  8234
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-16T20:00:00Z",
+        "open":  63.374,
+        "high":  63.4963,
+        "low":  63.202,
+        "close":  63.4167,
+        "volume":  10363
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-16T20:30:00Z",
+        "open":  63.4167,
+        "high":  63.8473,
+        "low":  63.4083,
+        "close":  63.805,
+        "volume":  7471
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-16T21:00:00Z",
+        "open":  63.805,
+        "high":  63.8457,
+        "low":  63.424,
+        "close":  63.705,
+        "volume":  9094
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-16T21:30:00Z",
+        "open":  63.709,
+        "high":  63.9153,
+        "low":  63.6823,
+        "close":  63.8713,
+        "volume":  7435
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-16T22:00:00Z",
+        "open":  63.8693,
+        "high":  63.919,
+        "low":  63.7827,
+        "close":  63.8293,
+        "volume":  5840
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-16T22:30:00Z",
+        "open":  63.833,
+        "high":  63.8503,
+        "low":  63.5377,
+        "close":  63.651,
+        "volume":  7188
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-16T23:00:00Z",
+        "open":  63.651,
+        "high":  63.6683,
+        "low":  63.546,
+        "close":  63.613,
+        "volume":  1551
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-16T23:30:00Z",
+        "open":  63.614,
+        "high":  63.7887,
+        "low":  63.604,
+        "close":  63.732,
+        "volume":  840
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-17T01:00:00Z",
+        "open":  63.696,
+        "high":  63.8047,
+        "low":  63.674,
+        "close":  63.7497,
+        "volume":  449
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-17T01:30:00Z",
+        "open":  63.754,
+        "high":  63.803,
+        "low":  63.663,
+        "close":  63.784,
+        "volume":  616
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-17T02:00:00Z",
+        "open":  63.786,
+        "high":  64.039,
+        "low":  63.7836,
+        "close":  63.9777,
+        "volume":  1427
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-17T02:30:00Z",
+        "open":  63.9777,
+        "high":  64.0017,
+        "low":  63.7811,
+        "close":  63.803,
+        "volume":  2123
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-17T03:00:00Z",
+        "open":  63.803,
+        "high":  64.6117,
+        "low":  63.7967,
+        "close":  64.6063,
+        "volume":  13904
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-17T03:30:00Z",
+        "open":  64.6063,
+        "high":  65.6357,
+        "low":  64.539,
+        "close":  65.6027,
+        "volume":  12562
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-17T04:00:00Z",
+        "open":  65.5957,
+        "high":  65.645,
+        "low":  65.049,
+        "close":  65.383,
+        "volume":  7490
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-17T04:30:00Z",
+        "open":  65.3837,
+        "high":  65.6027,
+        "low":  65.283,
+        "close":  65.559,
+        "volume":  7872
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-17T05:00:00Z",
+        "open":  65.564,
+        "high":  66.0017,
+        "low":  65.485,
+        "close":  65.7297,
+        "volume":  9761
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-17T05:30:00Z",
+        "open":  65.7297,
+        "high":  65.9457,
+        "low":  65.616,
+        "close":  65.8517,
+        "volume":  5094
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-17T06:00:00Z",
+        "open":  65.8617,
+        "high":  65.9253,
+        "low":  65.6535,
+        "close":  65.8897,
+        "volume":  3497
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-17T06:30:00Z",
+        "open":  65.8897,
+        "high":  66.0617,
+        "low":  65.815,
+        "close":  65.9707,
+        "volume":  3422
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-17T07:00:00Z",
+        "open":  65.9727,
+        "high":  66.298,
+        "low":  65.855,
+        "close":  66.0057,
+        "volume":  4803
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-17T07:30:00Z",
+        "open":  66.0057,
+        "high":  66.524,
+        "low":  66.0057,
+        "close":  66.1957,
+        "volume":  8156
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-17T08:00:00Z",
+        "open":  66.1957,
+        "high":  66.354,
+        "low":  65.8827,
+        "close":  66.1177,
+        "volume":  6656
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-17T08:30:00Z",
+        "open":  66.1177,
+        "high":  66.1637,
+        "low":  65.95,
+        "close":  66.1017,
+        "volume":  5155
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-17T09:00:00Z",
+        "open":  66.1017,
+        "high":  66.1027,
+        "low":  65.7173,
+        "close":  65.9377,
+        "volume":  7743
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-17T09:30:00Z",
+        "open":  65.9317,
+        "high":  65.936,
+        "low":  65.6055,
+        "close":  65.6383,
+        "volume":  5516
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-17T10:00:00Z",
+        "open":  65.637,
+        "high":  65.839,
+        "low":  65.452,
+        "close":  65.7313,
+        "volume":  7565
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-17T10:30:00Z",
+        "open":  65.7313,
+        "high":  65.8527,
+        "low":  65.5117,
+        "close":  65.6524,
+        "volume":  5732
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-17T11:00:00Z",
+        "open":  65.6524,
+        "high":  65.8617,
+        "low":  65.5973,
+        "close":  65.8127,
+        "volume":  3961
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-17T11:30:00Z",
+        "open":  65.8063,
+        "high":  65.8433,
+        "low":  65.683,
+        "close":  65.711,
+        "volume":  3099
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-17T12:00:00Z",
+        "open":  65.711,
+        "high":  65.9947,
+        "low":  65.703,
+        "close":  65.976,
+        "volume":  3070
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-17T12:30:00Z",
+        "open":  65.974,
+        "high":  65.9837,
+        "low":  65.735,
+        "close":  65.8717,
+        "volume":  3314
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-17T13:00:00Z",
+        "open":  65.8717,
+        "high":  65.9515,
+        "low":  65.77,
+        "close":  65.9067,
+        "volume":  2456
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-17T13:30:00Z",
+        "open":  65.9067,
+        "high":  66.002,
+        "low":  65.8453,
+        "close":  65.8873,
+        "volume":  2502
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-17T14:00:00Z",
+        "open":  65.888,
+        "high":  66.033,
+        "low":  65.875,
+        "close":  65.989,
+        "volume":  3982
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-17T14:30:00Z",
+        "open":  65.985,
+        "high":  66.007,
+        "low":  65.803,
+        "close":  65.863,
+        "volume":  2691
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-17T15:00:00Z",
+        "open":  65.863,
+        "high":  66.036,
+        "low":  65.82,
+        "close":  65.8857,
+        "volume":  9266
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-17T15:30:00Z",
+        "open":  65.8857,
+        "high":  66.079,
+        "low":  65.864,
+        "close":  65.9793,
+        "volume":  9681
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-17T16:00:00Z",
+        "open":  65.9783,
+        "high":  66.046,
+        "low":  65.098,
+        "close":  65.359,
+        "volume":  12635
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-17T16:30:00Z",
+        "open":  65.357,
+        "high":  66.112,
+        "low":  65.1128,
+        "close":  66.0527,
+        "volume":  17086
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-17T17:00:00Z",
+        "open":  66.0493,
+        "high":  66.105,
+        "low":  65.5641,
+        "close":  65.9033,
+        "volume":  15274
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-17T17:30:00Z",
+        "open":  65.908,
+        "high":  66.068,
+        "low":  65.341,
+        "close":  65.636,
+        "volume":  15946
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-17T18:00:00Z",
+        "open":  65.641,
+        "high":  65.855,
+        "low":  65.553,
+        "close":  65.8277,
+        "volume":  13026
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-17T18:30:00Z",
+        "open":  65.8277,
+        "high":  66.559,
+        "low":  65.715,
+        "close":  66.439,
+        "volume":  9669
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-17T19:00:00Z",
+        "open":  66.439,
+        "high":  66.584,
+        "low":  66.119,
+        "close":  66.484,
+        "volume":  8708
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-17T19:30:00Z",
+        "open":  66.484,
+        "high":  66.8137,
+        "low":  66.422,
+        "close":  66.752,
+        "volume":  8919
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-17T20:00:00Z",
+        "open":  66.752,
+        "high":  66.884,
+        "low":  66.4113,
+        "close":  66.429,
+        "volume":  8463
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-17T20:30:00Z",
+        "open":  66.4283,
+        "high":  66.656,
+        "low":  65.967,
+        "close":  66.2677,
+        "volume":  9774
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-17T21:00:00Z",
+        "open":  66.2643,
+        "high":  66.6447,
+        "low":  66.139,
+        "close":  66.525,
+        "volume":  6596
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-17T21:30:00Z",
+        "open":  66.5237,
+        "high":  66.5847,
+        "low":  66.199,
+        "close":  66.4893,
+        "volume":  8217
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-17T22:00:00Z",
+        "open":  66.4893,
+        "high":  66.8093,
+        "low":  66.3187,
+        "close":  66.614,
+        "volume":  6779
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-17T22:30:00Z",
+        "open":  66.614,
+        "high":  66.6853,
+        "low":  66.25,
+        "close":  66.4477,
+        "volume":  8209
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-17T23:00:00Z",
+        "open":  66.4477,
+        "high":  66.5927,
+        "low":  66.4097,
+        "close":  66.4347,
+        "volume":  1321
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-17T23:30:00Z",
+        "open":  66.4347,
+        "high":  66.4397,
+        "low":  66.164,
+        "close":  66.2063,
+        "volume":  2139
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-18T01:00:00Z",
+        "open":  66.216,
+        "high":  66.269,
+        "low":  66.005,
+        "close":  66.2247,
+        "volume":  1096
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-18T01:30:00Z",
+        "open":  66.234,
+        "high":  66.5093,
+        "low":  66.194,
+        "close":  66.3003,
+        "volume":  3043
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-18T02:00:00Z",
+        "open":  66.3053,
+        "high":  66.3983,
+        "low":  66.1763,
+        "close":  66.2547,
+        "volume":  4823
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-18T02:30:00Z",
+        "open":  66.26,
+        "high":  66.416,
+        "low":  66.235,
+        "close":  66.3223,
+        "volume":  4628
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-18T03:00:00Z",
+        "open":  66.3223,
+        "high":  66.4197,
+        "low":  65.599,
+        "close":  65.599,
+        "volume":  14492
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-18T03:30:00Z",
+        "open":  65.6041,
+        "high":  66.2667,
+        "low":  65.532,
+        "close":  66.2593,
+        "volume":  7094
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-18T04:00:00Z",
+        "open":  66.261,
+        "high":  66.384,
+        "low":  66.097,
+        "close":  66.2777,
+        "volume":  6962
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-18T04:30:00Z",
+        "open":  66.2727,
+        "high":  66.5077,
+        "low":  66.2537,
+        "close":  66.379,
+        "volume":  4884
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-18T05:00:00Z",
+        "open":  66.379,
+        "high":  66.4827,
+        "low":  66.188,
+        "close":  66.2757,
+        "volume":  4345
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-18T05:30:00Z",
+        "open":  66.2727,
+        "high":  66.467,
+        "low":  66.245,
+        "close":  66.3757,
+        "volume":  2599
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-18T06:00:00Z",
+        "open":  66.3757,
+        "high":  66.4657,
+        "low":  66.211,
+        "close":  66.2763,
+        "volume":  2416
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-18T06:30:00Z",
+        "open":  66.2763,
+        "high":  66.3043,
+        "low":  66.2,
+        "close":  66.297,
+        "volume":  3455
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-18T07:00:00Z",
+        "open":  66.2963,
+        "high":  66.612,
+        "low":  66.2527,
+        "close":  66.4837,
+        "volume":  5021
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-18T07:30:00Z",
+        "open":  66.4775,
+        "high":  66.5913,
+        "low":  66.2093,
+        "close":  66.2737,
+        "volume":  5470
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-18T08:00:00Z",
+        "open":  66.2807,
+        "high":  66.4567,
+        "low":  66.2003,
+        "close":  66.3247,
+        "volume":  4563
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-18T08:30:00Z",
+        "open":  66.3247,
+        "high":  66.5077,
+        "low":  66.2987,
+        "close":  66.406,
+        "volume":  3102
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-18T09:00:00Z",
+        "open":  66.406,
+        "high":  66.5097,
+        "low":  66.3547,
+        "close":  66.472,
+        "volume":  3044
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-18T09:30:00Z",
+        "open":  66.4693,
+        "high":  66.607,
+        "low":  66.4363,
+        "close":  66.4967,
+        "volume":  3289
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-18T10:00:00Z",
+        "open":  66.489,
+        "high":  66.5297,
+        "low":  66.0466,
+        "close":  66.1427,
+        "volume":  5235
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-18T10:30:00Z",
+        "open":  66.1427,
+        "high":  66.2747,
+        "low":  65.85,
+        "close":  66.0057,
+        "volume":  3417
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-18T11:00:00Z",
+        "open":  65.993,
+        "high":  66.16,
+        "low":  65.8841,
+        "close":  66.0507,
+        "volume":  3322
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-18T11:30:00Z",
+        "open":  66.0507,
+        "high":  66.186,
+        "low":  65.846,
+        "close":  65.978,
+        "volume":  3093
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-18T12:00:00Z",
+        "open":  65.98,
+        "high":  66.064,
+        "low":  65.869,
+        "close":  65.964,
+        "volume":  2017
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-18T12:30:00Z",
+        "open":  65.964,
+        "high":  66.1427,
+        "low":  65.942,
+        "close":  66.06,
+        "volume":  1987
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-18T13:00:00Z",
+        "open":  66.065,
+        "high":  66.2547,
+        "low":  66.061,
+        "close":  66.116,
+        "volume":  2179
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-18T13:30:00Z",
+        "open":  66.115,
+        "high":  66.2822,
+        "low":  66.11,
+        "close":  66.276,
+        "volume":  1551
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-18T14:00:00Z",
+        "open":  66.276,
+        "high":  66.309,
+        "low":  65.979,
+        "close":  66.0507,
+        "volume":  3135
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-18T14:30:00Z",
+        "open":  66.0447,
+        "high":  66.1807,
+        "low":  65.999,
+        "close":  66.036,
+        "volume":  2588
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-18T15:00:00Z",
+        "open":  66.0307,
+        "high":  66.1557,
+        "low":  65.6741,
+        "close":  65.7915,
+        "volume":  7692
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-18T15:30:00Z",
+        "open":  65.7855,
+        "high":  66.417,
+        "low":  65.7825,
+        "close":  66.3005,
+        "volume":  11413
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-18T16:00:00Z",
+        "open":  66.3,
+        "high":  66.444,
+        "low":  65.922,
+        "close":  65.9647,
+        "volume":  10266
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-18T16:30:00Z",
+        "open":  65.9647,
+        "high":  66.1747,
+        "low":  64.61,
+        "close":  65.484,
+        "volume":  20529
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-18T17:00:00Z",
+        "open":  65.478,
+        "high":  65.7397,
+        "low":  65.205,
+        "close":  65.514,
+        "volume":  14831
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-18T17:30:00Z",
+        "open":  65.499,
+        "high":  65.7777,
+        "low":  65.272,
+        "close":  65.464,
+        "volume":  14133
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-18T18:00:00Z",
+        "open":  65.4647,
+        "high":  66.193,
+        "low":  65.417,
+        "close":  65.8727,
+        "volume":  16281
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-18T18:30:00Z",
+        "open":  65.8675,
+        "high":  66.048,
+        "low":  65.671,
+        "close":  65.803,
+        "volume":  9310
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-18T19:00:00Z",
+        "open":  65.8027,
+        "high":  65.878,
+        "low":  64.7832,
+        "close":  65.013,
+        "volume":  15453
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-18T19:30:00Z",
+        "open":  65.013,
+        "high":  65.467,
+        "low":  64.982,
+        "close":  65.2845,
+        "volume":  9486
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-18T20:00:00Z",
+        "open":  65.2845,
+        "high":  65.4277,
+        "low":  65.0753,
+        "close":  65.2037,
+        "volume":  9776
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-18T20:30:00Z",
+        "open":  65.208,
+        "high":  65.4983,
+        "low":  65.1653,
+        "close":  65.3577,
+        "volume":  6003
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-18T21:00:00Z",
+        "open":  65.3577,
+        "high":  65.3983,
+        "low":  65.175,
+        "close":  65.3757,
+        "volume":  7183
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-18T21:30:00Z",
+        "open":  65.3807,
+        "high":  65.4417,
+        "low":  65.028,
+        "close":  65.167,
+        "volume":  7803
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-18T22:00:00Z",
+        "open":  65.167,
+        "high":  65.517,
+        "low":  65.1413,
+        "close":  65.325,
+        "volume":  7152
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-18T22:30:00Z",
+        "open":  65.325,
+        "high":  65.5167,
+        "low":  65.266,
+        "close":  65.3993,
+        "volume":  6296
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-18T23:00:00Z",
+        "open":  65.3993,
+        "high":  65.4193,
+        "low":  65.29,
+        "close":  65.4013,
+        "volume":  1457
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-18T23:30:00Z",
+        "open":  65.4003,
+        "high":  65.49,
+        "low":  65.3405,
+        "close":  65.46,
+        "volume":  1012
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-19T01:00:00Z",
+        "open":  65.4853,
+        "high":  65.606,
+        "low":  65.478,
+        "close":  65.5435,
+        "volume":  1071
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-19T01:30:00Z",
+        "open":  65.5435,
+        "high":  65.6097,
+        "low":  65.452,
+        "close":  65.5497,
+        "volume":  1067
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-19T02:00:00Z",
+        "open":  65.5497,
+        "high":  65.5983,
+        "low":  65.379,
+        "close":  65.505,
+        "volume":  1518
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-19T02:30:00Z",
+        "open":  65.509,
+        "high":  65.5361,
+        "low":  65.3597,
+        "close":  65.3897,
+        "volume":  1174
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-19T03:00:00Z",
+        "open":  65.385,
+        "high":  65.516,
+        "low":  64.947,
+        "close":  65.0027,
+        "volume":  7080
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-19T03:30:00Z",
+        "open":  65.0027,
+        "high":  65.0327,
+        "low":  64.652,
+        "close":  64.888,
+        "volume":  6044
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-19T04:00:00Z",
+        "open":  64.8927,
+        "high":  65.0577,
+        "low":  64.782,
+        "close":  65.013,
+        "volume":  2840
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-19T04:30:00Z",
+        "open":  65.0133,
+        "high":  65.2025,
+        "low":  64.8047,
+        "close":  64.8297,
+        "volume":  4024
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-19T05:00:00Z",
+        "open":  64.8245,
+        "high":  65.2547,
+        "low":  64.47,
+        "close":  65.18,
+        "volume":  4668
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-19T05:30:00Z",
+        "open":  65.185,
+        "high":  65.225,
+        "low":  65.0745,
+        "close":  65.112,
+        "volume":  2007
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-19T06:00:00Z",
+        "open":  65.1167,
+        "high":  65.1843,
+        "low":  65.083,
+        "close":  65.113,
+        "volume":  1898
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-19T06:30:00Z",
+        "open":  65.113,
+        "high":  65.441,
+        "low":  65.1067,
+        "close":  65.4117,
+        "volume":  3147
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-19T07:00:00Z",
+        "open":  65.4117,
+        "high":  65.4817,
+        "low":  65.2413,
+        "close":  65.3415,
+        "volume":  2487
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-19T07:30:00Z",
+        "open":  65.3415,
+        "high":  65.9637,
+        "low":  65.327,
+        "close":  65.8397,
+        "volume":  6996
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-19T08:00:00Z",
+        "open":  65.8397,
+        "high":  66.0053,
+        "low":  65.7104,
+        "close":  65.7427,
+        "volume":  4829
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-19T08:30:00Z",
+        "open":  65.7427,
+        "high":  65.864,
+        "low":  65.588,
+        "close":  65.8024,
+        "volume":  4671
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-19T09:00:00Z",
+        "open":  65.802,
+        "high":  65.8777,
+        "low":  65.727,
+        "close":  65.8147,
+        "volume":  2818
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-19T09:30:00Z",
+        "open":  65.814,
+        "high":  65.871,
+        "low":  65.658,
+        "close":  65.708,
+        "volume":  2029
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-19T10:00:00Z",
+        "open":  65.701,
+        "high":  65.8283,
+        "low":  65.676,
+        "close":  65.741,
+        "volume":  2267
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-19T10:30:00Z",
+        "open":  65.74,
+        "high":  65.926,
+        "low":  65.74,
+        "close":  65.817,
+        "volume":  2529
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-19T11:00:00Z",
+        "open":  65.817,
+        "high":  65.934,
+        "low":  65.726,
+        "close":  65.8627,
+        "volume":  2263
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-19T11:30:00Z",
+        "open":  65.8627,
+        "high":  66.1247,
+        "low":  65.8103,
+        "close":  66.007,
+        "volume":  3079
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-19T12:00:00Z",
+        "open":  66.002,
+        "high":  66.2087,
+        "low":  65.994,
+        "close":  66.0357,
+        "volume":  2597
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-19T12:30:00Z",
+        "open":  66.0337,
+        "high":  66.1067,
+        "low":  65.937,
+        "close":  66.0387,
+        "volume":  2475
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-19T13:00:00Z",
+        "open":  66.037,
+        "high":  66.0647,
+        "low":  65.832,
+        "close":  65.928,
+        "volume":  2642
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-19T13:30:00Z",
+        "open":  65.927,
+        "high":  66.019,
+        "low":  65.833,
+        "close":  65.8535,
+        "volume":  2183
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-19T14:00:00Z",
+        "open":  65.863,
+        "high":  65.9537,
+        "low":  65.637,
+        "close":  65.927,
+        "volume":  3414
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-19T14:30:00Z",
+        "open":  65.932,
+        "high":  65.946,
+        "low":  65.694,
+        "close":  65.761,
+        "volume":  2732
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-19T15:00:00Z",
+        "open":  65.761,
+        "high":  66.019,
+        "low":  65.647,
+        "close":  65.892,
+        "volume":  9880
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-19T15:30:00Z",
+        "open":  65.89,
+        "high":  66.037,
+        "low":  65.725,
+        "close":  65.845,
+        "volume":  6664
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-19T16:00:00Z",
+        "open":  65.845,
+        "high":  66.077,
+        "low":  65.737,
+        "close":  65.933,
+        "volume":  7529
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-19T16:30:00Z",
+        "open":  65.933,
+        "high":  66.612,
+        "low":  65.819,
+        "close":  66.2585,
+        "volume":  13646
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-19T17:00:00Z",
+        "open":  66.2584,
+        "high":  66.5477,
+        "low":  66.209,
+        "close":  66.415,
+        "volume":  11481
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-19T17:30:00Z",
+        "open":  66.415,
+        "high":  66.847,
+        "low":  66.365,
+        "close":  66.819,
+        "volume":  10045
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-19T18:00:00Z",
+        "open":  66.819,
+        "high":  67.23,
+        "low":  66.667,
+        "close":  66.8827,
+        "volume":  11547
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-19T18:30:00Z",
+        "open":  66.8867,
+        "high":  67.302,
+        "low":  66.853,
+        "close":  67.2547,
+        "volume":  9016
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-19T19:00:00Z",
+        "open":  67.2547,
+        "high":  67.3287,
+        "low":  67.0777,
+        "close":  67.272,
+        "volume":  6120
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-19T19:30:00Z",
+        "open":  67.277,
+        "high":  67.4187,
+        "low":  67.1557,
+        "close":  67.376,
+        "volume":  5553
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-19T20:00:00Z",
+        "open":  67.3635,
+        "high":  67.445,
+        "low":  67.212,
+        "close":  67.294,
+        "volume":  5753
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-19T20:30:00Z",
+        "open":  67.293,
+        "high":  67.3017,
+        "low":  66.9105,
+        "close":  67.1737,
+        "volume":  5261
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-19T21:00:00Z",
+        "open":  67.1737,
+        "high":  67.2917,
+        "low":  67.128,
+        "close":  67.2317,
+        "volume":  3272
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-19T21:30:00Z",
+        "open":  67.2277,
+        "high":  67.379,
+        "low":  67.197,
+        "close":  67.199,
+        "volume":  3482
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-19T22:00:00Z",
+        "open":  67.1987,
+        "high":  67.288,
+        "low":  66.991,
+        "close":  67.213,
+        "volume":  4201
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-19T22:30:00Z",
+        "open":  67.2,
+        "high":  67.241,
+        "low":  67.004,
+        "close":  67.1977,
+        "volume":  5741
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-19T23:00:00Z",
+        "open":  67.1977,
+        "high":  67.2347,
+        "low":  67.128,
+        "close":  67.1507,
+        "volume":  1190
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-19T23:30:00Z",
+        "open":  67.15,
+        "high":  67.1963,
+        "low":  67.095,
+        "close":  67.1963,
+        "volume":  1218
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-22T01:00:00Z",
+        "open":  67.3595,
+        "high":  67.478,
+        "low":  67.158,
+        "close":  67.436,
+        "volume":  1474
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-22T01:30:00Z",
+        "open":  67.431,
+        "high":  67.4827,
+        "low":  67.351,
+        "close":  67.418,
+        "volume":  1245
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-22T02:00:00Z",
+        "open":  67.416,
+        "high":  67.5417,
+        "low":  67.39,
+        "close":  67.5057,
+        "volume":  1978
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-22T02:30:00Z",
+        "open":  67.5157,
+        "high":  67.546,
+        "low":  67.3632,
+        "close":  67.533,
+        "volume":  2287
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-22T03:00:00Z",
+        "open":  67.533,
+        "high":  68.218,
+        "low":  67.533,
+        "close":  68.015,
+        "volume":  11641
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-22T03:30:00Z",
+        "open":  68.016,
+        "high":  68.5357,
+        "low":  67.952,
+        "close":  68.3727,
+        "volume":  9522
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-22T04:00:00Z",
+        "open":  68.3727,
+        "high":  68.6597,
+        "low":  68.322,
+        "close":  68.4507,
+        "volume":  4491
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-22T04:30:00Z",
+        "open":  68.445,
+        "high":  68.9787,
+        "low":  68.4053,
+        "close":  68.7377,
+        "volume":  8032
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-22T05:00:00Z",
+        "open":  68.7387,
+        "high":  68.9917,
+        "low":  68.699,
+        "close":  68.9827,
+        "volume":  6399
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-22T05:30:00Z",
+        "open":  68.9827,
+        "high":  69.2407,
+        "low":  68.961,
+        "close":  69.203,
+        "volume":  3110
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-22T06:00:00Z",
+        "open":  69.2087,
+        "high":  69.4517,
+        "low":  69.147,
+        "close":  69.3607,
+        "volume":  2710
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-22T06:30:00Z",
+        "open":  69.3607,
+        "high":  69.421,
+        "low":  69.335,
+        "close":  69.354,
+        "volume":  2132
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-22T07:00:00Z",
+        "open":  69.3507,
+        "high":  69.3987,
+        "low":  69.104,
+        "close":  69.2917,
+        "volume":  3197
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-22T07:30:00Z",
+        "open":  69.2917,
+        "high":  69.378,
+        "low":  68.509,
+        "close":  68.618,
+        "volume":  10315
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-22T08:00:00Z",
+        "open":  68.62,
+        "high":  69.0917,
+        "low":  68.6041,
+        "close":  68.9847,
+        "volume":  4766
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-22T08:30:00Z",
+        "open":  68.989,
+        "high":  69.2507,
+        "low":  68.8593,
+        "close":  69.1957,
+        "volume":  6066
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-22T09:00:00Z",
+        "open":  69.1957,
+        "high":  69.2057,
+        "low":  68.8117,
+        "close":  68.9913,
+        "volume":  4455
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-22T09:30:00Z",
+        "open":  68.997,
+        "high":  69.0352,
+        "low":  68.77,
+        "close":  68.981,
+        "volume":  3853
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-22T10:00:00Z",
+        "open":  68.981,
+        "high":  68.981,
+        "low":  68.729,
+        "close":  68.8357,
+        "volume":  3918
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-22T10:30:00Z",
+        "open":  68.8357,
+        "high":  68.8857,
+        "low":  68.601,
+        "close":  68.72409999999999,
+        "volume":  4123
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-22T11:00:00Z",
+        "open":  68.7237,
+        "high":  68.926,
+        "low":  68.6657,
+        "close":  68.8357,
+        "volume":  3414
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-22T11:30:00Z",
+        "open":  68.834,
+        "high":  69.0265,
+        "low":  68.816,
+        "close":  68.943,
+        "volume":  2679
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-22T12:00:00Z",
+        "open":  68.949,
+        "high":  69.135,
+        "low":  68.949,
+        "close":  69.0303,
+        "volume":  3098
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-22T12:30:00Z",
+        "open":  69.0313,
+        "high":  69.1297,
+        "low":  68.9317,
+        "close":  69.0073,
+        "volume":  2742
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-22T13:00:00Z",
+        "open":  69.0073,
+        "high":  69.153,
+        "low":  68.951,
+        "close":  69.0877,
+        "volume":  2410
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-22T13:30:00Z",
+        "open":  69.083,
+        "high":  69.1601,
+        "low":  68.984,
+        "close":  69.0927,
+        "volume":  2194
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-22T14:00:00Z",
+        "open":  69.089,
+        "high":  69.2303,
+        "low":  68.9393,
+        "close":  68.9783,
+        "volume":  3725
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-22T14:30:00Z",
+        "open":  68.982,
+        "high":  69.08,
+        "low":  68.833,
+        "close":  69.053,
+        "volume":  3436
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-22T15:00:00Z",
+        "open":  69.0604,
+        "high":  69.238,
+        "low":  68.8749,
+        "close":  69.0384,
+        "volume":  10985
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-22T15:30:00Z",
+        "open":  69.0387,
+        "high":  69.1187,
+        "low":  68.787,
+        "close":  68.903,
+        "volume":  6415
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-22T16:00:00Z",
+        "open":  68.902,
+        "high":  69.1446,
+        "low":  68.8465,
+        "close":  69.044,
+        "volume":  6606
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-22T16:30:00Z",
+        "open":  69.044,
+        "high":  69.247,
+        "low":  68.649,
+        "close":  68.886,
+        "volume":  17422
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-22T17:00:00Z",
+        "open":  68.886,
+        "high":  68.9517,
+        "low":  68.4153,
+        "close":  68.62,
+        "volume":  12043
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-22T17:30:00Z",
+        "open":  68.62,
+        "high":  69.028,
+        "low":  68.549,
+        "close":  68.804,
+        "volume":  6640
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-22T18:00:00Z",
+        "open":  68.801,
+        "high":  68.944,
+        "low":  68.466,
+        "close":  68.486,
+        "volume":  8241
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-22T18:30:00Z",
+        "open":  68.487,
+        "high":  68.762,
+        "low":  68.228,
+        "close":  68.748,
+        "volume":  7081
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-22T19:00:00Z",
+        "open":  68.748,
+        "high":  68.794,
+        "low":  68.422,
+        "close":  68.4323,
+        "volume":  6078
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-22T19:30:00Z",
+        "open":  68.4323,
+        "high":  68.6073,
+        "low":  68.321,
+        "close":  68.5833,
+        "volume":  6264
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-22T20:00:00Z",
+        "open":  68.5833,
+        "high":  68.616,
+        "low":  68.4313,
+        "close":  68.5587,
+        "volume":  5900
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-22T20:30:00Z",
+        "open":  68.565,
+        "high":  68.5897,
+        "low":  68.324,
+        "close":  68.3523,
+        "volume":  5201
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-22T21:00:00Z",
+        "open":  68.3527,
+        "high":  68.4403,
+        "low":  68.1048,
+        "close":  68.415,
+        "volume":  5511
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-22T21:30:00Z",
+        "open":  68.415,
+        "high":  68.5707,
+        "low":  68.331,
+        "close":  68.561,
+        "volume":  3088
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-22T22:00:00Z",
+        "open":  68.561,
+        "high":  68.7537,
+        "low":  68.559,
+        "close":  68.6677,
+        "volume":  3529
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-22T22:30:00Z",
+        "open":  68.668,
+        "high":  68.8933,
+        "low":  68.6626,
+        "close":  68.868,
+        "volume":  3735
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-22T23:00:00Z",
+        "open":  68.868,
+        "high":  68.966,
+        "low":  68.8657,
+        "close":  68.932,
+        "volume":  1541
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-22T23:30:00Z",
+        "open":  68.933,
+        "high":  69.0833,
+        "low":  68.9287,
+        "close":  69.0293,
+        "volume":  1283
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-23T01:00:00Z",
+        "open":  69.1017,
+        "high":  69.2757,
+        "low":  69.071,
+        "close":  69.2327,
+        "volume":  1404
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-23T01:30:00Z",
+        "open":  69.2317,
+        "high":  69.258,
+        "low":  69.116,
+        "close":  69.1257,
+        "volume":  1599
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-23T02:00:00Z",
+        "open":  69.1257,
+        "high":  69.1937,
+        "low":  68.9841,
+        "close":  69.125,
+        "volume":  1831
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-23T02:30:00Z",
+        "open":  69.126,
+        "high":  69.208,
+        "low":  69.0641,
+        "close":  69.1617,
+        "volume":  1377
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-23T03:00:00Z",
+        "open":  69.161,
+        "high":  69.6967,
+        "low":  68.897,
+        "close":  69.1947,
+        "volume":  16322
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-23T03:30:00Z",
+        "open":  69.1947,
+        "high":  69.4497,
+        "low":  69.139,
+        "close":  69.284,
+        "volume":  5370
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-23T04:00:00Z",
+        "open":  69.284,
+        "high":  69.54,
+        "low":  69.138,
+        "close":  69.4887,
+        "volume":  3129
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-23T04:30:00Z",
+        "open":  69.4887,
+        "high":  69.8067,
+        "low":  69.482,
+        "close":  69.8067,
+        "volume":  5020
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-23T05:00:00Z",
+        "open":  69.8117,
+        "high":  69.9927,
+        "low":  69.5941,
+        "close":  69.719,
+        "volume":  5397
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-23T05:30:00Z",
+        "open":  69.719,
+        "high":  69.719,
+        "low":  69.5127,
+        "close":  69.5907,
+        "volume":  2633
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-23T06:00:00Z",
+        "open":  69.586,
+        "high":  69.6967,
+        "low":  69.515,
+        "close":  69.645,
+        "volume":  1741
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-23T06:30:00Z",
+        "open":  69.645,
+        "high":  69.7057,
+        "low":  69.4782,
+        "close":  69.5977,
+        "volume":  2140
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-23T07:00:00Z",
+        "open":  69.592,
+        "high":  69.5927,
+        "low":  69.322,
+        "close":  69.3967,
+        "volume":  2961
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-23T07:30:00Z",
+        "open":  69.3967,
+        "high":  69.544,
+        "low":  69.225,
+        "close":  69.28,
+        "volume":  5850
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-23T08:00:00Z",
+        "open":  69.28,
+        "high":  69.4287,
+        "low":  69.0817,
+        "close":  69.402,
+        "volume":  7055
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-23T08:30:00Z",
+        "open":  69.4047,
+        "high":  69.485,
+        "low":  69.3202,
+        "close":  69.3467,
+        "volume":  6913
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-23T09:00:00Z",
+        "open":  69.351,
+        "high":  69.4807,
+        "low":  69.2693,
+        "close":  69.3857,
+        "volume":  2996
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-23T09:30:00Z",
+        "open":  69.385,
+        "high":  69.6497,
+        "low":  69.38,
+        "close":  69.5353,
+        "volume":  3004
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-23T10:00:00Z",
+        "open":  69.5347,
+        "high":  69.592,
+        "low":  69.453,
+        "close":  69.4697,
+        "volume":  2694
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-23T10:30:00Z",
+        "open":  69.4697,
+        "high":  69.5917,
+        "low":  69.396,
+        "close":  69.501,
+        "volume":  2944
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-23T11:00:00Z",
+        "open":  69.501,
+        "high":  69.5257,
+        "low":  69.387,
+        "close":  69.4927,
+        "volume":  3610
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-23T11:30:00Z",
+        "open":  69.4977,
+        "high":  69.5717,
+        "low":  69.425,
+        "close":  69.4857,
+        "volume":  2793
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-23T12:00:00Z",
+        "open":  69.4837,
+        "high":  69.6443,
+        "low":  69.4537,
+        "close":  69.6203,
+        "volume":  2574
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-23T12:30:00Z",
+        "open":  69.6203,
+        "high":  69.7167,
+        "low":  69.578,
+        "close":  69.672,
+        "volume":  2521
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-23T13:00:00Z",
+        "open":  69.672,
+        "high":  69.6997,
+        "low":  69.535,
+        "close":  69.5607,
+        "volume":  1724
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-23T13:30:00Z",
+        "open":  69.5607,
+        "high":  69.746,
+        "low":  69.54,
+        "close":  69.7207,
+        "volume":  2394
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-23T14:00:00Z",
+        "open":  69.72,
+        "high":  69.7407,
+        "low":  69.5333,
+        "close":  69.6103,
+        "volume":  2848
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-23T14:30:00Z",
+        "open":  69.6103,
+        "high":  69.6743,
+        "low":  69.543,
+        "close":  69.5893,
+        "volume":  2357
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-23T15:00:00Z",
+        "open":  69.5733,
+        "high":  70.4837,
+        "low":  69.5653,
+        "close":  70.289,
+        "volume":  11159
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-23T15:30:00Z",
+        "open":  70.291,
+        "high":  70.6661,
+        "low":  70.0653,
+        "close":  70.4817,
+        "volume":  12105
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-23T16:00:00Z",
+        "open":  70.4817,
+        "high":  70.58,
+        "low":  70.1233,
+        "close":  70.242,
+        "volume":  15576
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-23T16:30:00Z",
+        "open":  70.243,
+        "high":  70.2433,
+        "low":  69.206,
+        "close":  69.444,
+        "volume":  21361
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-23T17:00:00Z",
+        "open":  69.4382,
+        "high":  69.5557,
+        "low":  68.807,
+        "close":  69.1967,
+        "volume":  19362
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-23T17:30:00Z",
+        "open":  69.1935,
+        "high":  69.8077,
+        "low":  69.1603,
+        "close":  69.7407,
+        "volume":  13356
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-23T18:00:00Z",
+        "open":  69.7407,
+        "high":  70.3457,
+        "low":  69.7102,
+        "close":  70.1637,
+        "volume":  11331
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-23T18:30:00Z",
+        "open":  70.163,
+        "high":  70.58,
+        "low":  69.9993,
+        "close":  70.47,
+        "volume":  8769
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-23T19:00:00Z",
+        "open":  70.4697,
+        "high":  71.0777,
+        "low":  70.433,
+        "close":  71.0357,
+        "volume":  10487
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-23T19:30:00Z",
+        "open":  71.0357,
+        "high":  71.061,
+        "low":  70.52,
+        "close":  70.64,
+        "volume":  7349
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-23T20:00:00Z",
+        "open":  70.64,
+        "high":  71.0393,
+        "low":  70.6383,
+        "close":  70.997,
+        "volume":  8658
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-23T20:30:00Z",
+        "open":  71.007,
+        "high":  71.1553,
+        "low":  70.8173,
+        "close":  71.1367,
+        "volume":  6793
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-23T21:00:00Z",
+        "open":  71.138,
+        "high":  71.493,
+        "low":  71.049,
+        "close":  71.2947,
+        "volume":  8597
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-23T21:30:00Z",
+        "open":  71.2903,
+        "high":  71.3947,
+        "low":  71.15,
+        "close":  71.16,
+        "volume":  4667
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-23T22:00:00Z",
+        "open":  71.1583,
+        "high":  71.428,
+        "low":  71.1041,
+        "close":  71.2297,
+        "volume":  4034
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-23T22:30:00Z",
+        "open":  71.2297,
+        "high":  71.5697,
+        "low":  71.091,
+        "close":  71.512,
+        "volume":  6167
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-23T23:00:00Z",
+        "open":  71.512,
+        "high":  71.536,
+        "low":  71.391,
+        "close":  71.4167,
+        "volume":  1347
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-23T23:30:00Z",
+        "open":  71.4167,
+        "high":  71.4967,
+        "low":  71.3763,
+        "close":  71.462,
+        "volume":  945
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-24T01:00:00Z",
+        "open":  71.4491,
+        "high":  71.7847,
+        "low":  71.3575,
+        "close":  71.7253,
+        "volume":  2075
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-24T01:30:00Z",
+        "open":  71.7253,
+        "high":  71.8447,
+        "low":  71.685,
+        "close":  71.801,
+        "volume":  3628
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-24T02:00:00Z",
+        "open":  71.8057,
+        "high":  71.8917,
+        "low":  71.6741,
+        "close":  71.8637,
+        "volume":  3728
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-24T02:30:00Z",
+        "open":  71.8637,
+        "high":  71.9863,
+        "low":  71.7693,
+        "close":  71.87,
+        "volume":  2955
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-24T03:00:00Z",
+        "open":  71.87,
+        "high":  72.342,
+        "low":  71.52,
+        "close":  72.245,
+        "volume":  10757
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-24T03:30:00Z",
+        "open":  72.245,
+        "high":  72.6927,
+        "low":  72.156,
+        "close":  72.4063,
+        "volume":  9705
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-24T04:00:00Z",
+        "open":  72.4097,
+        "high":  72.5197,
+        "low":  71.905,
+        "close":  72.053,
+        "volume":  6245
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-24T04:30:00Z",
+        "open":  72.0637,
+        "high":  72.5,
+        "low":  71.763,
+        "close":  71.7997,
+        "volume":  7451
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-24T05:00:00Z",
+        "open":  71.804,
+        "high":  72.3197,
+        "low":  71.728,
+        "close":  72.2023,
+        "volume":  9947
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-24T05:30:00Z",
+        "open":  72.2023,
+        "high":  72.4207,
+        "low":  72.074,
+        "close":  72.2867,
+        "volume":  3108
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-24T06:00:00Z",
+        "open":  72.2867,
+        "high":  72.438,
+        "low":  72.1633,
+        "close":  72.383,
+        "volume":  3027
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-24T06:30:00Z",
+        "open":  72.3877,
+        "high":  72.4203,
+        "low":  72.189,
+        "close":  72.24,
+        "volume":  3846
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-24T07:00:00Z",
+        "open":  72.236,
+        "high":  72.24,
+        "low":  71.882,
+        "close":  72.017,
+        "volume":  3104
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-24T07:30:00Z",
+        "open":  72.018,
+        "high":  72.2813,
+        "low":  71.9763,
+        "close":  72.0777,
+        "volume":  8144
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-24T08:00:00Z",
+        "open":  72.082,
+        "high":  72.213,
+        "low":  71.9625,
+        "close":  72.1357,
+        "volume":  5703
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-24T08:30:00Z",
+        "open":  72.1407,
+        "high":  72.5037,
+        "low":  72.113,
+        "close":  72.25,
+        "volume":  6245
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-24T09:00:00Z",
+        "open":  72.25,
+        "high":  72.3137,
+        "low":  72.092,
+        "close":  72.2917,
+        "volume":  3487
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-24T09:30:00Z",
+        "open":  72.2867,
+        "high":  72.3207,
+        "low":  72.034,
+        "close":  72.077,
+        "volume":  3236
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-24T10:00:00Z",
+        "open":  72.077,
+        "high":  72.0803,
+        "low":  71.675,
+        "close":  71.734,
+        "volume":  5089
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-24T10:30:00Z",
+        "open":  71.7303,
+        "high":  71.9137,
+        "low":  71.452,
+        "close":  71.464,
+        "volume":  3765
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-24T11:00:00Z",
+        "open":  71.464,
+        "high":  71.8653,
+        "low":  71.373,
+        "close":  71.8423,
+        "volume":  6995
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-24T11:30:00Z",
+        "open":  71.843,
+        "high":  72.191,
+        "low":  71.786,
+        "close":  72.075,
+        "volume":  3473
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-24T12:00:00Z",
+        "open":  72.075,
+        "high":  72.198,
+        "low":  71.962,
+        "close":  72.053,
+        "volume":  2664
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-24T12:30:00Z",
+        "open":  72.053,
+        "high":  72.1407,
+        "low":  71.936,
+        "close":  72.0227,
+        "volume":  3051
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-24T13:00:00Z",
+        "open":  72.022,
+        "high":  72.076,
+        "low":  71.901,
+        "close":  71.985,
+        "volume":  2472
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-24T13:30:00Z",
+        "open":  71.984,
+        "high":  72.1687,
+        "low":  71.948,
+        "close":  72.1637,
+        "volume":  2600
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-24T14:00:00Z",
+        "open":  72.1637,
+        "high":  72.4313,
+        "low":  72.1633,
+        "close":  72.385,
+        "volume":  3520
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-24T14:30:00Z",
+        "open":  72.385,
+        "high":  72.439,
+        "low":  72.2941,
+        "close":  72.3307,
+        "volume":  4525
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-24T15:00:00Z",
+        "open":  72.3307,
+        "high":  72.3307,
+        "low":  71.486,
+        "close":  71.7074,
+        "volume":  15210
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-24T15:30:00Z",
+        "open":  71.7085,
+        "high":  71.9903,
+        "low":  71.566,
+        "close":  71.9553,
+        "volume":  8372
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-24T16:00:00Z",
+        "open":  71.9553,
+        "high":  72.1303,
+        "low":  71.7547,
+        "close":  71.8023,
+        "volume":  9262
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-24T16:30:00Z",
+        "open":  71.809,
+        "high":  72.279,
+        "low":  70.748,
+        "close":  70.8732,
+        "volume":  19344
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-24T17:00:00Z",
+        "open":  70.878,
+        "high":  71.388,
+        "low":  70.646,
+        "close":  70.9383,
+        "volume":  17299
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-24T17:30:00Z",
+        "open":  70.9013,
+        "high":  71.0248,
+        "low":  70.173,
+        "close":  70.666,
+        "volume":  15243
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-24T18:00:00Z",
+        "open":  70.665,
+        "high":  71.2847,
+        "low":  70.561,
+        "close":  71.1807,
+        "volume":  10683
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-24T18:30:00Z",
+        "open":  71.18,
+        "high":  71.7827,
+        "low":  71.102,
+        "close":  71.7168,
+        "volume":  7723
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-24T19:00:00Z",
+        "open":  71.7197,
+        "high":  71.947,
+        "low":  71.546,
+        "close":  71.699,
+        "volume":  10071
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-24T19:30:00Z",
+        "open":  71.704,
+        "high":  72.106,
+        "low":  71.691,
+        "close":  71.939,
+        "volume":  8418
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-24T20:00:00Z",
+        "open":  71.934,
+        "high":  72.008,
+        "low":  71.724,
+        "close":  71.777,
+        "volume":  1529
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-24T20:30:00Z",
+        "open":  71.7765,
+        "high":  71.853,
+        "low":  71.749,
+        "close":  71.817,
+        "volume":  335
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-26T01:00:00Z",
+        "open":  73.907,
+        "high":  75.0015,
+        "low":  72.4315,
+        "close":  73.0103,
+        "volume":  3242
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-26T01:30:00Z",
+        "open":  73.0103,
+        "high":  73.303,
+        "low":  72.866,
+        "close":  73.102,
+        "volume":  2727
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-26T02:00:00Z",
+        "open":  73.102,
+        "high":  73.902,
+        "low":  73.0862,
+        "close":  73.862,
+        "volume":  3316
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-26T02:30:00Z",
+        "open":  73.862,
+        "high":  74.251,
+        "low":  73.738,
+        "close":  74.165,
+        "volume":  4226
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-26T03:00:00Z",
+        "open":  74.165,
+        "high":  75.123,
+        "low":  74.1633,
+        "close":  74.692,
+        "volume":  14479
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-26T03:30:00Z",
+        "open":  74.677,
+        "high":  75.14,
+        "low":  74.306,
+        "close":  74.5775,
+        "volume":  7085
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-26T04:00:00Z",
+        "open":  74.5775,
+        "high":  74.872,
+        "low":  74.268,
+        "close":  74.417,
+        "volume":  5254
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-26T04:30:00Z",
+        "open":  74.416,
+        "high":  74.828,
+        "low":  74.237,
+        "close":  74.808,
+        "volume":  5210
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-26T05:00:00Z",
+        "open":  74.808,
+        "high":  74.949,
+        "low":  74.556,
+        "close":  74.587,
+        "volume":  4882
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-26T05:30:00Z",
+        "open":  74.587,
+        "high":  74.602,
+        "low":  74.347,
+        "close":  74.351,
+        "volume":  3890
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-26T06:00:00Z",
+        "open":  74.35,
+        "high":  74.73,
+        "low":  74.322,
+        "close":  74.701,
+        "volume":  2040
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-26T06:30:00Z",
+        "open":  74.7,
+        "high":  74.762,
+        "low":  74.435,
+        "close":  74.662,
+        "volume":  2039
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-26T07:00:00Z",
+        "open":  74.662,
+        "high":  74.746,
+        "low":  74.562,
+        "close":  74.657,
+        "volume":  3878
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-26T07:30:00Z",
+        "open":  74.657,
+        "high":  75.062,
+        "low":  74.651,
+        "close":  74.986,
+        "volume":  5390
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-26T08:00:00Z",
+        "open":  74.982,
+        "high":  75.056,
+        "low":  74.7881,
+        "close":  74.962,
+        "volume":  4099
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-26T08:30:00Z",
+        "open":  74.961,
+        "high":  75.046,
+        "low":  74.4871,
+        "close":  74.6291,
+        "volume":  5217
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-26T09:00:00Z",
+        "open":  74.623,
+        "high":  74.837,
+        "low":  74.574,
+        "close":  74.614,
+        "volume":  1945
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-26T09:30:00Z",
+        "open":  74.614,
+        "high":  74.74,
+        "low":  74.511,
+        "close":  74.607,
+        "volume":  2091
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-26T10:00:00Z",
+        "open":  74.607,
+        "high":  74.829,
+        "low":  74.532,
+        "close":  74.7876,
+        "volume":  1766
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-26T10:30:00Z",
+        "open":  74.7876,
+        "high":  74.941,
+        "low":  74.719,
+        "close":  74.914,
+        "volume":  1511
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-26T11:00:00Z",
+        "open":  74.914,
+        "high":  74.986,
+        "low":  74.786,
+        "close":  74.826,
+        "volume":  1699
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-26T11:30:00Z",
+        "open":  74.831,
+        "high":  74.846,
+        "low":  74.61,
+        "close":  74.766,
+        "volume":  1494
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-26T12:00:00Z",
+        "open":  74.771,
+        "high":  75.635,
+        "low":  74.746,
+        "close":  75.555,
+        "volume":  3953
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-26T12:30:00Z",
+        "open":  75.555,
+        "high":  75.601,
+        "low":  74.676,
+        "close":  74.868,
+        "volume":  3911
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-26T13:00:00Z",
+        "open":  74.868,
+        "high":  74.904,
+        "low":  73.5841,
+        "close":  73.883,
+        "volume":  6771
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-26T13:30:00Z",
+        "open":  73.878,
+        "high":  74.474,
+        "low":  73.5655,
+        "close":  74.448,
+        "volume":  5648
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-26T14:00:00Z",
+        "open":  74.448,
+        "high":  74.468,
+        "low":  74.138,
+        "close":  74.318,
+        "volume":  2711
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-26T14:30:00Z",
+        "open":  74.323,
+        "high":  74.524,
+        "low":  74.078,
+        "close":  74.148,
+        "volume":  2502
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-26T15:00:00Z",
+        "open":  74.148,
+        "high":  74.789,
+        "low":  73.887,
+        "close":  74.57,
+        "volume":  12075
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-26T15:30:00Z",
+        "open":  74.572,
+        "high":  74.818,
+        "low":  74.045,
+        "close":  74.611,
+        "volume":  15356
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-26T16:00:00Z",
+        "open":  74.615,
+        "high":  75.074,
+        "low":  74.539,
+        "close":  74.821,
+        "volume":  6864
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-26T16:30:00Z",
+        "open":  74.824,
+        "high":  75.421,
+        "low":  74.268,
+        "close":  74.888,
+        "volume":  14003
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-26T17:00:00Z",
+        "open":  74.888,
+        "high":  75.759,
+        "low":  74.872,
+        "close":  75.714,
+        "volume":  10745
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-26T17:30:00Z",
+        "open":  75.709,
+        "high":  76.079,
+        "low":  75.35,
+        "close":  76.013,
+        "volume":  8706
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-26T18:00:00Z",
+        "open":  76.013,
+        "high":  76.254,
+        "low":  75.4741,
+        "close":  76.149,
+        "volume":  11385
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-26T18:30:00Z",
+        "open":  76.149,
+        "high":  76.479,
+        "low":  75.949,
+        "close":  76.314,
+        "volume":  7293
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-26T19:00:00Z",
+        "open":  76.314,
+        "high":  76.502,
+        "low":  75.789,
+        "close":  75.944,
+        "volume":  7281
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-26T19:30:00Z",
+        "open":  75.944,
+        "high":  76.494,
+        "low":  75.691,
+        "close":  76.436,
+        "volume":  8378
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-26T20:00:00Z",
+        "open":  76.405,
+        "high":  77.102,
+        "low":  76.313,
+        "close":  76.827,
+        "volume":  10324
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-26T20:30:00Z",
+        "open":  76.826,
+        "high":  77.398,
+        "low":  76.707,
+        "close":  77.276,
+        "volume":  7595
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-26T21:00:00Z",
+        "open":  77.276,
+        "high":  77.655,
+        "low":  76.999,
+        "close":  77.452,
+        "volume":  7255
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-26T21:30:00Z",
+        "open":  77.451,
+        "high":  77.492,
+        "low":  76.98,
+        "close":  77.303,
+        "volume":  7690
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-26T22:00:00Z",
+        "open":  77.298,
+        "high":  78.135,
+        "low":  77.283,
+        "close":  77.862,
+        "volume":  7735
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-26T22:30:00Z",
+        "open":  77.862,
+        "high":  78.535,
+        "low":  77.729,
+        "close":  78.425,
+        "volume":  7206
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-26T23:00:00Z",
+        "open":  78.425,
+        "high":  79.17,
+        "low":  78.174,
+        "close":  78.966,
+        "volume":  4157
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-26T23:30:00Z",
+        "open":  78.965,
+        "high":  79.2941,
+        "low":  78.929,
+        "close":  79.247,
+        "volume":  4684
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-29T01:00:00Z",
+        "open":  81.445,
+        "high":  85.8221,
+        "low":  80.6345,
+        "close":  82.872,
+        "volume":  8278
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-29T01:30:00Z",
+        "open":  82.872,
+        "high":  82.9089,
+        "low":  81.6727,
+        "close":  81.8037,
+        "volume":  7439
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-29T02:00:00Z",
+        "open":  81.8087,
+        "high":  81.8687,
+        "low":  75.1957,
+        "close":  75.591,
+        "volume":  12705
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-29T02:30:00Z",
+        "open":  75.591,
+        "high":  77.7027,
+        "low":  74.7995,
+        "close":  76.772,
+        "volume":  11798
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-29T03:00:00Z",
+        "open":  76.772,
+        "high":  78.7563,
+        "low":  76.0179,
+        "close":  77.2682,
+        "volume":  13963
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-29T03:30:00Z",
+        "open":  77.2582,
+        "high":  77.8737,
+        "low":  76.1665,
+        "close":  76.9287,
+        "volume":  12603
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-29T04:00:00Z",
+        "open":  76.9137,
+        "high":  78.5237,
+        "low":  76.873,
+        "close":  78.374,
+        "volume":  9465
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-29T04:30:00Z",
+        "open":  78.374,
+        "high":  78.5517,
+        "low":  77.7641,
+        "close":  78.3067,
+        "volume":  7355
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-29T05:00:00Z",
+        "open":  78.2984,
+        "high":  80.5947,
+        "low":  78.2927,
+        "close":  79.9787,
+        "volume":  7221
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-29T05:30:00Z",
+        "open":  79.983,
+        "high":  80.802,
+        "low":  79.9487,
+        "close":  80.3397,
+        "volume":  6440
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-29T06:00:00Z",
+        "open":  80.3323,
+        "high":  80.3507,
+        "low":  79.331,
+        "close":  80.0947,
+        "volume":  7318
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-29T06:30:00Z",
+        "open":  80.099,
+        "high":  80.2843,
+        "low":  79.528,
+        "close":  79.7947,
+        "volume":  4887
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-29T07:00:00Z",
+        "open":  79.7947,
+        "high":  79.7947,
+        "low":  79.1541,
+        "close":  79.4527,
+        "volume":  4357
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-29T07:30:00Z",
+        "open":  79.4583,
+        "high":  80.5027,
+        "low":  78.6989,
+        "close":  79.0797,
+        "volume":  9861
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-29T08:00:00Z",
+        "open":  79.0797,
+        "high":  79.3587,
+        "low":  77.5875,
+        "close":  77.935,
+        "volume":  15669
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-29T08:30:00Z",
+        "open":  77.93,
+        "high":  78.3657,
+        "low":  75.124,
+        "close":  75.85,
+        "volume":  13563
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-29T09:00:00Z",
+        "open":  75.835,
+        "high":  76.927,
+        "low":  74.924,
+        "close":  75.9317,
+        "volume":  12591
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-29T09:30:00Z",
+        "open":  75.951,
+        "high":  76.599,
+        "low":  75.695,
+        "close":  76.026,
+        "volume":  6531
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-29T10:00:00Z",
+        "open":  76.026,
+        "high":  76.5437,
+        "low":  75.7553,
+        "close":  75.9697,
+        "volume":  5831
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-29T10:30:00Z",
+        "open":  75.9697,
+        "high":  76.004,
+        "low":  74.234,
+        "close":  74.481,
+        "volume":  7454
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-29T11:00:00Z",
+        "open":  74.481,
+        "high":  75.304,
+        "low":  74.48,
+        "close":  74.9375,
+        "volume":  10089
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-29T11:30:00Z",
+        "open":  74.9382,
+        "high":  75.75,
+        "low":  74.796,
+        "close":  75.722,
+        "volume":  5615
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-29T12:00:00Z",
+        "open":  75.717,
+        "high":  75.876,
+        "low":  75.117,
+        "close":  75.123,
+        "volume":  5155
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-29T12:30:00Z",
+        "open":  75.127,
+        "high":  75.56,
+        "low":  74.955,
+        "close":  75.558,
+        "volume":  4209
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-29T13:00:00Z",
+        "open":  75.558,
+        "high":  75.792,
+        "low":  75.14,
+        "close":  75.7557,
+        "volume":  3372
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-29T13:30:00Z",
+        "open":  75.7557,
+        "high":  75.779,
+        "low":  73.957,
+        "close":  74.345,
+        "volume":  6227
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-29T14:00:00Z",
+        "open":  74.345,
+        "high":  75.2354,
+        "low":  74.3431,
+        "close":  75.2017,
+        "volume":  7419
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-29T14:30:00Z",
+        "open":  75.197,
+        "high":  75.3667,
+        "low":  74.83,
+        "close":  75.271,
+        "volume":  4601
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-29T15:00:00Z",
+        "open":  75.26,
+        "high":  76.0946,
+        "low":  74.564,
+        "close":  74.7995,
+        "volume":  14675
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-29T15:30:00Z",
+        "open":  74.7995,
+        "high":  74.7995,
+        "low":  72.852,
+        "close":  73.8259,
+        "volume":  15724
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-29T16:00:00Z",
+        "open":  73.8264,
+        "high":  73.8264,
+        "low":  72.1417,
+        "close":  72.373,
+        "volume":  18970
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-29T16:30:00Z",
+        "open":  72.3725,
+        "high":  73.312,
+        "low":  71.822,
+        "close":  72.657,
+        "volume":  25645
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-29T17:00:00Z",
+        "open":  72.6565,
+        "high":  72.6565,
+        "low":  70.9055,
+        "close":  70.9785,
+        "volume":  22533
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-29T17:30:00Z",
+        "open":  70.9785,
+        "high":  71.6289,
+        "low":  70.501,
+        "close":  71.364,
+        "volume":  10850
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-29T18:00:00Z",
+        "open":  71.36,
+        "high":  72.315,
+        "low":  71.17,
+        "close":  71.334,
+        "volume":  11284
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-29T18:30:00Z",
+        "open":  71.338,
+        "high":  72.694,
+        "low":  71.304,
+        "close":  72.424,
+        "volume":  6802
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-29T19:00:00Z",
+        "open":  72.424,
+        "high":  72.654,
+        "low":  71.8056,
+        "close":  71.987,
+        "volume":  6788
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-29T19:30:00Z",
+        "open":  71.997,
+        "high":  72.017,
+        "low":  71.3765,
+        "close":  71.61,
+        "volume":  4570
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-29T20:00:00Z",
+        "open":  71.61,
+        "high":  71.763,
+        "low":  70.79,
+        "close":  70.925,
+        "volume":  6552
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-29T20:30:00Z",
+        "open":  70.92,
+        "high":  71.834,
+        "low":  70.86,
+        "close":  71.695,
+        "volume":  3688
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-29T21:00:00Z",
+        "open":  71.695,
+        "high":  71.883,
+        "low":  71.311,
+        "close":  71.739,
+        "volume":  2092
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-29T21:30:00Z",
+        "open":  71.759,
+        "high":  72.425,
+        "low":  71.759,
+        "close":  72.315,
+        "volume":  2500
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-29T22:00:00Z",
+        "open":  72.315,
+        "high":  73.018,
+        "low":  72.3041,
+        "close":  72.954,
+        "volume":  2951
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-29T22:30:00Z",
+        "open":  72.959,
+        "high":  73.05,
+        "low":  72.4165,
+        "close":  72.81,
+        "volume":  3012
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-29T23:00:00Z",
+        "open":  72.79,
+        "high":  72.805,
+        "low":  72.075,
+        "close":  72.11,
+        "volume":  1506
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-29T23:30:00Z",
+        "open":  72.116,
+        "high":  72.255,
+        "low":  71.96,
+        "close":  72.145,
+        "volume":  1177
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-30T01:00:00Z",
+        "open":  72.419,
+        "high":  72.772,
+        "low":  71.12,
+        "close":  71.871,
+        "volume":  3582
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-30T01:30:00Z",
+        "open":  71.876,
+        "high":  72.6223,
+        "low":  71.727,
+        "close":  72.5253,
+        "volume":  3287
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-30T02:00:00Z",
+        "open":  72.5253,
+        "high":  73.036,
+        "low":  72.132,
+        "close":  72.991,
+        "volume":  4942
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-30T02:30:00Z",
+        "open":  72.991,
+        "high":  73.113,
+        "low":  72.522,
+        "close":  72.79,
+        "volume":  4176
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-30T03:00:00Z",
+        "open":  72.79,
+        "high":  73.133,
+        "low":  72.0252,
+        "close":  72.7945,
+        "volume":  6790
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-30T03:30:00Z",
+        "open":  72.7954,
+        "high":  73.716,
+        "low":  72.5992,
+        "close":  73.646,
+        "volume":  9637
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-30T04:00:00Z",
+        "open":  73.646,
+        "high":  73.671,
+        "low":  73.1753,
+        "close":  73.4653,
+        "volume":  5967
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-30T04:30:00Z",
+        "open":  73.4581,
+        "high":  73.9307,
+        "low":  73.064,
+        "close":  73.916,
+        "volume":  5694
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-30T05:00:00Z",
+        "open":  73.915,
+        "high":  74.4517,
+        "low":  73.756,
+        "close":  74.4367,
+        "volume":  8817
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-30T05:30:00Z",
+        "open":  74.4367,
+        "high":  74.6267,
+        "low":  74.2191,
+        "close":  74.342,
+        "volume":  5718
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-30T06:00:00Z",
+        "open":  74.352,
+        "high":  74.63,
+        "low":  74.347,
+        "close":  74.5041,
+        "volume":  4337
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-30T06:30:00Z",
+        "open":  74.5042,
+        "high":  74.63,
+        "low":  74.31,
+        "close":  74.447,
+        "volume":  2973
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-30T07:00:00Z",
+        "open":  74.457,
+        "high":  74.62,
+        "low":  73.9441,
+        "close":  74.4067,
+        "volume":  5098
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-30T07:30:00Z",
+        "open":  74.4067,
+        "high":  75.1787,
+        "low":  74.396,
+        "close":  75.057,
+        "volume":  7381
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-30T08:00:00Z",
+        "open":  75.047,
+        "high":  75.0977,
+        "low":  74.372,
+        "close":  74.6727,
+        "volume":  7110
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-30T08:30:00Z",
+        "open":  74.6727,
+        "high":  75.122,
+        "low":  74.6425,
+        "close":  74.892,
+        "volume":  5295
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-30T09:00:00Z",
+        "open":  74.8987,
+        "high":  74.8987,
+        "low":  74.259,
+        "close":  74.692,
+        "volume":  3845
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-30T09:30:00Z",
+        "open":  74.6897,
+        "high":  75.0927,
+        "low":  74.582,
+        "close":  74.878,
+        "volume":  3361
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-30T10:00:00Z",
+        "open":  74.878,
+        "high":  74.9387,
+        "low":  74.0641,
+        "close":  74.142,
+        "volume":  5204
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-30T10:30:00Z",
+        "open":  74.147,
+        "high":  74.336,
+        "low":  73.826,
+        "close":  74.278,
+        "volume":  4856
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-30T11:00:00Z",
+        "open":  74.278,
+        "high":  74.686,
+        "low":  74.181,
+        "close":  74.3587,
+        "volume":  4634
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-30T11:30:00Z",
+        "open":  74.358,
+        "high":  74.696,
+        "low":  74.329,
+        "close":  74.601,
+        "volume":  3050
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-30T12:00:00Z",
+        "open":  74.601,
+        "high":  74.7167,
+        "low":  74.351,
+        "close":  74.416,
+        "volume":  3544
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-30T12:30:00Z",
+        "open":  74.416,
+        "high":  74.593,
+        "low":  74.348,
+        "close":  74.511,
+        "volume":  5011
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-30T13:00:00Z",
+        "open":  74.525,
+        "high":  74.87,
+        "low":  74.52,
+        "close":  74.84,
+        "volume":  4537
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-30T13:30:00Z",
+        "open":  74.843,
+        "high":  74.906,
+        "low":  74.746,
+        "close":  74.8305,
+        "volume":  2120
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-30T14:00:00Z",
+        "open":  74.831,
+        "high":  75.7607,
+        "low":  74.807,
+        "close":  75.5067,
+        "volume":  6030
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-30T14:30:00Z",
+        "open":  75.5067,
+        "high":  76.136,
+        "low":  75.466,
+        "close":  76.003,
+        "volume":  4582
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-30T15:00:00Z",
+        "open":  76.003,
+        "high":  76.521,
+        "low":  76.002,
+        "close":  76.111,
+        "volume":  10633
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-30T15:30:00Z",
+        "open":  76.116,
+        "high":  76.368,
+        "low":  75.322,
+        "close":  76.313,
+        "volume":  11250
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-30T16:00:00Z",
+        "open":  76.318,
+        "high":  76.4947,
+        "low":  75.79,
+        "close":  76.219,
+        "volume":  6892
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-30T16:30:00Z",
+        "open":  76.231,
+        "high":  76.241,
+        "low":  75.076,
+        "close":  75.441,
+        "volume":  14079
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-30T17:00:00Z",
+        "open":  75.441,
+        "high":  76.1887,
+        "low":  75.147,
+        "close":  75.743,
+        "volume":  9998
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-30T17:30:00Z",
+        "open":  75.743,
+        "high":  76.4517,
+        "low":  75.632,
+        "close":  76.046,
+        "volume":  9746
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-30T18:00:00Z",
+        "open":  76.046,
+        "high":  76.468,
+        "low":  75.756,
+        "close":  76.262,
+        "volume":  8688
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-30T18:30:00Z",
+        "open":  76.268,
+        "high":  77.118,
+        "low":  76.068,
+        "close":  77.003,
+        "volume":  7058
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-30T19:00:00Z",
+        "open":  77.012,
+        "high":  77.718,
+        "low":  76.955,
+        "close":  77.656,
+        "volume":  8193
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-30T19:30:00Z",
+        "open":  77.657,
+        "high":  77.778,
+        "low":  77.2041,
+        "close":  77.539,
+        "volume":  9787
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-30T20:00:00Z",
+        "open":  77.524,
+        "high":  78.061,
+        "low":  77.413,
+        "close":  77.796,
+        "volume":  8437
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-30T20:30:00Z",
+        "open":  77.801,
+        "high":  77.826,
+        "low":  77.2341,
+        "close":  77.5015,
+        "volume":  6380
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-30T21:00:00Z",
+        "open":  77.495,
+        "high":  77.739,
+        "low":  77.382,
+        "close":  77.719,
+        "volume":  4300
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-30T21:30:00Z",
+        "open":  77.698,
+        "high":  77.7197,
+        "low":  75.8841,
+        "close":  76.204,
+        "volume":  7291
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-30T22:00:00Z",
+        "open":  76.199,
+        "high":  76.3477,
+        "low":  75.365,
+        "close":  76.2327,
+        "volume":  7251
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-30T22:30:00Z",
+        "open":  76.2327,
+        "high":  76.7407,
+        "low":  75.849,
+        "close":  76.06,
+        "volume":  6970
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-30T23:00:00Z",
+        "open":  76.055,
+        "high":  76.635,
+        "low":  75.999,
+        "close":  76.424,
+        "volume":  2850
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-30T23:30:00Z",
+        "open":  76.423,
+        "high":  76.6531,
+        "low":  76.0541,
+        "close":  76.214,
+        "volume":  2421
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-31T01:00:00Z",
+        "open":  76.3515,
+        "high":  76.414,
+        "low":  74.598,
+        "close":  75.371,
+        "volume":  3296
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-31T01:30:00Z",
+        "open":  75.363,
+        "high":  75.617,
+        "low":  74.682,
+        "close":  75.203,
+        "volume":  4249
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-31T02:00:00Z",
+        "open":  75.208,
+        "high":  75.382,
+        "low":  74.441,
+        "close":  74.6576,
+        "volume":  3251
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-31T02:30:00Z",
+        "open":  74.6506,
+        "high":  74.738,
+        "low":  74.2051,
+        "close":  74.696,
+        "volume":  5026
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-31T03:00:00Z",
+        "open":  74.696,
+        "high":  75.416,
+        "low":  74.446,
+        "close":  75.0221,
+        "volume":  8999
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-31T03:30:00Z",
+        "open":  75.0221,
+        "high":  75.687,
+        "low":  75.006,
+        "close":  75.4317,
+        "volume":  5946
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-31T04:00:00Z",
+        "open":  75.4317,
+        "high":  75.792,
+        "low":  74.7141,
+        "close":  74.9836,
+        "volume":  5071
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-31T04:30:00Z",
+        "open":  75.022,
+        "high":  75.39,
+        "low":  72.762,
+        "close":  73.131,
+        "volume":  9813
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-31T05:00:00Z",
+        "open":  73.136,
+        "high":  73.43,
+        "low":  71.935,
+        "close":  72.566,
+        "volume":  9867
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-31T05:30:00Z",
+        "open":  72.566,
+        "high":  72.716,
+        "low":  71.948,
+        "close":  72.059,
+        "volume":  5040
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-31T06:00:00Z",
+        "open":  72.0678,
+        "high":  72.711,
+        "low":  71.786,
+        "close":  72.591,
+        "volume":  4302
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-31T06:30:00Z",
+        "open":  72.6,
+        "high":  72.7666,
+        "low":  71.483,
+        "close":  71.7125,
+        "volume":  3407
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-31T07:00:00Z",
+        "open":  71.7125,
+        "high":  72.4943,
+        "low":  71.4235,
+        "close":  72.3801,
+        "volume":  5284
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-31T07:30:00Z",
+        "open":  72.3801,
+        "high":  72.3936,
+        "low":  70.729,
+        "close":  70.934,
+        "volume":  13189
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-31T08:00:00Z",
+        "open":  70.934,
+        "high":  71.487,
+        "low":  70.483,
+        "close":  71.0115,
+        "volume":  8670
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-31T08:30:00Z",
+        "open":  71.0115,
+        "high":  71.873,
+        "low":  70.9545,
+        "close":  71.7745,
+        "volume":  5094
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-31T09:00:00Z",
+        "open":  71.7885,
+        "high":  72.279,
+        "low":  71.523,
+        "close":  72.254,
+        "volume":  4794
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-31T09:30:00Z",
+        "open":  72.254,
+        "high":  72.489,
+        "low":  72.079,
+        "close":  72.2337,
+        "volume":  2415
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-31T10:00:00Z",
+        "open":  72.2377,
+        "high":  72.3897,
+        "low":  71.9491,
+        "close":  72.184,
+        "volume":  4256
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-31T10:30:00Z",
+        "open":  72.184,
+        "high":  72.239,
+        "low":  71,
+        "close":  71.002,
+        "volume":  5431
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-31T11:00:00Z",
+        "open":  71.023,
+        "high":  72.154,
+        "low":  71.018,
+        "close":  72.054,
+        "volume":  4379
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-31T11:30:00Z",
+        "open":  72.054,
+        "high":  72.476,
+        "low":  71.862,
+        "close":  71.866,
+        "volume":  4105
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-31T12:00:00Z",
+        "open":  71.866,
+        "high":  72.241,
+        "low":  71.865,
+        "close":  71.967,
+        "volume":  3481
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-31T12:30:00Z",
+        "open":  71.967,
+        "high":  71.967,
+        "low":  71.561,
+        "close":  71.876,
+        "volume":  4555
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-31T13:00:00Z",
+        "open":  71.876,
+        "high":  72.138,
+        "low":  71.697,
+        "close":  71.954,
+        "volume":  3205
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-31T13:30:00Z",
+        "open":  71.949,
+        "high":  72.314,
+        "low":  71.894,
+        "close":  71.931,
+        "volume":  3522
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-31T14:00:00Z",
+        "open":  71.929,
+        "high":  72.035,
+        "low":  71.297,
+        "close":  71.395,
+        "volume":  5047
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-31T14:30:00Z",
+        "open":  71.394,
+        "high":  71.895,
+        "low":  71.377,
+        "close":  71.879,
+        "volume":  3505
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-31T15:00:00Z",
+        "open":  71.879,
+        "high":  72.0945,
+        "low":  71.538,
+        "close":  72.0895,
+        "volume":  4865
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-31T15:30:00Z",
+        "open":  72.0872,
+        "high":  72.398,
+        "low":  72.015,
+        "close":  72.209,
+        "volume":  6459
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-31T16:00:00Z",
+        "open":  72.205,
+        "high":  72.772,
+        "low":  71.665,
+        "close":  72.296,
+        "volume":  8889
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-31T16:30:00Z",
+        "open":  72.296,
+        "high":  73.763,
+        "low":  72.08,
+        "close":  73.391,
+        "volume":  13849
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-31T17:00:00Z",
+        "open":  73.391,
+        "high":  73.564,
+        "low":  72.315,
+        "close":  72.774,
+        "volume":  12891
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-31T17:30:00Z",
+        "open":  72.774,
+        "high":  72.94,
+        "low":  72.091,
+        "close":  72.391,
+        "volume":  9520
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-31T18:00:00Z",
+        "open":  72.389,
+        "high":  72.5217,
+        "low":  71.584,
+        "close":  71.7167,
+        "volume":  9203
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-31T18:30:00Z",
+        "open":  71.7187,
+        "high":  71.917,
+        "low":  71.428,
+        "close":  71.712,
+        "volume":  6846
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-31T19:00:00Z",
+        "open":  71.713,
+        "high":  72.009,
+        "low":  71.3341,
+        "close":  71.416,
+        "volume":  6474
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-31T19:30:00Z",
+        "open":  71.416,
+        "high":  71.671,
+        "low":  71.116,
+        "close":  71.283,
+        "volume":  6862
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-31T20:00:00Z",
+        "open":  71.283,
+        "high":  71.598,
+        "low":  71.055,
+        "close":  71.47,
+        "volume":  5996
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-31T20:30:00Z",
+        "open":  71.47,
+        "high":  71.88,
+        "low":  71.226,
+        "close":  71.613,
+        "volume":  4199
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-31T21:00:00Z",
+        "open":  71.623,
+        "high":  71.805,
+        "low":  71.2725,
+        "close":  71.365,
+        "volume":  3732
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-31T21:30:00Z",
+        "open":  71.365,
+        "high":  71.38,
+        "low":  70.3712,
+        "close":  70.447,
+        "volume":  14102
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-31T22:00:00Z",
+        "open":  70.447,
+        "high":  70.9932,
+        "low":  70.0302,
+        "close":  70.9113,
+        "volume":  11160
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-31T22:30:00Z",
+        "open":  70.9162,
+        "high":  71.415,
+        "low":  70.8415,
+        "close":  71.0573,
+        "volume":  10814
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-31T23:00:00Z",
+        "open":  71.0573,
+        "high":  71.169,
+        "low":  70.932,
+        "close":  71.074,
+        "volume":  2138
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2025-12-31T23:30:00Z",
+        "open":  71.074,
+        "high":  71.625,
+        "low":  71.0299,
+        "close":  71.605,
+        "volume":  2887
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2026-01-02T01:00:00Z",
+        "open":  71.4204,
+        "high":  72.6205,
+        "low":  71.1805,
+        "close":  72.331,
+        "volume":  3975
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2026-01-02T01:30:00Z",
+        "open":  72.4543,
+        "high":  73.048,
+        "low":  72.336,
+        "close":  72.6543,
+        "volume":  6143
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2026-01-02T02:00:00Z",
+        "open":  72.6543,
+        "high":  73.01,
+        "low":  71.933,
+        "close":  72.427,
+        "volume":  5065
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2026-01-02T02:30:00Z",
+        "open":  72.427,
+        "high":  72.924,
+        "low":  72.11,
+        "close":  72.6785,
+        "volume":  3326
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2026-01-02T03:00:00Z",
+        "open":  72.6785,
+        "high":  72.828,
+        "low":  72.281,
+        "close":  72.7482,
+        "volume":  3807
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2026-01-02T03:30:00Z",
+        "open":  72.7482,
+        "high":  72.982,
+        "low":  72.524,
+        "close":  72.7882,
+        "volume":  3916
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2026-01-02T04:00:00Z",
+        "open":  72.7882,
+        "high":  72.982,
+        "low":  72.473,
+        "close":  72.512,
+        "volume":  3163
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2026-01-02T04:30:00Z",
+        "open":  72.4977,
+        "high":  72.8801,
+        "low":  72.205,
+        "close":  72.855,
+        "volume":  4561
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2026-01-02T05:00:00Z",
+        "open":  72.845,
+        "high":  73.104,
+        "low":  72.7357,
+        "close":  72.9672,
+        "volume":  3351
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2026-01-02T05:30:00Z",
+        "open":  72.9672,
+        "high":  73.5607,
+        "low":  72.925,
+        "close":  73.356,
+        "volume":  4277
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2026-01-02T06:00:00Z",
+        "open":  73.355,
+        "high":  73.6867,
+        "low":  73.29,
+        "close":  73.3987,
+        "volume":  6704
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2026-01-02T06:30:00Z",
+        "open":  73.398,
+        "high":  73.519,
+        "low":  73.2044,
+        "close":  73.351,
+        "volume":  2324
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2026-01-02T07:00:00Z",
+        "open":  73.367,
+        "high":  73.938,
+        "low":  73.148,
+        "close":  73.8621,
+        "volume":  4635
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2026-01-02T07:30:00Z",
+        "open":  73.862,
+        "high":  74.003,
+        "low":  73.758,
+        "close":  73.956,
+        "volume":  2786
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2026-01-02T08:00:00Z",
+        "open":  73.956,
+        "high":  74.133,
+        "low":  73.7034,
+        "close":  74.092,
+        "volume":  4287
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2026-01-02T08:30:00Z",
+        "open":  74.092,
+        "high":  74.2037,
+        "low":  73.9094,
+        "close":  73.9254,
+        "volume":  3035
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2026-01-02T09:00:00Z",
+        "open":  73.9294,
+        "high":  74.051,
+        "low":  73.668,
+        "close":  73.876,
+        "volume":  3408
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2026-01-02T09:30:00Z",
+        "open":  73.8754,
+        "high":  74.051,
+        "low":  73.746,
+        "close":  74.019,
+        "volume":  2634
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2026-01-02T10:00:00Z",
+        "open":  74.0154,
+        "high":  74.521,
+        "low":  73.961,
+        "close":  74.484,
+        "volume":  3975
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2026-01-02T10:30:00Z",
+        "open":  74.487,
+        "high":  74.5404,
+        "low":  74.391,
+        "close":  74.416,
+        "volume":  3604
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2026-01-02T11:00:00Z",
+        "open":  74.417,
+        "high":  74.5314,
+        "low":  74.33,
+        "close":  74.472,
+        "volume":  3707
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2026-01-02T11:30:00Z",
+        "open":  74.472,
+        "high":  74.537,
+        "low":  74.387,
+        "close":  74.399,
+        "volume":  2249
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2026-01-02T12:00:00Z",
+        "open":  74.399,
+        "high":  74.518,
+        "low":  74.327,
+        "close":  74.409,
+        "volume":  2514
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2026-01-02T12:30:00Z",
+        "open":  74.411,
+        "high":  74.528,
+        "low":  74.3241,
+        "close":  74.474,
+        "volume":  3163
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2026-01-02T13:00:00Z",
+        "open":  74.474,
+        "high":  74.557,
+        "low":  74.338,
+        "close":  74.3644,
+        "volume":  2155
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2026-01-02T13:30:00Z",
+        "open":  74.3644,
+        "high":  74.4657,
+        "low":  74.1047,
+        "close":  74.2047,
+        "volume":  3000
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2026-01-02T14:00:00Z",
+        "open":  74.2017,
+        "high":  74.3347,
+        "low":  74.092,
+        "close":  74.2157,
+        "volume":  3261
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2026-01-02T14:30:00Z",
+        "open":  74.214,
+        "high":  74.2741,
+        "low":  73.792,
+        "close":  73.993,
+        "volume":  4608
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2026-01-02T15:00:00Z",
+        "open":  73.993,
+        "high":  74.145,
+        "low":  73.53,
+        "close":  73.691,
+        "volume":  7159
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2026-01-02T15:30:00Z",
+        "open":  73.704,
+        "high":  74.136,
+        "low":  73.653,
+        "close":  73.869,
+        "volume":  7843
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2026-01-02T16:00:00Z",
+        "open":  73.869,
+        "high":  74.42,
+        "low":  73.834,
+        "close":  74.2107,
+        "volume":  6829
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2026-01-02T16:30:00Z",
+        "open":  74.2141,
+        "high":  74.291,
+        "low":  73.161,
+        "close":  73.561,
+        "volume":  19075
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2026-01-02T17:00:00Z",
+        "open":  73.554,
+        "high":  73.8445,
+        "low":  72.711,
+        "close":  72.861,
+        "volume":  17275
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2026-01-02T17:30:00Z",
+        "open":  72.858,
+        "high":  73.404,
+        "low":  72.5652,
+        "close":  72.616,
+        "volume":  14085
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2026-01-02T18:00:00Z",
+        "open":  72.611,
+        "high":  72.668,
+        "low":  71.6017,
+        "close":  71.995,
+        "volume":  16530
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2026-01-02T18:30:00Z",
+        "open":  71.992,
+        "high":  72.3277,
+        "low":  71.672,
+        "close":  72.23,
+        "volume":  11828
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2026-01-02T19:00:00Z",
+        "open":  72.227,
+        "high":  72.687,
+        "low":  72.021,
+        "close":  72.5837,
+        "volume":  9330
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2026-01-02T19:30:00Z",
+        "open":  72.5837,
+        "high":  72.739,
+        "low":  71.858,
+        "close":  71.917,
+        "volume":  7084
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2026-01-02T20:00:00Z",
+        "open":  71.917,
+        "high":  72.0387,
+        "low":  71.411,
+        "close":  71.661,
+        "volume":  9970
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2026-01-02T20:30:00Z",
+        "open":  71.661,
+        "high":  71.8937,
+        "low":  71.5182,
+        "close":  71.884,
+        "volume":  7275
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2026-01-02T21:00:00Z",
+        "open":  71.884,
+        "high":  72.334,
+        "low":  71.8643,
+        "close":  72.136,
+        "volume":  8426
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2026-01-02T21:30:00Z",
+        "open":  72.145,
+        "high":  72.661,
+        "low":  71.9341,
+        "close":  71.994,
+        "volume":  9083
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2026-01-02T22:00:00Z",
+        "open":  71.995,
+        "high":  72.729,
+        "low":  71.93,
+        "close":  72.6957,
+        "volume":  6237
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2026-01-02T22:30:00Z",
+        "open":  72.6957,
+        "high":  72.7047,
+        "low":  72.3915,
+        "close":  72.5447,
+        "volume":  6310
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2026-01-02T23:00:00Z",
+        "open":  72.5447,
+        "high":  72.576,
+        "low":  72.392,
+        "close":  72.4246,
+        "volume":  1571
+    },
+    {
+        "symbol":  "XAGUSD",
+        "tf":  "30m",
+        "time":  "2026-01-02T23:30:00Z",
+        "open":  72.4178,
+        "high":  72.8,
+        "low":  72.4178,
+        "close":  72.73,
+        "volume":  1448
+    }
+]
