@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:provider/provider.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+
 import 'package:tawaqu3_final/models/market_model.dart';
 import 'package:tawaqu3_final/services/price_websocket_service.dart';
 import 'package:tawaqu3_final/view/pages/trade_flow_view.dart';
@@ -10,6 +12,8 @@ import 'package:tawaqu3_final/view/widgets/tab_nav_bar.dart';
 import 'package:tawaqu3_final/view/pages/home_tab_view.dart';
 import 'package:tawaqu3_final/view/pages/news_tab_view.dart';
 import 'package:tawaqu3_final/view/pages/top_traders_tab_view.dart';
+import 'package:tawaqu3_final/view/widgets/user_profit_card.dart';
+
 import '../../core/router/app_router.dart';
 import '../../view_model/navigation_view_model.dart';
 
@@ -27,15 +31,23 @@ class _MainPageState extends State<MainPage> {
   late final PriceWebSocketService _ws = PriceWebSocketService.instance;
   StreamSubscription<Map<String, MarketPrice>>? _priceSub;
 
+  // ✅ Profit state
+  bool _profitLoading = true;
+  double? _userProfit;
+  String? _profitError;
+  DateTime? _profitUpdatedAt;
+
+  SupabaseClient get _sb => Supabase.instance.client;
+
   @override
   void initState() {
     super.initState();
     _seedSymbols();
     _startWebSocket();
+    _loadUserProfit(); // ✅ load once when page opens
   }
 
   void _seedSymbols() {
-    // Use symbols WITHOUT underscore. Your WS bridge accepts XAUUSD and maps to XAUUSD_. (server.js)
     const symbols = <String>['XAUUSD', 'XAGUSD', 'BTCUSD', 'ETHUSD', 'EURUSD'];
 
     final now = DateTime.now().toUtc();
@@ -59,14 +71,12 @@ class _MainPageState extends State<MainPage> {
   }
 
   void _startWebSocket() {
-    // IMPORTANT: connect() so pricesStream actually emits
     unawaited(_ws.connect());
 
     _priceSub = _ws.pricesStream.listen((wsPrices) {
       if (!mounted) return;
 
       setState(() {
-        // save previous mid for color direction
         _previousPrices = {
           for (final e in _prices.entries) e.key: e.value.effectiveMid,
         };
@@ -77,6 +87,54 @@ class _MainPageState extends State<MainPage> {
         });
       });
     });
+  }
+
+  Future<void> _loadUserProfit() async {
+    if (!mounted) return;
+
+    setState(() {
+      _profitLoading = true;
+      _profitError = null;
+    });
+
+    try {
+      final userId = _sb.auth.currentUser?.id;
+      if (userId == null) {
+        setState(() {
+          _userProfit = 0;
+          _profitUpdatedAt = DateTime.now();
+          _profitLoading = false;
+        });
+        return;
+      }
+
+      // ✅ Replace 'trades' with your real table name
+      final rows = await _sb
+          .from('trades')
+          .select('profit')
+          .eq('user_id', userId);
+
+      final list = (rows as List);
+
+      double total = 0;
+      for (final r in list) {
+        final v = (r as Map)['profit'];
+        if (v is num) total += v.toDouble();
+      }
+
+      if (!mounted) return;
+      setState(() {
+        _userProfit = total;
+        _profitUpdatedAt = DateTime.now();
+        _profitLoading = false;
+      });
+    } catch (e) {
+      if (!mounted) return;
+      setState(() {
+        _profitError = e.toString();
+        _profitLoading = false;
+      });
+    }
   }
 
   @override
@@ -94,12 +152,14 @@ class _MainPageState extends State<MainPage> {
       HomeTabView(
         prices: _prices,
         previousPrices: _previousPrices,
-        onTradeTap: () => nav.setIndex(1),
+        onTradeTap: () => nav.setIndex(2),
       ),
       const NewsView(),
       const TradeFlowView(),
       const TopTradersTabView(),
     ];
+
+    final current = pages[nav.currentIndex];
 
     return Scaffold(
       appBar: AppBar(
@@ -116,7 +176,23 @@ class _MainPageState extends State<MainPage> {
       ),
       body: Container(
         color: theme.colorScheme.surface,
-        child: pages[nav.currentIndex],
+        child: nav.currentIndex == 0
+            ? Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(16, 12, 16, 10),
+                    child: UserProfitCard(
+                      isLoading: _profitLoading,
+                      profit: _userProfit,
+                      error: _profitError,
+                      updatedAt: _profitUpdatedAt,
+                      onRefresh: _loadUserProfit,
+                    ),
+                  ),
+                  Expanded(child: current),
+                ],
+              )
+            : current,
       ),
       bottomNavigationBar: const TabNavBar(),
     );

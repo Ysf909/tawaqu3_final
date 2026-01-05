@@ -37,6 +37,7 @@ class HistoryTrade {
       previousSl: (map['previous_sl'] as num?)?.toDouble(),
       previousTp: (map['previous_tp'] as num?)?.toDouble(),
       previousLot: (map['previous_lot'] as num?)?.toDouble(),
+      count: (map['count'] as num?)?.toDouble() ?? 0.0,
       dateSaved: DateTime.parse(map['date_saved'] as String),
       outcome: fromDb(map['outcome'] as String?),
     );
