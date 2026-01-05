@@ -1,4 +1,4 @@
-﻿import 'dart:convert';
+import 'dart:convert';
 import 'dart:typed_data';
 import 'package:http/http.dart' as http;
 
@@ -47,13 +47,14 @@ class SmcOrtService {
       body: jsonEncode(body),
     );
 
-    if (resp.statusCode != 200) 
+    if (resp.statusCode != 200)
       throw Exception('Predict failed (${resp.statusCode}): ${resp.body}');
 
     final j = jsonDecode(resp.body) as Map<String, dynamic>;
 
     // Prefer returning "out" list to match your existing parsing pipeline
-    final outAny = j['out'] ??
+    final outAny =
+        j['out'] ??
         (j['outputs'] is List && (j['outputs'] as List).isNotEmpty
             ? (j['outputs'] as List).first
             : null);

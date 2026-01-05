@@ -1,4 +1,4 @@
-﻿enum TradingType { long, short, scalper }
+enum TradingType { long, short, scalper }
 
 enum TradingModel { ict, smc, trend }
 
@@ -68,4 +68,3 @@ TradingModel modelForType(TradingType type) {
       return TradingModel.trend;
   }
 }
-

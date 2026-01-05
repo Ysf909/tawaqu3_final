@@ -1,4 +1,4 @@
-﻿import 'dart:typed_data';
+import 'dart:typed_data';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:onnxruntime/onnxruntime.dart';
 
@@ -15,7 +15,9 @@ class SmcOrtService {
   Future<void> init() async {
     if (_ready) return;
 
-    try { OrtEnv.instance.init(); } catch (_) {}
+    try {
+      OrtEnv.instance.init();
+    } catch (_) {}
 
     final opts = OrtSessionOptions();
     _s15m = await _loadSession('assets/models/smc/smc_15m.onnx', opts);
@@ -24,7 +26,10 @@ class SmcOrtService {
     _ready = true;
   }
 
-  Future<OrtSession> _loadSession(String assetPath, OrtSessionOptions opts) async {
+  Future<OrtSession> _loadSession(
+    String assetPath,
+    OrtSessionOptions opts,
+  ) async {
     final bytes = (await rootBundle.load(assetPath)).buffer.asUint8List();
     return OrtSession.fromBuffer(bytes, opts);
   }
@@ -39,17 +44,27 @@ class SmcOrtService {
     return _run(_s30m!, x, shape);
   }
 
-  Future<Object?> _run(OrtSession session, Float32List x, List<int> shape) async {
-    final inputName = session.inputNames.isNotEmpty ? session.inputNames.first : 'x';
-    final outNames  = session.outputNames.isNotEmpty ? <String>[session.outputNames.first] : null;
+  Future<Object?> _run(
+    OrtSession session,
+    Float32List x,
+    List<int> shape,
+  ) async {
+    final inputName = session.inputNames.isNotEmpty
+        ? session.inputNames.first
+        : 'x';
+    final outNames = session.outputNames.isNotEmpty
+        ? <String>[session.outputNames.first]
+        : null;
 
     final inputTensor = OrtValueTensor.createTensorWithDataList(x, shape);
-    final runOptions  = OrtRunOptions();
+    final runOptions = OrtRunOptions();
 
     try {
       final outs = session.run(runOptions, {inputName: inputTensor}, outNames);
       final out0 = (outs.isNotEmpty) ? outs.first?.value : null;
-      for (final o in outs) { o?.release(); }
+      for (final o in outs) {
+        o?.release();
+      }
       return out0;
     } finally {
       inputTensor.release();

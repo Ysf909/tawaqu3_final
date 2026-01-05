@@ -1,4 +1,4 @@
-﻿import 'package:tawaqu3_final/models/trade_models.dart';
+import 'package:tawaqu3_final/models/trade_models.dart';
 
 class TradeEntity {
   final String id; // uuid from Supabase
@@ -49,8 +49,12 @@ class TradeEntity {
       tp: (map['tp'] as num?)?.toDouble() ?? 0.0,
       lot: (map['lot'] as num?)?.toDouble() ?? 0.0,
       school: (map['school'] as String?) ?? '',
-      time: DateTime.tryParse((map['time'] ?? '').toString()) ?? DateTime.now().toUtc(),
-      createdAt: DateTime.tryParse((map['created_at'] ?? '').toString()) ?? DateTime.now().toUtc(),
+      time:
+          DateTime.tryParse((map['time'] ?? '').toString()) ??
+          DateTime.now().toUtc(),
+      createdAt:
+          DateTime.tryParse((map['created_at'] ?? '').toString()) ??
+          DateTime.now().toUtc(),
       outcome: fromDb(map['outcome'] as String?),
       profit: (map['profit'] as num?)?.toDouble() ?? 0.0,
     );

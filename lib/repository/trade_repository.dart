@@ -1,10 +1,10 @@
-﻿import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import '../models/trade_models.dart';
 
 class TradeRepository {
   final SupabaseClient _client;
   TradeRepository({SupabaseClient? client})
-      : _client = client ?? Supabase.instance.client;
+    : _client = client ?? Supabase.instance.client;
 
   String _isoUtc(DateTime dt) => dt.toUtc().toIso8601String(); // keep the 'Z'
 
@@ -18,22 +18,29 @@ class TradeRepository {
     required DateTime time,
     required String pair,
     required String side,
-    required double confidence, // 0-100
+    required double confidence,
+    required String tf,
   }) async {
-    final res = await _client.rpc('create_trade', params: {
-      'p_user_id': userId,
-      'p_entry': entry,
-      'p_sl': sl,
-      'p_tp': tp,
-      'p_lot': lot,
-      'p_school': school,
-      'p_time': _isoUtc(time),
-      'p_pair': pair,
-      'p_side': side,
-      'p_confidence': confidence,
-    });
+    final timeStr = time.toUtc().toIso8601String(); // keep Z
 
-    return res as String; // uuid
+    final res = await _client.rpc(
+      'create_trade',
+      params: {
+        'p_user_id': userId,
+        'p_entry': entry,
+        'p_sl': sl,
+        'p_tp': tp,
+        'p_lot': lot,
+        'p_school': school,
+        'p_time': timeStr,
+        'p_pair': pair,
+        'p_side': side,
+        'p_confidence': confidence,
+        'p_tf': tf,
+      },
+    );
+
+    return res.toString();
   }
 
   Future<void> closeTrade({
@@ -42,11 +49,14 @@ class TradeRepository {
     required double profit,
     DateTime? closeTime,
   }) async {
-    await _client.rpc('close_trade', params: {
-      'p_trade_id': tradeId,
-      'p_outcome': outcome.dbValue, // tp_hit / sl_hit
-      'p_profit': profit,
-      'p_close_time': _isoUtc(closeTime ?? DateTime.now()),
-    });
+    await _client.rpc(
+      'close_trade',
+      params: {
+        'p_trade_id': tradeId,
+        'p_outcome': outcome.dbValue, // tp_hit / sl_hit
+        'p_profit': profit,
+        'p_close_time': _isoUtc(closeTime ?? DateTime.now()),
+      },
+    );
   }
 }

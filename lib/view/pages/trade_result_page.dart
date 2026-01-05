@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tawaqu3_final/models/trade_models.dart';
 import 'package:tawaqu3_final/models/trading_labels.dart';
@@ -129,9 +129,13 @@ class TradeResultPage extends StatelessWidget {
                 children: [
                   Text('Entry: ${vm.lastPrediction!.entry.toStringAsFixed(4)}'),
                   const SizedBox(height: 6),
-                  Text('Stop Loss: ${vm.lastPrediction!.sl.toStringAsFixed(4)}'),
+                  Text(
+                    'Stop Loss: ${vm.lastPrediction!.sl.toStringAsFixed(4)}',
+                  ),
                   const SizedBox(height: 6),
-                  Text('Take Profit: ${vm.lastPrediction!.tp.toStringAsFixed(4)}'),
+                  Text(
+                    'Take Profit: ${vm.lastPrediction!.tp.toStringAsFixed(4)}',
+                  ),
                   const SizedBox(height: 6),
                   Text('Lot: ${vm.lastPrediction!.lot.toStringAsFixed(2)}'),
                 ],
@@ -144,14 +148,18 @@ class TradeResultPage extends StatelessWidget {
               children: [
                 Expanded(
                   child: OutlinedButton(
-                    onPressed: vm.loading ? null : () => vm.markOutcome(TradeOutcome.tpHit),
+                    onPressed: vm.loading
+                        ? null
+                        : () => vm.markOutcome(TradeOutcome.tpHit),
                     child: const Text('TP HIT'),
                   ),
                 ),
                 const SizedBox(width: 12),
                 Expanded(
                   child: OutlinedButton(
-                    onPressed: vm.loading ? null : () => vm.markOutcome(TradeOutcome.slHit),
+                    onPressed: vm.loading
+                        ? null
+                        : () => vm.markOutcome(TradeOutcome.slHit),
                     child: const Text('SL HIT'),
                   ),
                 ),

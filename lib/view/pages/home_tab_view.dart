@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:tawaqu3_final/models/market_model.dart';
 import 'package:tawaqu3_final/view/pages/asset_chart_live_view.dart';
 
@@ -30,10 +30,12 @@ class HomeTabView extends StatelessWidget {
           const SizedBox(height: 10),
 
           if (items.isEmpty)
-            const Center(child: Padding(
-              padding: EdgeInsets.symmetric(vertical: 40),
-              child: Text("Waiting for live prices…"),
-            ))
+            const Center(
+              child: Padding(
+                padding: EdgeInsets.symmetric(vertical: 40),
+                child: Text("Waiting for live prices…"),
+              ),
+            )
           else
             ...items.map((entry) {
               final symbol = entry.key.toUpperCase();
@@ -60,16 +62,16 @@ class HomeTabView extends StatelessWidget {
                   subtitle: Text("24h: $changeText"),
                   trailing: Text(
                     price == 0 ? "--" : price.toStringAsFixed(2),
-                    style: theme.textTheme.titleMedium?.copyWith(color: priceColor),
+                    style: theme.textTheme.titleMedium?.copyWith(
+                      color: priceColor,
+                    ),
                   ),
                   onTap: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (_) => AssetChartLiveView(
-                          symbol: symbol,
-                          initialTf: "5m",
-                        ),
+                        builder: (_) =>
+                            AssetChartLiveView(symbol: symbol, initialTf: "5m"),
                       ),
                     );
                   },

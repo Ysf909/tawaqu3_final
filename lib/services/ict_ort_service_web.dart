@@ -1,4 +1,4 @@
-﻿import 'dart:convert';
+import 'dart:convert';
 import 'dart:typed_data';
 import 'package:http/http.dart' as http;
 
@@ -27,8 +27,7 @@ class IctOrtService {
     final res = await http.post(
       Uri.parse('$baseUrl/predict'),
       headers: {'Content-Type': 'application/json'},
-     body: jsonEncode({'tf': tf, 'features': data.toList()}),
-
+      body: jsonEncode({'tf': tf, 'features': data.toList()}),
     );
 
     if (res.statusCode != 200) {
@@ -36,24 +35,29 @@ class IctOrtService {
     }
 
     final j = jsonDecode(res.body) as Map<String, dynamic>;
-    final dynamic outAny = j['out'] ??
-    (j['outputs'] is List && (j['outputs'] as List).isNotEmpty ? (j['outputs'] as List).first : null);
+    final dynamic outAny =
+        j['out'] ??
+        (j['outputs'] is List && (j['outputs'] as List).isNotEmpty
+            ? (j['outputs'] as List).first
+            : null);
 
-final raw = outAny as List?;
-final out = (raw ?? const []).whereType<num>().map((e) => e.toDouble()).toList();
+    final raw = outAny as List?;
+    final out = (raw ?? const [])
+        .whereType<num>()
+        .map((e) => e.toDouble())
+        .toList();
 
-// fallback: if server returns only score/side, keep pipeline alive
-if (out.isEmpty && (j['score'] is num)) {
-  final s = (j['score'] as num).toDouble();
-  final side = (j['side'] ?? '').toString().toUpperCase();
-  if (side == 'SELL') return <double>[s, 0.0];
-  if (side == 'BUY')  return <double>[0.0, s];
-  return <double>[s];
-}
+    // fallback: if server returns only score/side, keep pipeline alive
+    if (out.isEmpty && (j['score'] is num)) {
+      final s = (j['score'] as num).toDouble();
+      final side = (j['side'] ?? '').toString().toUpperCase();
+      if (side == 'SELL') return <double>[s, 0.0];
+      if (side == 'BUY') return <double>[0.0, s];
+      return <double>[s];
+    }
 
-
-return out;}
+    return out;
+  }
 
   void dispose() {}
 }
-

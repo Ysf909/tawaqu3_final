@@ -1,4 +1,4 @@
-﻿import 'dart:math' as math;
+import 'dart:math' as math;
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
@@ -22,10 +22,12 @@ class InteractiveCandlestickChart extends StatefulWidget {
   });
 
   @override
-  State<InteractiveCandlestickChart> createState() => _InteractiveCandlestickChartState();
+  State<InteractiveCandlestickChart> createState() =>
+      _InteractiveCandlestickChartState();
 }
 
-class _InteractiveCandlestickChartState extends State<InteractiveCandlestickChart> {
+class _InteractiveCandlestickChartState
+    extends State<InteractiveCandlestickChart> {
   double _zoom = 1.0; // 0.6 .. 3.0
   int _offsetFromEnd = 0; // 0 = latest at right edge
 
@@ -138,20 +140,26 @@ class _InteractiveCandlestickChartState extends State<InteractiveCandlestickChar
               if (total == 0) return;
 
               final step = _stepPx();
-              final deltaCandles = (d.delta.dx / step).round(); // right drag => newer
+              final deltaCandles = (d.delta.dx / step)
+                  .round(); // right drag => newer
               if (deltaCandles == 0) return;
 
               final visible = _visibleCount(c.maxWidth, total);
               final maxOff = _maxOffset(total, visible);
 
               setState(() {
-                _offsetFromEnd = (_offsetFromEnd - deltaCandles).clamp(0, maxOff);
+                _offsetFromEnd = (_offsetFromEnd - deltaCandles).clamp(
+                  0,
+                  maxOff,
+                );
               });
             },
 
             // Crosshair
-            onLongPressStart: (d) => _selectAt(d.localPosition, Size(c.maxWidth, c.maxHeight)),
-            onLongPressMoveUpdate: (d) => _selectAt(d.localPosition, Size(c.maxWidth, c.maxHeight)),
+            onLongPressStart: (d) =>
+                _selectAt(d.localPosition, Size(c.maxWidth, c.maxHeight)),
+            onLongPressMoveUpdate: (d) =>
+                _selectAt(d.localPosition, Size(c.maxWidth, c.maxHeight)),
             onLongPressEnd: (_) => setState(() {
               _selectedIndexGlobal = null;
               _crosshairLocal = null;
@@ -296,17 +304,30 @@ class _KlinePainter extends CustomPainter {
 
       final top = math.min(yO, yC);
       final bottom = math.max(yO, yC);
-      final bodyRect = Rect.fromLTWH(xCenter - candleW / 2, top, candleW, math.max(1.5, bottom - top));
+      final bodyRect = Rect.fromLTWH(
+        xCenter - candleW / 2,
+        top,
+        candleW,
+        math.max(1.5, bottom - top),
+      );
       canvas.drawRect(bodyRect, bodyPaint);
 
       if (maxV > 0 && volH > 4) {
         final vh = (c.volume / maxV) * (volH - 6);
-        final vRect = Rect.fromLTWH(xCenter - candleW / 2, (volTop + volH - 3) - vh, candleW, vh);
+        final vRect = Rect.fromLTWH(
+          xCenter - candleW / 2,
+          (volTop + volH - 3) - vh,
+          candleW,
+          vh,
+        );
         canvas.drawRect(vRect, isUp ? volUp : volDown);
       }
     }
 
-    final labelStyle = TextStyle(fontSize: 11, color: Colors.black.withOpacity(0.55));
+    final labelStyle = TextStyle(
+      fontSize: 11,
+      color: Colors.black.withOpacity(0.55),
+    );
     for (int i = 0; i <= 4; i++) {
       final t = i / 4;
       final p = maxP - (t * (maxP - minP));
@@ -322,7 +343,8 @@ class _KlinePainter extends CustomPainter {
     for (int i = 0; i < view.length; i += every) {
       final x = (i * step) + (step / 2);
       final t = view[i].time.toLocal();
-      final s = "${t.month.toString().padLeft(2, '0')}-${t.day.toString().padLeft(2, '0')} "
+      final s =
+          "${t.month.toString().padLeft(2, '0')}-${t.day.toString().padLeft(2, '0')} "
           "${t.hour.toString().padLeft(2, '0')}:${t.minute.toString().padLeft(2, '0')}";
       final tp = TextPainter(
         text: TextSpan(text: s, style: labelStyle),
@@ -342,12 +364,21 @@ class _KlinePainter extends CustomPainter {
       final tp = TextPainter(
         text: TextSpan(
           text: txt,
-          style: TextStyle(fontSize: 11, color: Colors.blue.withOpacity(0.85), fontWeight: FontWeight.w600),
+          style: TextStyle(
+            fontSize: 11,
+            color: Colors.blue.withOpacity(0.85),
+            fontWeight: FontWeight.w600,
+          ),
         ),
         textDirection: TextDirection.ltr,
       )..layout();
       final r = RRect.fromRectAndRadius(
-        Rect.fromLTWH(size.width - tp.width - 14, y - tp.height / 2 - 4, tp.width + 10, tp.height + 8),
+        Rect.fromLTWH(
+          size.width - tp.width - 14,
+          y - tp.height / 2 - 4,
+          tp.width + 10,
+          tp.height + 8,
+        ),
         const Radius.circular(8),
       );
       canvas.drawRRect(r, Paint()..color = Colors.blue.withOpacity(0.08));
@@ -378,7 +409,8 @@ class _KlinePainter extends CustomPainter {
             "${t.year}-${t.month.toString().padLeft(2, '0')}-${t.day.toString().padLeft(2, '0')} "
             "${t.hour.toString().padLeft(2, '0')}:${t.minute.toString().padLeft(2, '0')}";
 
-        final tip = "O ${c.open.toStringAsFixed(decimals)}  "
+        final tip =
+            "O ${c.open.toStringAsFixed(decimals)}  "
             "H ${c.high.toStringAsFixed(decimals)}  "
             "L ${c.low.toStringAsFixed(decimals)}  "
             "C ${c.close.toStringAsFixed(decimals)}\n"
@@ -387,7 +419,11 @@ class _KlinePainter extends CustomPainter {
         final tp = TextPainter(
           text: TextSpan(
             text: tip,
-            style: TextStyle(fontSize: 12, height: 1.25, color: Colors.black.withOpacity(0.78)),
+            style: TextStyle(
+              fontSize: 12,
+              height: 1.25,
+              color: Colors.black.withOpacity(0.78),
+            ),
           ),
           textDirection: TextDirection.ltr,
         )..layout(maxWidth: size.width * 0.75);

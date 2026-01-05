@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tawaqu3_final/models/trading_labels.dart';
 import 'package:tawaqu3_final/view/widgets/card_container.dart';

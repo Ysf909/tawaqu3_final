@@ -1,4 +1,4 @@
-﻿class SignalMsg {
+class SignalMsg {
   final String symbol;
   final String tf;
 
@@ -19,22 +19,22 @@
   });
 
   factory SignalMsg.fromJson(Map<String, dynamic> j) => SignalMsg(
-        symbol: (j['symbol'] ?? '').toString(),
-        tf: (j['tf'] ?? '').toString(),
-        side: (j['side'] ?? j['action'] ?? '').toString().toUpperCase(),
-        entry: (j['entry'] as num?)?.toDouble(),
-        score: (j['score'] as num?)?.toDouble(),
-        note: ((j['note'] ?? '').toString().trim().isEmpty)
-            ? null
-            : (j['note'] ?? '').toString(),
-      );
+    symbol: (j['symbol'] ?? '').toString(),
+    tf: (j['tf'] ?? '').toString(),
+    side: (j['side'] ?? j['action'] ?? '').toString().toUpperCase(),
+    entry: (j['entry'] as num?)?.toDouble(),
+    score: (j['score'] as num?)?.toDouble(),
+    note: ((j['note'] ?? '').toString().trim().isEmpty)
+        ? null
+        : (j['note'] ?? '').toString(),
+  );
 
   Map<String, dynamic> toJson() => {
-        'symbol': symbol,
-        'tf': tf,
-        'side': side,
-        'entry': entry,
-        'score': score,
-        'note': note,
-      };
+    'symbol': symbol,
+    'tf': tf,
+    'side': side,
+    'entry': entry,
+    'score': score,
+    'note': note,
+  };
 }

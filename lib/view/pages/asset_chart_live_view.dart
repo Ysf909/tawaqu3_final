@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -88,7 +88,10 @@ class _AssetChartLiveViewState extends State<AssetChartLiveView> {
 
   void _setSelection(Offset localPos, double width) {
     if (_candles.isEmpty || width <= 0) return;
-    final idx = ((localPos.dx / width) * _candles.length).floor().clamp(0, _candles.length - 1);
+    final idx = ((localPos.dx / width) * _candles.length).floor().clamp(
+      0,
+      _candles.length - 1,
+    );
     setState(() {
       _selIndex = idx;
       _selCandle = _candles[idx];
@@ -154,17 +157,17 @@ class _AssetChartLiveViewState extends State<AssetChartLiveView> {
                 children: [
                   Row(
                     children: [
-                      Text(
-                        "Live: ",
-                        style: theme.textTheme.labelLarge,
-                      ),
+                      Text("Live: ", style: theme.textTheme.labelLarge),
                       Text(
                         _livePrice == null ? "--" : fmt(_livePrice!),
                         style: theme.textTheme.titleLarge,
                       ),
                       const Spacer(),
                       if (_selCandle != null)
-                        const Text("Long-press", style: TextStyle(fontSize: 12)),
+                        const Text(
+                          "Long-press",
+                          style: TextStyle(fontSize: 12),
+                        ),
                     ],
                   ),
                   const SizedBox(height: 6),
@@ -175,7 +178,10 @@ class _AssetChartLiveViewState extends State<AssetChartLiveView> {
                       style: theme.textTheme.bodySmall,
                     )
                   else
-                    Text("Waiting for candles…", style: theme.textTheme.bodySmall),
+                    Text(
+                      "Waiting for candles…",
+                      style: theme.textTheme.bodySmall,
+                    ),
                 ],
               ),
             ),
@@ -186,14 +192,18 @@ class _AssetChartLiveViewState extends State<AssetChartLiveView> {
               child: LayoutBuilder(
                 builder: (context, c) {
                   return GestureDetector(
-                    onLongPressStart: (d) => _setSelection(d.localPosition, c.maxWidth),
-                    onLongPressMoveUpdate: (d) => _setSelection(d.localPosition, c.maxWidth),
+                    onLongPressStart: (d) =>
+                        _setSelection(d.localPosition, c.maxWidth),
+                    onLongPressMoveUpdate: (d) =>
+                        _setSelection(d.localPosition, c.maxWidth),
                     onLongPressEnd: (_) => _clearSelection(),
                     child: Container(
                       width: double.infinity,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(16),
-                        border: Border.all(color: Colors.grey.withOpacity(0.25)),
+                        border: Border.all(
+                          color: Colors.grey.withOpacity(0.25),
+                        ),
                       ),
                       child: _candles.isEmpty
                           ? const Center(child: Text("Waiting for candles…"))
@@ -295,7 +305,10 @@ class _CandlePainter extends CustomPainter {
           x + candleW * 0.22,
           priceH + volH,
         );
-        canvas.drawRect(vRect, Paint()..color = bodyPaint.color.withOpacity(0.35));
+        canvas.drawRect(
+          vRect,
+          Paint()..color = bodyPaint.color.withOpacity(0.35),
+        );
       }
     }
 
@@ -309,7 +322,9 @@ class _CandlePainter extends CustomPainter {
     }
 
     // selection vertical line
-    if (selectedIndex != null && selectedIndex! >= 0 && selectedIndex! < candles.length) {
+    if (selectedIndex != null &&
+        selectedIndex! >= 0 &&
+        selectedIndex! < candles.length) {
       final x = selectedIndex! * candleW + candleW * 0.5;
       final selPaint = Paint()
         ..color = Colors.white.withOpacity(0.35)
@@ -319,16 +334,25 @@ class _CandlePainter extends CustomPainter {
 
     // min/max labels (simple)
     final tpMax = TextPainter(
-      text: TextSpan(text: maxP.toStringAsFixed(2), style: const TextStyle(fontSize: 11)),
+      text: TextSpan(
+        text: maxP.toStringAsFixed(2),
+        style: const TextStyle(fontSize: 11),
+      ),
       textDirection: TextDirection.ltr,
     )..layout();
     tpMax.paint(canvas, Offset(size.width - tpMax.width - 6, 6));
 
     final tpMin = TextPainter(
-      text: TextSpan(text: minP.toStringAsFixed(2), style: const TextStyle(fontSize: 11)),
+      text: TextSpan(
+        text: minP.toStringAsFixed(2),
+        style: const TextStyle(fontSize: 11),
+      ),
       textDirection: TextDirection.ltr,
     )..layout();
-    tpMin.paint(canvas, Offset(size.width - tpMin.width - 6, priceH - tpMin.height - 6));
+    tpMin.paint(
+      canvas,
+      Offset(size.width - tpMin.width - 6, priceH - tpMin.height - 6),
+    );
   }
 
   @override

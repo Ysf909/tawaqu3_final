@@ -50,12 +50,13 @@ class TickMsg {
   });
 
   factory TickMsg.fromJson(Map<String, dynamic> j) => TickMsg(
-        symbol: (j['symbol'] ?? '').toString(),
-        time: DateTime.tryParse((j['time'] ?? '').toString()) ??
-            DateTime.now().toUtc(),
-        bid: (j['bid'] as num?)?.toDouble() ?? 0.0,
-        ask: (j['ask'] as num?)?.toDouble() ?? 0.0,
-      );
+    symbol: (j['symbol'] ?? '').toString(),
+    time:
+        DateTime.tryParse((j['time'] ?? '').toString()) ??
+        DateTime.now().toUtc(),
+    bid: (j['bid'] as num?)?.toDouble() ?? 0.0,
+    ask: (j['ask'] as num?)?.toDouble() ?? 0.0,
+  );
 }
 
 class Candle {
@@ -76,12 +77,13 @@ class Candle {
   });
 
   factory Candle.fromJson(Map<String, dynamic> j) => Candle(
-        time: DateTime.tryParse((j['time'] ?? '').toString()) ??
-            DateTime.now().toUtc(),
-        open: (j['open'] as num?)?.toDouble() ?? 0.0,
-        high: (j['high'] as num?)?.toDouble() ?? 0.0,
-        low: (j['low'] as num?)?.toDouble() ?? 0.0,
-        close: (j['close'] as num?)?.toDouble() ?? 0.0,
-        volume: (j['volume'] as num?)?.toDouble() ?? 0.0,
-      );
+    time:
+        DateTime.tryParse((j['time'] ?? '').toString()) ??
+        DateTime.now().toUtc(),
+    open: (j['open'] as num?)?.toDouble() ?? 0.0,
+    high: (j['high'] as num?)?.toDouble() ?? 0.0,
+    low: (j['low'] as num?)?.toDouble() ?? 0.0,
+    close: (j['close'] as num?)?.toDouble() ?? 0.0,
+    volume: (j['volume'] as num?)?.toDouble() ?? 0.0,
+  );
 }

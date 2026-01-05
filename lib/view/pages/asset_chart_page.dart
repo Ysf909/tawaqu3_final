@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +37,8 @@ class _AssetChartViewState extends State<AssetChartView> {
   double? _livePrice;
 
   String _defaultWsUrl() {
-    if (widget.wsUrlOverride != null && widget.wsUrlOverride!.trim().isNotEmpty) {
+    if (widget.wsUrlOverride != null &&
+        widget.wsUrlOverride!.trim().isNotEmpty) {
       return widget.wsUrlOverride!.trim();
     }
     return PriceWebSocketService.defaultWsUrl;
@@ -48,7 +49,8 @@ class _AssetChartViewState extends State<AssetChartView> {
     super.initState();
     _tf = widget.initialTf;
     _symbol = widget.symbol.trim();
-    if (_symbol.endsWith('_')) _symbol = _symbol.substring(0, _symbol.length - 1);
+    if (_symbol.endsWith('_'))
+      _symbol = _symbol.substring(0, _symbol.length - 1);
 
     _ws = PriceWebSocketService(wsUrl: _defaultWsUrl());
     unawaited(_ws!.connect());
@@ -141,7 +143,9 @@ class _AssetChartViewState extends State<AssetChartView> {
                   color: (_lastSignal!.side.toUpperCase() == "BUY")
                       ? Colors.green.withOpacity(0.10)
                       : Colors.red.withOpacity(0.10),
-                  border: Border.all(color: theme.dividerColor.withOpacity(0.30)),
+                  border: Border.all(
+                    color: theme.dividerColor.withOpacity(0.30),
+                  ),
                 ),
                 child: Text(
                   "Signal: ${_lastSignal!.side.isEmpty ? '—' : _lastSignal!.side}"
@@ -157,15 +161,17 @@ class _AssetChartViewState extends State<AssetChartView> {
                 width: double.infinity,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(16),
-                  border: Border.all(color: theme.dividerColor.withOpacity(0.35)),
+                  border: Border.all(
+                    color: theme.dividerColor.withOpacity(0.35),
+                  ),
                 ),
                 child: _candles.isEmpty
                     ? const Center(child: Text("Waiting for candles…"))
                     : ClipRRect(
                         borderRadius: BorderRadius.circular(16),
                         child: InteractiveCandlestickChart(
-                    symbol: _symbol,
-                    candles: _candles,
+                          symbol: _symbol,
+                          candles: _candles,
                           livePrice: _livePrice,
                         ),
                       ),
@@ -177,5 +183,3 @@ class _AssetChartViewState extends State<AssetChartView> {
     );
   }
 }
-
-

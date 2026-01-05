@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
@@ -51,7 +51,9 @@ class _MainPageState extends State<MainPage> {
       );
     }
 
-    _previousPrices = {for (final e in _prices.entries) e.key: e.value.effectiveMid};
+    _previousPrices = {
+      for (final e in _prices.entries) e.key: e.value.effectiveMid,
+    };
 
     if (mounted) setState(() {});
   }
@@ -65,7 +67,9 @@ class _MainPageState extends State<MainPage> {
 
       setState(() {
         // save previous mid for color direction
-        _previousPrices = {for (final e in _prices.entries) e.key: e.value.effectiveMid};
+        _previousPrices = {
+          for (final e in _prices.entries) e.key: e.value.effectiveMid,
+        };
 
         wsPrices.forEach((symbol, mp) {
           final key = symbol.toUpperCase();

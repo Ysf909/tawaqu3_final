@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
@@ -48,7 +48,8 @@ class PriceWebSocketService {
     return raw;
   }
 
-  String _key(String symbol, String tf) => '${_normSymbol(symbol)}__${tf.toLowerCase()}';
+  String _key(String symbol, String tf) =>
+      '${_normSymbol(symbol)}__${tf.toLowerCase()}';
 
   final String wsUrl;
 
@@ -149,12 +150,14 @@ class PriceWebSocketService {
     final c = Completer<List<Candle>>();
     _pendingCandles[k] = c;
 
-    _channel!.sink.add(jsonEncode({
-      'type': 'get_candles',
-      'symbol': sym,
-      'tf': tf,
-      'limit': limit,
-    }));
+    _channel!.sink.add(
+      jsonEncode({
+        'type': 'get_candles',
+        'symbol': sym,
+        'tf': tf,
+        'limit': limit,
+      }),
+    );
 
     return c.future.timeout(timeout);
   }
@@ -163,9 +166,12 @@ class PriceWebSocketService {
 
   void _handleTick(Map<String, dynamic> m) {
     final symbol = _normSymbol((m['symbol'] ?? '').toString());
-    final time = DateTime.tryParse((m['time'] ?? '').toString()) ?? DateTime.now().toUtc();
+    final time =
+        DateTime.tryParse((m['time'] ?? '').toString()) ??
+        DateTime.now().toUtc();
 
-    final price = (m['price'] as num?)?.toDouble() ??
+    final price =
+        (m['price'] as num?)?.toDouble() ??
         (m['mid'] as num?)?.toDouble() ??
         (m['last'] as num?)?.toDouble() ??
         0.0;
@@ -210,12 +216,17 @@ class PriceWebSocketService {
     if (symbol.isEmpty || tf.isEmpty) return;
 
     final candle = Candle(
-      time: DateTime.tryParse((m['time'] ?? '').toString()) ?? DateTime.now().toUtc(),
+      time:
+          DateTime.tryParse((m['time'] ?? '').toString()) ??
+          DateTime.now().toUtc(),
       open: (m['open'] as num).toDouble(),
       high: (m['high'] as num).toDouble(),
       low: (m['low'] as num).toDouble(),
       close: (m['close'] as num).toDouble(),
-      volume: (m['volume'] as num?)?.toDouble() ?? (m['v'] as num?)?.toDouble() ?? 0.0,
+      volume:
+          (m['volume'] as num?)?.toDouble() ??
+          (m['v'] as num?)?.toDouble() ??
+          0.0,
     );
 
     _appendCandle(symbol, tf, candle);
@@ -228,25 +239,27 @@ class PriceWebSocketService {
 
     final raw = (m['candles'] as List?) ?? const [];
 
-    final candles = raw
-        .cast<Map<String, dynamic>>()
-        .map((e) {
-          final time = DateTime.tryParse((e['time'] ?? '').toString()) ??
-              DateTime.fromMillisecondsSinceEpoch(
-                (e['startTime'] as num?)?.toInt() ?? DateTime.now().millisecondsSinceEpoch,
-                isUtc: true,
-              );
-
-          return Candle(
-            time: time.toUtc(),
-            open: (e['open'] as num).toDouble(),
-            high: (e['high'] as num).toDouble(),
-            low: (e['low'] as num).toDouble(),
-            close: (e['close'] as num).toDouble(),
-            volume: (e['volume'] as num?)?.toDouble() ?? (e['v'] as num?)?.toDouble() ?? 0.0,
+    final candles = raw.cast<Map<String, dynamic>>().map((e) {
+      final time =
+          DateTime.tryParse((e['time'] ?? '').toString()) ??
+          DateTime.fromMillisecondsSinceEpoch(
+            (e['startTime'] as num?)?.toInt() ??
+                DateTime.now().millisecondsSinceEpoch,
+            isUtc: true,
           );
-        })
-        .toList();
+
+      return Candle(
+        time: time.toUtc(),
+        open: (e['open'] as num).toDouble(),
+        high: (e['high'] as num).toDouble(),
+        low: (e['low'] as num).toDouble(),
+        close: (e['close'] as num).toDouble(),
+        volume:
+            (e['volume'] as num?)?.toDouble() ??
+            (e['v'] as num?)?.toDouble() ??
+            0.0,
+      );
+    }).toList();
 
     final k = _key(symbol, tf);
     _candles[k] = _dedupeAndSort(candles);
@@ -300,7 +313,9 @@ class PriceWebSocketService {
     }
 
     _candles[k] = _dedupeAndSort(list);
-    _candlesCtrl.add(CandleMsg.fromCandle(symbol: _normSymbol(symbol), tf: tf, c: candle));
+    _candlesCtrl.add(
+      CandleMsg.fromCandle(symbol: _normSymbol(symbol), tf: tf, c: candle),
+    );
   }
 
   List<Candle> _dedupeAndSort(List<Candle> list) {
@@ -366,7 +381,8 @@ class PriceWebSocketService {
       return;
     }
 
-    var candle = _lastCandle[k] ??
+    var candle =
+        _lastCandle[k] ??
         Candle(
           time: start,
           open: tick.mid,
@@ -418,14 +434,13 @@ class CandleMsg {
     required String symbol,
     required String tf,
     required Candle c,
-  }) =>
-      CandleMsg(
-        symbol: symbol,
-        tf: tf,
-        time: c.time,
-        open: c.open,
-        high: c.high,
-        low: c.low,
-        close: c.close,
-      );
+  }) => CandleMsg(
+    symbol: symbol,
+    tf: tf,
+    time: c.time,
+    open: c.open,
+    high: c.high,
+    low: c.low,
+    close: c.close,
+  );
 }

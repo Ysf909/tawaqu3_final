@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/foundation.dart';
@@ -42,63 +42,59 @@ class TradeRecommendation {
     String? id,
     TradeOutcome? outcome,
     double? profit,
-  }) =>
-      TradeRecommendation(
-        id: id ?? this.id,
-        pair: pair,
-        side: side,
-        confidence: confidence,
-        entry: entry,
-        sl: sl,
-        tp: tp,
-        lot: lot,
-        createdAt: createdAt,
-        outcome: outcome ?? this.outcome,
-        profit: profit ?? this.profit,
-      );
+  }) => TradeRecommendation(
+    id: id ?? this.id,
+    pair: pair,
+    side: side,
+    confidence: confidence,
+    entry: entry,
+    sl: sl,
+    tp: tp,
+    lot: lot,
+    createdAt: createdAt,
+    outcome: outcome ?? this.outcome,
+    profit: profit ?? this.profit,
+  );
 }
-
 
 class TradeViewModel extends ChangeNotifier {
   List<String> allowedTfsForType(TradingType type) {
-  switch (type) {
-    case TradingType.scalper:
-      return const ['1m', '5m'];
-    case TradingType.short:
-      return const ['15m', '30m'];
-    case TradingType.long:
-      return const ['1h', '4h', '1d'];
+    switch (type) {
+      case TradingType.scalper:
+        return const ['1m', '5m'];
+      case TradingType.short:
+        return const ['15m', '30m'];
+      case TradingType.long:
+        return const ['1h', '4h', '1d'];
+    }
   }
-}
-List<String> get availableTfs => allowedTfsForType(_selectedType);
 
+  List<String> get availableTfs => allowedTfsForType(_selectedType);
 
-  bool _isUuid(String s) =>
-    RegExp(r'^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$')
-        .hasMatch(s);
+  bool _isUuid(String s) => RegExp(
+    r'^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$',
+  ).hasMatch(s);
 
-double _calcProfit(TradeRecommendation t, TradeOutcome outcome) {
-  final exitPrice = (outcome == TradeOutcome.tpHit) ? t.tp : t.sl;
+  double _calcProfit(TradeRecommendation t, TradeOutcome outcome) {
+    final exitPrice = (outcome == TradeOutcome.tpHit) ? t.tp : t.sl;
 
-  // Use your specForPair() from trade_models.dart
-  final spec = specForPair(t.pair);
+    // Use your specForPair() from trade_models.dart
+    final spec = specForPair(t.pair);
 
-  // Pips moved in our favor (positive = profit)
-  final diff = (t.side.toUpperCase() == 'BUY')
-      ? (exitPrice - t.entry)
-      : (t.entry - exitPrice);
+    // Pips moved in our favor (positive = profit)
+    final diff = (t.side.toUpperCase() == 'BUY')
+        ? (exitPrice - t.entry)
+        : (t.entry - exitPrice);
 
-  final pips = diff / spec.pipSize;
-  final profit = pips * spec.pipValuePerLot * t.lot;
+    final pips = diff / spec.pipSize;
+    final profit = pips * spec.pipValuePerLot * t.lot;
 
-  return profit;
-}
+    return profit;
+  }
 
-  TradeViewModel({
-    PriceWebSocketService? ws,
-    TradeRepository? history,
-  })  : _ws = ws ?? PriceWebSocketService.instance,
-        _history = history ?? TradeRepository() {
+  TradeViewModel({PriceWebSocketService? ws, TradeRepository? history})
+    : _ws = ws ?? PriceWebSocketService.instance,
+      _history = history ?? TradeRepository() {
     unawaited(_ws.connect());
     unawaited(_initIct());
   }
@@ -148,17 +144,15 @@ double _calcProfit(TradeRecommendation t, TradeOutcome outcome) {
 
   TradingType _selectedType = TradingType.values.first;
   TradingType get selectedType => _selectedType;
- set selectedType(TradingType v) {
-  _selectedType = v;
-  final allowed = allowedTfsForType(v);
-  if (!allowed.contains(_tf)) _tf = allowed.first;
-  notifyListeners();
-}
-
+  set selectedType(TradingType v) {
+    _selectedType = v;
+    final allowed = allowedTfsForType(v);
+    if (!allowed.contains(_tf)) _tf = allowed.first;
+    notifyListeners();
+  }
 
   // LOCKED
   TradingModel get selectedModel => modelForType(_selectedType);
-
 
   double _margin = 1000.0;
   double get margin => _margin;
@@ -265,27 +259,28 @@ double _calcProfit(TradeRecommendation t, TradeOutcome outcome) {
 
       _lastPrediction = rec;
 
-    // Save to Supabase if user is logged in
-final uid = _client.auth.currentUser?.id;
-if (uid != null) {
-  final tradeUuid = await _history.createTrade(
-    userId: uid,
-    entry: rec.entry,
-    sl: rec.sl,
-    tp: rec.tp,
-    lot: rec.lot,
-    school: selectedModel.label,
-    time: rec.createdAt,
-    pair: rec.pair,
-    side: rec.side,
-    confidence: rec.confidence, // 0-100
-  );
+      // Save to Supabase if user is logged in
+      final uid = _client.auth.currentUser?.id;
+      if (uid != null) {
+        final tradeUuid = await _history.createTrade(
+          userId: uid,
+          entry: rec.entry,
+          sl: rec.sl,
+          tp: rec.tp,
+          lot: rec.lot,
+          school: selectedModel.label,
+          time: rec.createdAt,
+          pair: rec.pair,
+          side: rec.side,
+          confidence: rec.confidence,
+          tf: '', // 0-100
+        );
 
-  // IMPORTANT: keep DB uuid as the recommendation id
-  _lastPrediction = rec.copyWith(id: tradeUuid);
-} else {
-  _lastPrediction = rec; // local only
-}
+        // IMPORTANT: keep DB uuid as the recommendation id
+        _lastPrediction = rec.copyWith(id: tradeUuid);
+      } else {
+        _lastPrediction = rec; // local only
+      }
 
       notifyListeners();
     } catch (e) {
@@ -298,38 +293,39 @@ if (uid != null) {
   }
 
   Future<void> markOutcome(TradeOutcome outcome) async {
-  final cur = _lastPrediction;
-  if (cur == null) return;
+    final cur = _lastPrediction;
+    if (cur == null) return;
 
-  final profit = _calcProfit(cur, outcome);
+    final profit = _calcProfit(cur, outcome);
 
-  // Update UI immediately
-  _lastPrediction = cur.copyWith(outcome: outcome, profit: profit);
-  notifyListeners();
-
-  // Persist if logged in + trade was saved (uuid)
-  final uid = _client.auth.currentUser?.id;
-  if (uid == null) return;
-  if (!_isUuid(cur.id)) return;
-
-  try {
-    await _history.closeTrade(
-      tradeId: cur.id,
-      outcome: outcome,
-      profit: profit,
-    );
-  } catch (e) {
-    _lastError = 'Failed to save outcome: $e';
+    // Update UI immediately
+    _lastPrediction = cur.copyWith(outcome: outcome, profit: profit);
     notifyListeners();
-  }
-}
 
+    // Persist if logged in + trade was saved (uuid)
+    final uid = _client.auth.currentUser?.id;
+    if (uid == null) return;
+    if (!_isUuid(cur.id)) return;
+
+    try {
+      await _history.closeTrade(
+        tradeId: cur.id,
+        outcome: outcome,
+        profit: profit,
+      );
+    } catch (e) {
+      _lastError = 'Failed to save outcome: $e';
+      notifyListeners();
+    }
+  }
 
   // ---------------- helpers ----------------
 
   List<double> _buildFeatures60(List<Candle> candles) {
     // last 60 candles => 60 * 5 = 300 floats
-    final last60 = candles.length > 60 ? candles.sublist(candles.length - 60) : candles;
+    final last60 = candles.length > 60
+        ? candles.sublist(candles.length - 60)
+        : candles;
     final out = <double>[];
     for (final c in last60) {
       out.add(c.open);
@@ -362,48 +358,50 @@ if (uid != null) {
     return (sum / period).clamp(0.00001, double.infinity);
   }
 
-  Future<_IctOut> _predictWithIct(List<double> features, {required String tf}) async {
-  final service = IctOrtService.instance;
+  Future<_IctOut> _predictWithIct(
+    List<double> features, {
+    required String tf,
+  }) async {
+    final service = IctOrtService.instance;
 
-  // ✅ define x (this fixes your error)
-  final Float32List x = Float32List.fromList(features);
+    // ✅ define x (this fixes your error)
+    final Float32List x = Float32List.fromList(features);
 
-  final tfNorm = tf.toLowerCase();
+    final tfNorm = tf.toLowerCase();
 
-  // We only have ICT models for 1m + 5m.
-  // Anything else maps to 5m model for now.
-  final bool use1m = (tfNorm == '1m');
+    // We only have ICT models for 1m + 5m.
+    // Anything else maps to 5m model for now.
+    final bool use1m = (tfNorm == '1m');
 
-  final Object? raw = use1m
-      ? await service.predict1m(x, const [1, 60, 5])
-      : await service.predict5m(x, const [1, 60, 5]);
+    final Object? raw = use1m
+        ? await service.predict1m(x, const [1, 60, 5])
+        : await service.predict5m(x, const [1, 60, 5]);
 
-  final vec = _flattenToDoubles(raw);
+    final vec = _flattenToDoubles(raw);
 
-  if (vec.isEmpty) {
-    throw Exception(
-      'ICT model returned empty output (no out/outputs/score). Check predict server response.',
-    );
+    if (vec.isEmpty) {
+      throw Exception(
+        'ICT model returned empty output (no out/outputs/score). Check predict server response.',
+      );
+    }
+
+    // Robust interpretation:
+    // - if 1 value => sigmoid => buyProb
+    // - if 2+ values => softmax(first 2) => [sell,buy]
+    double buyProb;
+    if (vec.length == 1) {
+      buyProb = 1.0 / (1.0 + exp(-vec[0]));
+    } else {
+      final probs = _softmax(vec.take(2).toList());
+      buyProb = (probs.length > 1) ? probs[1] : probs[0];
+    }
+
+    buyProb = buyProb.clamp(0.0, 1.0);
+    final side = buyProb >= 0.5 ? 'BUY' : 'SELL';
+    final confidence = ((side == 'BUY') ? buyProb : (1.0 - buyProb)) * 100.0;
+
+    return _IctOut(side: side, confidence: confidence.clamp(0.0, 100.0));
   }
-
-  // Robust interpretation:
-  // - if 1 value => sigmoid => buyProb
-  // - if 2+ values => softmax(first 2) => [sell,buy]
-  double buyProb;
-  if (vec.length == 1) {
-    buyProb = 1.0 / (1.0 + exp(-vec[0]));
-  } else {
-    final probs = _softmax(vec.take(2).toList());
-    buyProb = (probs.length > 1) ? probs[1] : probs[0];
-  }
-
-  buyProb = buyProb.clamp(0.0, 1.0);
-  final side = buyProb >= 0.5 ? 'BUY' : 'SELL';
-  final confidence = ((side == 'BUY') ? buyProb : (1.0 - buyProb)) * 100.0;
-
-  return _IctOut(side: side, confidence: confidence.clamp(0.0, 100.0));
-}
-
 
   List<double> _softmax(List<double> x) {
     if (x.isEmpty) return const [];
@@ -437,5 +435,3 @@ class _IctOut {
   final double confidence;
   _IctOut({required this.side, required this.confidence});
 }
-
-
