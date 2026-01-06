@@ -1,17 +1,15 @@
 import 'package:flutter/foundation.dart';
-
-import '../models/top_traders_stats.dart';
-import '../repository/top_traders_repository.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:tawaqu3_final/models/top_traders_stats.dart';
 
 class TopTradersViewModel extends ChangeNotifier {
-  final TopTradersRepository _repo;
-
-  TopTradersViewModel({TopTradersRepository? repo})
-    : _repo = repo ?? TopTradersRepository();
+  final SupabaseClient _db;
+  TopTradersViewModel({SupabaseClient? client})
+      : _db = client ?? Supabase.instance.client;
 
   bool loading = false;
   String? error;
-  List<TopTraderStats> traders = const [];
+  List<TopTrader> traders = [];
 
   Future<void> load({int limit = 20}) async {
     loading = true;
@@ -19,7 +17,12 @@ class TopTradersViewModel extends ChangeNotifier {
     notifyListeners();
 
     try {
-      traders = await _repo.fetchTopTraders(limit: limit);
+      final res = await _db.rpc('get_top_traders', params: {'p_limit': limit});
+      final list = (res as List).cast<dynamic>();
+
+      traders = list
+          .map((e) => TopTrader.fromJson(Map<String, dynamic>.from(e as Map)))
+          .toList();
     } catch (e) {
       error = e.toString();
     } finally {

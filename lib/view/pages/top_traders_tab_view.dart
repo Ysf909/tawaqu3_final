@@ -14,7 +14,6 @@ class _TopTradersTabViewState extends State<TopTradersTabView> {
   @override
   void initState() {
     super.initState();
-    // load once
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<TopTradersViewModel>().load(limit: 20);
     });
@@ -57,6 +56,12 @@ class _TopTradersTabViewState extends State<TopTradersTabView> {
             separatorBuilder: (_, __) => const SizedBox(height: 10),
             itemBuilder: (context, i) {
               final t = vm.traders[i];
+
+              // ✅ profit text based on nullable totalProfit
+              final profitText = t.totalProfit == null
+                  ? 'Hidden 🔒'
+                  : t.totalProfit!.toStringAsFixed(2);
+
               return Container(
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
@@ -83,9 +88,7 @@ class _TopTradersTabViewState extends State<TopTradersTabView> {
                               _chip('Win%', '${t.winRate.toStringAsFixed(1)}%'),
                               _chip(
                                 'Model',
-                                t.mostUsedModel.isEmpty
-                                    ? 'ICT'
-                                    : t.mostUsedModel,
+                                t.mostUsedModel.isEmpty ? 'ICT' : t.mostUsedModel,
                               ),
                               _chip(
                                 'Asset',
@@ -102,7 +105,7 @@ class _TopTradersTabViewState extends State<TopTradersTabView> {
                       children: [
                         const Text('Profit'),
                         Text(
-                          t.totalProfit.toStringAsFixed(2),
+                          profitText, // ✅ runtime value (no const)
                           style: Theme.of(context).textTheme.titleMedium,
                         ),
                       ],
